@@ -232,7 +232,7 @@
     "positionDtcs": "DTCs",
     "positionObdSpeed": "OBD Speed",
     "positionObdOdometer": "OBD Odometer",
-    "positionDriverUniqueId": "Driver Unique Id",
+    "positionDriverUniqueId": "Driver",
     "positionImage": "Picture",
     "positionAudio": "Audio",
     "serverTitle": "Server Settings",
