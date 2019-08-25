@@ -46,21 +46,28 @@ Ext.define('Traccar.view.map.BaseMap', {
                     })
                 });
                 break;
-                case 'googlemod':
+            case 'googlemod':
                 layer = new ol.layer.Tile({
                     source: new ol.source.XYZ({
                         url: new DOMParser()
                             .parseFromString('https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga&key=' + Traccar.Style.googleApiKey, 'text/html').documentElement.textContent,
-                        attributions: 'Map Data 2018 Google'
+                        attributions: '2019 Google'
                     })
                 });
                 break;
-                case 'googlemodsat':
+            case 'googlemodsat':
                 layer = new ol.layer.Tile({
                     source: new ol.source.XYZ({
                         url: new DOMParser()
                             .parseFromString('https://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga&key=' + Traccar.Style.googleApiKey, 'text/html').documentElement.textContent,
-                        attributions: 'Map Data 2018 Google'
+                        attributions: '2019 Google'
+                    })
+                });
+                break;
+            case 'customArcgis':
+                layer = new ol.layer.Tile({
+                    source: new ol.source.TileArcGISRest({
+                        url: Ext.String.htmlDecode(server.get('mapUrl'))
                     })
                 });
                 break;

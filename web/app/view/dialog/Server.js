@@ -50,7 +50,7 @@ Ext.define('Traccar.view.dialog.Server', {
                 xtype: 'unescapedTextField',
                 reference: 'mapUrlField',
                 name: 'mapUrl',
-                fieldLabel: Strings.mapCustom
+                fieldLabel: Strings.mapCustomLabel
             }, {
                 xtype: 'numberfield',
                 reference: 'latitude',
