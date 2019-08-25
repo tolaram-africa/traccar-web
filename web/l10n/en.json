@@ -245,6 +245,8 @@
     "mapCustom": "Custom Tile",
     "googleMod": "Google Road",
     "googleModSat": "Google Satellite",
+    "mapCustomArcgis": "Custom (ArcGIS)",
+    "mapCustomLabel": "Custom map",
     "mapCarto": "Carto Basemaps",
     "mapOsm": "Open Street Map",
     "mapBingKey": "Bing Maps Key",
