@@ -36,7 +36,8 @@
     window.Locale = locale;
 
     locale.languages = {
-        'en': { name: 'English', code: 'en' }
+        'en': { name: 'English', code: 'en' },
+        'fr': { name: 'Français', code: 'fr' }
     };
 
     languageDefault = 'en';

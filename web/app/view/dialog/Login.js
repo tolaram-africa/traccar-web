@@ -55,7 +55,8 @@ Ext.define('Traccar.view.dialog.Login', {
             name: 'email',
             reference: 'userField',
             emptyText: Strings.userEmail,
-            /*fieldLabel: Strings.userEmail,*/
+
+            /* FieldLabel: Strings.userEmail,*/
             allowBlank: false,
             enableKeyEvents: true,
             minWidth: 320,
@@ -64,14 +65,15 @@ Ext.define('Traccar.view.dialog.Login', {
                 afterrender: 'onAfterRender'
             },
             inputAttrTpl: ['autocomplete="on" autocapitalize="none"']
-        },{
-            height:1
-       }, {
+        }, {
+            height: 1
+        }, {
             xtype: 'textfield',
             name: 'password',
             reference: 'passwordField',
             emptyText: Strings.userPassword,
-            /*fieldLabel: Strings.userPassword,*/
+
+            /* FieldLabel: Strings.userPassword,*/
             inputType: 'password',
             allowBlank: false,
             enableKeyEvents: true,
@@ -80,12 +82,13 @@ Ext.define('Traccar.view.dialog.Login', {
                 specialKey: 'onSpecialKey'
             },
             inputAttrTpl: ['autocomplete="on"']
-        },{
-            height:1
-       }, {
+        }, {
+            height: 1
+        }, {
             xtype: 'combobox',
             name: 'language',
-            /*fieldLabel: Strings.loginLanguage,*/
+            hideLabel: true,
+            fieldLabel: Strings.loginLanguage,
             store: 'Languages',
             displayField: 'name',
             valueField: 'code',
@@ -114,12 +117,12 @@ Ext.define('Traccar.view.dialog.Login', {
         }]
     },
 
-    buttons: [/**{
+    buttons: [/** {
         text: Strings.loginRegister,
         handler: 'onRegisterClick',
         reference: 'registerButton'
     }, **/{
-        text: Strings.loginLogin,
-        handler: 'onLoginClick'
-    }]
+            text: Strings.loginLogin,
+            handler: 'onLoginClick'
+        }]
 });

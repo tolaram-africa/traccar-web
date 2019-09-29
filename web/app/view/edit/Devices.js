@@ -41,7 +41,7 @@ Ext.define('Traccar.view.edit.Devices', {
         },
         items: [{
             xtype: 'tbtext',
-            html: "<span><a href='./'><img src='./logo/back.png' class='showthat' vertical-align: middle;' alt='logo' height='27px' width='82px' /></a></span><span class='showthatmin'>Assets List</span>",
+            html: '<span><a href=\'./\'><img src=\'./logo/back.png\' class=\'showthat\' vertical-align: middle;\' alt=\'logo\' height=\'27px\' width=\'82px\' /></a></span><span class=\'showthatmin\'>Assets List</span>',
             baseCls: 'x-panel-header-title-default'
         }, {
             xtype: 'tbfill',
@@ -83,73 +83,72 @@ Ext.define('Traccar.view.edit.Devices', {
         preserveScrollOnRefresh: true,
         getRowClass: function (record) {
             var result = '', status = record.get('status'), movement = record.get('movement'), speed = record.get('speed');
-            var lastupdate = "" + record.get('lastUpdate');
-            var defTime = (Number(new Date()) - (Number(new Date(lastupdate))))/1000;
-            var expirationTime = "" + record.get('expiration');
-            var expTime = (Number(new Date(expirationTime)))/1000;
-            var expCurTime = (Number(new Date()))/1000;
+            var lastupdate = String(record.get('lastUpdate'));
+            var defTime = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
+            var expirationTime = String(record.get('expiration'));
+            var expTime = Number(new Date(expirationTime)) / 1000;
+            var expCurTime = Number(new Date()) / 1000;
             var motion = record.get('motion');
             if (typeof record.get('ignition') !== undefined) {
                 var ignition = record.get('ignition');
             } else {
                 var ignition = false;
             }
-            if (record.get('disabled') || (expCurTime >= expTime)) {
+            if (record.get('disabled') || expCurTime >= expTime) {
                 result = 'view-item-disabled ';
             }
             if (status && movement) {
                 if (status === 'nulled') {
                     result += 'view-color-red';
+                } else if (defTime >= Traccar.Style.devicesTimeout || (movement === '' || movement === undefined) && status === '' && defTime >= Traccar.Style.devicesTimeout || movement === 'moving' && defTime >= Traccar.Style.devicesTimeout) {
+                    result += 'view-color-red';
+                } else if (typeof ignition !== undefined && ignition === true && (movement === 'moving' || movement === 'parked' || movement === 'idle') && (typeof motion !== undefined && motion === false)) {
+                    result += 'view-color-yellow';
+                } else if (movement === 'parked') {
+                    result += 'view-color-orange';
+                } else if ((movement === '' || movement === null || movement === undefined) && (typeof motion !== undefined && motion === false) && (lastupdate !== null || lastupdate !== '')) {
+                    result += 'view-color-orange';
+                } else if ((movement === 'idle' || movement === '') && (typeof ignition !== undefined && ignition === false && ignition !== null) || typeof motion !== undefined && motion === false && motion !== null && (movement === '' || movement === null)) {
+                    result += 'view-color-orange';
+                } else if (movement === 'idle' && (typeof ignition !== undefined && ignition === false && ignition !== null) && (typeof motion !== undefined && motion === true && motion !== null && speed <= 7)) {
+                    result += 'view-color-orange';
+                } else if (movement === 'moving' && (typeof ignition !== undefined && ignition === false && ignition !== null) && (typeof motion !== undefined && (motion === true || motion === false) && motion !== null && speed <= 3)) {
+                    result += 'view-color-orange';
+                } else if (movement === 'moving' && speed > 2) {
+                    result += 'view-color-green';
+                } else if (motion === true && speed > 2 && (motion === true && (movement === '' || movement === null || movement === undefined)) && (lastupdate !== null || lastupdate !== '')) {
+                    result += 'view-color-green';
+                } else if (movement === 'idle') {
+                    result += 'view-color-yellow';
+                } else if ((movement === '' || movement === null) && (lastupdate === null || lastupdate === '')) {
+                    result += 'view-color-red';
                 } else {
-                    if (defTime >= Traccar.Style.devicesTimeout || (((movement === '' || movement === undefined) && status === '') && defTime >= Traccar.Style.devicesTimeout) || (movement === 'moving' && defTime >= Traccar.Style.devicesTimeout)) {
-                        result += 'view-color-red';
-                    } else if (((typeof ignition !== undefined) && ignition === true) && (movement === 'moving' || movement === 'parked' || movement === 'idle') && ((typeof motion !== undefined) && motion === false)) {
-                        result += 'view-color-yellow';
-                    } else if (movement === 'parked') {
-                        result += 'view-color-orange';
-                    } else if (((movement === '' || movement === null || movement === undefined) && ((typeof motion !== undefined) && motion === false) && (lastupdate !== null || lastupdate !== ''))) {
-                        result += 'view-color-orange';
-                    } else if (((movement === 'idle' || movement === '') && ((typeof ignition !== undefined) && ignition === false && ignition !== null)) || (((typeof motion !== undefined) && motion === false && motion !== null) && (movement === '' || movement === null))) {
-                        result += 'view-color-orange';
-                    } else if (movement === 'idle' && ((typeof ignition !== undefined) && ignition === false && ignition !== null) && (((typeof motion !== undefined) && motion === true && motion !== null) && speed <= 7)) {
-                        result += 'view-color-orange';
-                    } else if (movement === 'moving' && ((typeof ignition !== undefined) && ignition === false && ignition !== null) && (((typeof motion !== undefined) && (motion === true || motion === false) && motion !== null) && speed <= 3)) {
-                        result += 'view-color-orange';
-                    } else if (movement === 'moving' && speed > 2) {
-                        result += 'view-color-green';
-                    } else if ((motion === true && speed > 2) && (motion === true && (movement === '' || movement === null || movement === undefined)) && (lastupdate !== null || lastupdate !== '')) {
-                        result += 'view-color-green';
-                    } else if (movement === 'idle') {
-                        result += 'view-color-yellow';
-                    } else if ((movement === '' || movement === null) && (lastupdate === null || lastupdate === '')) {
-                        result += 'view-color-red';
-                    } else {
-                        result += 'view-color-yellow';
-                    }
+                    result += 'view-color-yellow';
                 }
             }
             return result;
         },
-        listeners : {
-            refresh : function (dataview) {
-             Ext.each(dataview.panel.columns, function (column) {
-              if (column.autoSizeColumn === true)
-               column.autoSize();
-             })
+        listeners: {
+            refresh: function (dataview) {
+                Ext.each(dataview.panel.columns, function (column) {
+                    if (column.autoSizeColumn === true) {
+                        column.autoSize();
+                    }
+                });
             },
-            itemdblclick: function(dv, record, item, index, e) {
+            itemdblclick: function (dv, record, item, index, e) {
                 posId = record.get('id');
-                //console.log('working' + posId);
+                // Console.log('working' + posId);
                 Strings.setDeviceQuick = posId;
             }
-           }
+        }
     },
 
     columns: {
         defaults: {
             flex: 1,
             minWidth: 60,
-            autoSizeColumn : true
+            autoSizeColumn: true
         },
         items: [{
             text: Strings.sharedAssetName,
@@ -159,8 +158,8 @@ Ext.define('Traccar.view.edit.Devices', {
             filter: 'string',
             renderer: function (value, metaData, record) {
                 var status = record.get('status');
-                var lastupdate = "" + record.get('lastUpdate');
-                var defTime = (Number(new Date()) - (Number(new Date(lastupdate))))/1000;
+                var lastupdate = String(record.get('lastUpdate'));
+                var defTime = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
                 if (status === 'online' || defTime < Traccar.Style.devicesTimeout) {
                     metaData.tdCls = 'view-color-green-text';
                 } else if (status === 'offline' && record.get('lastUpdate') == null) {
@@ -175,7 +174,6 @@ Ext.define('Traccar.view.edit.Devices', {
                     metaData.tdCls = 'view-color-gen-text';
                 }
                 return value;
-                
             }
         }, {
             text: Strings.groupDialog,
@@ -202,33 +200,32 @@ Ext.define('Traccar.view.edit.Devices', {
             minWidth: 100,
             maxWidth: 100,
             renderer: function (value, metaData, record) {
-                                var status = record.get('status');
-                                var lastupdate = "" + value;
-                                var defTime = (new Date(lastupdate));
-                                function formatDate(date) {
-                                var year = date.getFullYear().toString().substr(-2),
-                                month = date.getMonth() + 1, // months are zero indexed
-                                day = date.getDate()  < 10 ? "0" + date.getDate() : date.getDate(),
-                                hour = date.getHours(),
-                                minute = date.getMinutes(),
-                                second = date.getSeconds(),
-                                hourFormatted = hour  < 10 ? "0" + hour : hour,// hour returned in 24 hour format
-                                minuteFormatted = minute < 10 ? "0" + minute : minute,
-                                morning = hour < 12 ? "am" : "pm";
-                                return day + "-" + month + "-" + year + " " + hourFormatted + ":" +
+                var status = record.get('status');
+                var lastupdate = String(value);
+                var defTime = new Date(lastupdate);
+                function formatDate (date) {
+                    var year = date.getFullYear().toString().substr(-2),
+                        month = date.getMonth() + 1, // Months are zero indexed
+                        day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
+                        hour = date.getHours(),
+                        minute = date.getMinutes(),
+                        second = date.getSeconds(),
+                        hourFormatted = hour < 10 ? '0' + hour : hour, // Hour returned in 24 hour format
+                        minuteFormatted = minute < 10 ? '0' + minute : minute,
+                        morning = hour < 12 ? 'am' : 'pm';
+                    return day + '-' + month + '-' + year + ' ' + hourFormatted + ':' +
                                 minuteFormatted;// + morning;
-                                }
-                                var returneder = formatDate(defTime);
-                                if (status === 'offline' && value == null) {
-                                    return 'No Info';
-                                } else {
-                                    return returneder;
-                                }
-                                
-                            },
+                }
+                var returneder = formatDate(defTime);
+                if (status === 'offline' && value == null) {
+                    return 'No Info';
+                } else {
+                    return returneder;
+                }
+            },
             filter: 'date'
         }, {
-            text: 'Status',
+            text: Strings.positionStatus,
             minWidth: 70,
             maxWidth: 70,
             dataIndex: 'movement',
@@ -238,45 +235,44 @@ Ext.define('Traccar.view.edit.Devices', {
             },
             renderer: function (value, metaData, record) {
                 var status = record.get('status');
-                var lastupdate = "" + record.get('lastUpdate');
-                var expirationTime = "" + record.get('expiration');
-                var expTime = (Number(new Date(expirationTime)))/1000;
-                var expCurTime = (Number(new Date()))/1000;
-                var defTime = (Number(new Date()) - (Number(new Date(lastupdate))))/1000;
+                var lastupdate = String(record.get('lastUpdate'));
+                var expirationTime = String(record.get('expiration'));
+                var expTime = Number(new Date(expirationTime)) / 1000;
+                var expCurTime = Number(new Date()) / 1000;
+                var defTime = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
                 var motion = record.get('motion');
                 var ignition = record.get('ignition');
                 var alarm = record.get('alarms');
                 var speed = record.get('speed');
                 if (expCurTime >= expTime) {
                     return 'Expired';
-                } else if (((status === 'offline' || status === 'unknown') && defTime >= Traccar.Style.devicesTimeout) || status === 'nulled') {
+                } else if ((status === 'offline' || status === 'unknown') && defTime >= Traccar.Style.devicesTimeout || status === 'nulled') {
                     return 'Offline';
-                } else if ((typeof alarm !== undefined) && alarm && alarm !== 'nil') {
+                } else if (typeof alarm !== undefined && alarm && alarm !== 'nil') {
                     return alarm;
-                } else if (((typeof ignition !== undefined) && ignition === true) && ((typeof motion !== undefined) && motion === false) && (value === 'moving' || value === 'parked' || value === 'idle')) {
+                } else if (typeof ignition !== undefined && ignition === true && (typeof motion !== undefined && motion === false) && (value === 'moving' || value === 'parked' || value === 'idle')) {
                     return 'Idle';
                 } else if (value === 'parked') {
                     return 'Parked';
-                } else if ((value === 'idle' && ((typeof ignition !== undefined) && ignition === false && ignition !== null)) || (((typeof motion !== undefined) && motion === false && motion !== null) && (value === '' || value === null))) {
+                } else if (value === 'idle' && (typeof ignition !== undefined && ignition === false && ignition !== null) || typeof motion !== undefined && motion === false && motion !== null && (value === '' || value === null)) {
                     return 'Parked';
-                } else if ((value === 'idle' && ((typeof ignition !== undefined) && ignition === false && ignition !== null)) && (((typeof motion !== undefined) && motion === true && motion !== null) && speed <= 7)) {
+                } else if (value === 'idle' && (typeof ignition !== undefined && ignition === false && ignition !== null) && (typeof motion !== undefined && motion === true && motion !== null && speed <= 7)) {
                     return 'Parked';
-                } else if ((value === 'moving' && ((typeof ignition !== undefined) && ignition === false && ignition !== null)) && (((typeof motion !== undefined) && (motion === true || motion === false) && motion !== null) && speed <= 3)) {
+                } else if (value === 'moving' && (typeof ignition !== undefined && ignition === false && ignition !== null) && (typeof motion !== undefined && (motion === true || motion === false) && motion !== null && speed <= 3)) {
                     return 'Parked';
                 } else if (value === 'moving' && speed > 2) {
                     return 'Moving';
-                } else if ((value === 'moving' && speed > 2)  || (motion === true && (value === '' || value === null || value === undefined) && (lastupdate !== null || lastupdate !== ''))) {
+                } else if (value === 'moving' && speed > 2 || motion === true && (value === '' || value === null || value === undefined) && (lastupdate !== null || lastupdate !== '')) {
                     return 'Moving';
                 } else if (value === 'idle') {
                     return 'Idle';
                 } else if (speed >= 0.1 && value !== null) {
                     return 'Idle';
-                } else if (value === "" || value === null) {
+                } else if (value === '' || value === null) {
                     return 'Pending';
                 } else {
                     return 'Idle';
                 }
-                
             }
         }, {
             text: Strings.deviceStatus,
@@ -293,8 +289,8 @@ Ext.define('Traccar.view.edit.Devices', {
                 var statusy;
                 if (value) {
                     var status = record.get('status');
-                    var lastupdate = "" + record.get('lastUpdate');
-                    var defTime = (Number(new Date()) - (Number(new Date(lastupdate))))/1000;
+                    var lastupdate = String(record.get('lastUpdate'));
+                    var defTime = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
                     statusy = Ext.getStore('DeviceStatuses').getById(value);
                     if (statusy) {
                         if ((status === 'offline' || status === 'unknown') && defTime >= Traccar.Style.devicesTimeout) {
@@ -312,7 +308,7 @@ Ext.define('Traccar.view.edit.Devices', {
             text: Strings.positionSpeed,
             dataIndex: 'speed',
             renderer: function (value) {
-                spdft = Traccar.AttributeFormatter.getFormatter('speed')(0)
+                spdft = Traccar.AttributeFormatter.getFormatter('speed')(0);
                 spdval = '';
                 if (spdft === '0.0 kph') {
                     spdval = ' kph';
@@ -321,7 +317,7 @@ Ext.define('Traccar.view.edit.Devices', {
                 } else {
                     spdval = ' mph';
                 }
-                if (value == null){
+                if (value == null) {
                     return null;
                 } else {
                     lesSpeed = Math.round(Traccar.AttributeFormatter.getConverter('speed')(value));
@@ -346,7 +342,7 @@ Ext.define('Traccar.view.edit.Devices', {
                 } else {
                     var ignition = false;
                 }
-                if (ignition === true || (spd >= 14.2)) {
+                if (ignition === true || spd >= 14.2) {
                     metaData.tdCls = 'ign-color-green-text';
                     return 'On';
                 } else {
@@ -362,11 +358,11 @@ Ext.define('Traccar.view.edit.Devices', {
             text: Strings.deviceModelMain,
             dataIndex: 'protocol',
             renderer: function (value) {
-                valy = value + "";
+                valy = String(value);
                 if (value === null) {
                     return 'No data';
                 } else {
-                    return valy;//.replace(/\b\w/g, l => l.toUpperCase());
+                    return valy;// .replace(/\b\w/g, l => l.toUpperCase());
                 }
             },
             hidden: true,
@@ -379,15 +375,15 @@ Ext.define('Traccar.view.edit.Devices', {
             minWidth: 165,
             renderer: function (value, metaData, record) {
                 if (!value) {
-                    if (Ext.fireEvent('routegeocode', record.getId()) === true){
-                        return "No Location Data"
+                    if (Ext.fireEvent('routegeocode', record.getId()) === true) {
+                        return 'No Location Data';
                     } else {
-                        //geoCode function pending for devices panel
+                        // GeoCode function pending for devices panel
                         return Ext.fireEvent('routegeocode', record.getId());
                     }
                 }
                 return Traccar.AttributeFormatter.getFormatter('address')(value);
-        },
+            },
             hidden: false,
             filter: 'string'
         }, {
@@ -424,19 +420,19 @@ Ext.define('Traccar.view.edit.Devices', {
             minWidth: 100,
             maxWidth: 100,
             renderer: function (value, metaData, record) {
-                var lastupdate = "" + value;
-                var defTime = (new Date(lastupdate));
-                function formatDate(date) {
-                var year = date.getFullYear().toString().substr(-2),
-                month = date.getMonth() + 1, // months are zero indexed
-                day = date.getDate()  < 10 ? "0" + date.getDate() : date.getDate(),
-                hour = date.getHours(),
-                minute = date.getMinutes(),
-                second = date.getSeconds(),
-                hourFormatted = hour  < 10 ? "0" + hour : hour,// hour returned in 24 hour format
-                minuteFormatted = minute < 10 ? "0" + minute : minute,
-                morning = hour < 12 ? "am" : "pm";
-                return day + "-" + month + "-" + year + " " + hourFormatted + ":" +
+                var lastupdate = String(value);
+                var defTime = new Date(lastupdate);
+                function formatDate (date) {
+                    var year = date.getFullYear().toString().substr(-2),
+                        month = date.getMonth() + 1, // Months are zero indexed
+                        day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
+                        hour = date.getHours(),
+                        minute = date.getMinutes(),
+                        second = date.getSeconds(),
+                        hourFormatted = hour < 10 ? '0' + hour : hour, // Hour returned in 24 hour format
+                        minuteFormatted = minute < 10 ? '0' + minute : minute,
+                        morning = hour < 12 ? 'am' : 'pm';
+                    return day + '-' + month + '-' + year + ' ' + hourFormatted + ':' +
                 minuteFormatted;// + morning;
                 }
                 var returneder = formatDate(defTime);
@@ -476,13 +472,13 @@ Ext.define('Traccar.view.edit.Devices', {
         store: 'Devices',
         pluginId: 'devicespage',
         displayInfo: true,
-        displayMsg: 'Total of {2} &nbsp;Assets ',
-        emptyMsg: "No Asset to display&nbsp;"
+        displayMsg: '{2} &nbsp;' + Strings.deviceTitle,
+        emptyMsg: Strings.SharedNoAsset + '&nbsp;'
     }]},
     includeHeaders: true,
     forceFit: true,
     selModel: {
-       selType: 'rowmodel',
-       mode: 'MULTI'
+        selType: 'rowmodel',
+        mode: 'MULTI'
     }
 });
