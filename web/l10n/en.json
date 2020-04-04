@@ -243,6 +243,8 @@
     "mapTitle": "",
     "mapLayer": "Map Type",
     "mapCustom": "Custom Tile",
+    "mapCustomArcgis": "Custom (ArcGIS)",
+    "mapCustomLabel": "Custom map",
     "googleMod": "Google Road",
     "googleModSat": "Google Satellite",
     "mapCarto": "Carto Basemaps",
@@ -437,6 +439,7 @@
     "categoryTrolleybus": "Trolleybus",
     "categoryTruck": "Truck",
     "categoryVan": "Van",
+    "categoryScooter": "Scooter",
     "maintenanceStart": "Start",
     "maintenancePeriod": "Period"
 }

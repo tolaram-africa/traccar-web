@@ -30,7 +30,7 @@ Ext.define('Traccar.view.map.BaseMap', {
     },
 
     initMap: function () {
-        var server, layer, type, bingKey, lat, lon, zoom, maxZoom, target, poiLayer, geocoder, popup;
+        var server, layer, type, bingKey, lat, lon, zoom, maxZoom, target, poiLayer, geocoder, popup, self = this;
 
         server = Traccar.app.getServer();
 
@@ -63,6 +63,13 @@ Ext.define('Traccar.view.map.BaseMap', {
                         attributions: 'Map Data 2018 Google'
                     })
                 });
+                break;
+                case 'customArcgis':
+                layer = new ol.layer.Tile({
+                    source: new ol.source.TileArcGISRest({
+                        url: Ext.String.htmlDecode(server.get('mapUrl'))
+                    })
+                })
                 break;
             case 'bingRoad':
                 layer = new ol.layer.Tile({
@@ -148,16 +155,16 @@ Ext.define('Traccar.view.map.BaseMap', {
                     })
                 });
                 break;
-            case 'osm':
-                layer = new ol.layer.Tile({
-                    source: new ol.source.OSM({})
-                });
-                break;
-            default:
+            case 'wikimedia':
                 layer = new ol.layer.Tile({
                     source: new ol.source.OSM({
                         url: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png'
                     })
+                });
+                break;
+            default:
+                layer = new ol.layer.Tile({
+                    source: new ol.source.OSM({})
                 });
                 break;
         }
@@ -226,17 +233,17 @@ Ext.define('Traccar.view.map.BaseMap', {
         });
 
         this.map.on('click', function (e) {
-            var i, features = this.map.getFeaturesAtPixel(e.pixel, {
+            var i, features = self.map.getFeaturesAtPixel(e.pixel, {
                 layerFilter: function (layer) {
                     return !layer.get('name');
                 }
             });
             if (features) {
                 for (i = 0; i < features.length; i++) {
-                    this.fireEvent('selectfeature', features[i]);
+                    self.fireEvent('selectfeature', features[i]);
                 }
             } else {
-                this.fireEvent('deselectfeature');
+                self.fireEvent('deselectfeature');
             }
         }, this);
         
@@ -278,7 +285,12 @@ Ext.define('Traccar.view.map.BaseMap', {
         }
     }
 }, function () {
+    var projection;
     proj4.defs('BD-MC', '+proj=merc +lon_0=0 +units=m +ellps=clrk66 +no_defs');
     proj4.defs('EPSG:3395', '+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs');
-    ol.proj.get('EPSG:3395').setExtent([-20037508.342789244, -20037508.342789244, 20037508.342789244, 20037508.342789244]);
+    ol.proj.proj4.register(proj4);
+    projection = ol.proj.get('EPSG:3395');
+    if (projection) {
+        projection.setExtent([-20037508.342789244, -20037508.342789244, 20037508.342789244, 20037508.342789244]);
+    }
 });
