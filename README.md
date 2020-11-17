@@ -14,6 +14,7 @@ A new version of the web app is under development alongside original web app. It
 - Andrey Kunitsyn ([andrey@traccar.org](mailto:andrey@traccar.org))
 
 ## License
+
     GNU General Public License, Version 3
 
     This program is free software: you can redistribute it and/or modify
