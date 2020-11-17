@@ -46,13 +46,20 @@
         languages = window.navigator.languages !== undefined ? window.navigator.languages.slice() : [];
         language = window.navigator.userLanguage || window.navigator.language;
         languages.push(language);
-        languages.push(language.substr(0, 2));
+        languages.push(language.substring(0, 2));
         languages.push(languageDefault);
         for (i = 0; i < languages.length; i++) {
             language = languages[i].replace('-', '_');
             if (language in locale.languages) {
                 locale.language = language;
                 break;
+            }
+            if (language.length > 2) {
+                language = languages[i].substring(0, 2);
+                if (language in locale.languages) {
+                    locale.language = language;
+                    break;
+                }
             }
         }
     }
@@ -97,7 +104,7 @@
     }
 
     extjsVersion = '6.2.0';
-    olVersion = '6.2.1';
+    olVersion = '6.1.1';
     proj4jsVersion = '2.6.0';
 
     if (debugMode) {
@@ -113,12 +120,9 @@
     addScriptFile('https://cdn.traccar.com/js/extjs/' + extjsVersion + '/classic/theme-triton/theme-triton.js');
 
     addStyleFile('https://cdn.traccar.com/js/extjs/' + extjsVersion + '/packages/charts/classic/triton/resources/charts-all.css');
-    
+
     addStyleFile('https://cdn.traccar.com/js/ol/' + olVersion + '/ol.css');
     addScriptFile('https://cdn.traccar.com/js/ol/' + olVersion + '/ol.js');
-
-    addStyleFile('./assets/address.ol.css');
-    addScriptFile('./assets/address.ol.js');
 
     if (debugMode) {
         addScriptFile('https://cdn.traccar.com/js/proj4js/' + proj4jsVersion + '/proj4-src.js');

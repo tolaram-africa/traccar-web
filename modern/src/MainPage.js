@@ -1,73 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 import { isWidthUp, makeStyles, withWidth } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import ContainerDimensions from 'react-container-dimensions';
-
-import DeviceList from './DeviceList';
-import MainMap from './MainMap';
-import MainToobar from './MainToolbar';
-import SocketController from './SocketController';
-
+import DevicesList from './DevicesList';
+import MainToolbar from './MainToolbar';
+import Map from './map/Map';
+import SelectedDeviceMap from './map/SelectedDeviceMap';
+import AccuracyMap from './map/AccuracyMap';
+import GeofenceMap from './map/GeofenceMap';
+import CurrentPositionsMap from './map/CurrentPositionsMap';
+import CurrentLocationMap from './map/CurrentLocationMap';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column"
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
   content: {
     flexGrow: 1,
-    overflow: "hidden",
-    display: "flex",
-    flexDirection: "row",
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'row',
     [theme.breakpoints.down('xs')]: {
-      flexDirection: "column-reverse"
+      flexDirection: 'column-reverse',
     }
   },
   drawerPaper: {
     position: 'relative',
     [theme.breakpoints.up('sm')]: {
-      width: 350
+      width: 350,
     },
     [theme.breakpoints.down('xs')]: {
-      height: 250
+      height: 250,
     }
   },
   mapContainer: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
 
 const MainPage = ({ width }) => {
-  const [loading, setLoading] = useState(true);
   const classes = useStyles();
-  const history = useHistory();
 
-  useEffect(() => {
-    fetch('/api/session').then(response => {
-      if (response.ok) {
-        setLoading(false);
-      } else {
-        history.push('/login');
-      }
-    });
-  }, [history]);
-
-  return loading ? (<div>Loading...</div>) : (
+  return (
     <div className={classes.root}>
-      <SocketController />
-      <MainToobar />
+      <MainToolbar />
       <div className={classes.content}>
         <Drawer
-          anchor={isWidthUp('sm', width) ? "left" : "bottom"}
-          variant="permanent"
+          anchor={isWidthUp('sm', width) ? 'left' : 'bottom'}
+          variant='permanent'
           classes={{ paper: classes.drawerPaper }}>
-          <DeviceList />
+          <DevicesList />
         </Drawer>
         <div className={classes.mapContainer}>
           <ContainerDimensions>
-            <MainMap />
+            <Map>
+              <CurrentLocationMap />
+              <GeofenceMap />
+              <AccuracyMap />
+              <CurrentPositionsMap />
+              <SelectedDeviceMap />
+            </Map>
           </ContainerDimensions>
         </div>
       </div>

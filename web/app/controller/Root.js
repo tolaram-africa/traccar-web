@@ -66,10 +66,28 @@ Ext.define('Traccar.controller.Root', {
         });
     },
 
+    showAnnouncement: function (announcement) {
+        var maxWidth = Ext.getBody().getViewSize().width - 2 * Traccar.Style.normalPadding;
+        if (maxWidth > Traccar.Style.windowWidth) {
+            maxWidth = Traccar.Style.windowWidth;
+        }
+        Ext.Msg.show({
+            msg: announcement,
+            buttons: Ext.Msg.OK,
+            closable: false,
+            modal: false,
+            maxWidth: maxWidth
+        }).alignTo(Ext.getBody(), 't-t', [0, Traccar.Style.normalPadding]);
+    },
+
     onServerReturn: function (options, success, response) {
-        var token, parameters = {};
+        var announcement, token, parameters = {};
         if (success) {
             Traccar.app.setServer(Ext.decode(response.responseText));
+            announcement = Traccar.app.getServer().get('announcement');
+            if (announcement) {
+                this.showAnnouncement(announcement);
+            }
             token = Ext.Object.fromQueryString(window.location.search).token;
             if (token) {
                 parameters.token = token;
@@ -108,7 +126,7 @@ Ext.define('Traccar.controller.Root', {
     },
 
     loadApp: function () {
-        var attribution, eventId;
+        var updateView, attributionView, eventId;
 
         if (window.webkit && window.webkit.messageHandlers.appInterface) {
             window.webkit.messageHandlers.appInterface.postMessage('login');
@@ -152,9 +170,13 @@ Ext.define('Traccar.controller.Root', {
                 this.asyncUpdate(true);
             }
         });
-        attribution = Ext.get('attribution');
-        if (attribution) {
-            attribution.remove();
+        updateView = Ext.get('update');
+        if (updateView) {
+            updateView.remove();
+        }
+        attributionView = Ext.get('attribution');
+        if (attributionView) {
+            attributionView.remove();
         }
         if (Traccar.app.isMobile()) {
             Ext.create('widget.mainMobile');
@@ -304,7 +326,7 @@ Ext.define('Traccar.controller.Root', {
         var i, store, device;
         store = Ext.getStore('Events');
         for (i = 0; i < array.length; i++) {
-            store.add(array[i]);
+            store.insert(0, array[i]);
             device = Ext.getStore('Devices').getById(array[i].deviceId);
             if (device) {
                 if (this.soundPressed()) {

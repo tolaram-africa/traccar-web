@@ -60,16 +60,7 @@ Ext.define('Traccar.view.dialog.Device', {
                 xtype: 'unescapedTextField',
                 name: 'phone',
                 fieldLabel: Strings.sharedPhone
-            }]
-        }, {
-            xtype: 'fieldset',
-            title: Strings.sharedExtra,
-            collapsible: true,
-            collapsed: false,
-            defaults: {
-                minWidth: 300
-            },
-            items: [{
+            }, {
                 xtype: 'unescapedTextField',
                 name: 'model',
                 fieldLabel: Strings.deviceModel

@@ -30,7 +30,7 @@ Ext.define('Traccar.view.map.BaseMap', {
     },
 
     initMap: function () {
-        var server, layer, type, bingKey, lat, lon, zoom, maxZoom, target, poiLayer, geocoder, popup, self = this;
+        var server, layer, type, bingKey, lat, lon, zoom, maxZoom, target, poiLayer, self = this;
 
         server = Traccar.app.getServer();
 
@@ -46,30 +46,12 @@ Ext.define('Traccar.view.map.BaseMap', {
                     })
                 });
                 break;
-                case 'googlemod':
-                layer = new ol.layer.Tile({
-                    source: new ol.source.XYZ({
-                        url: new DOMParser()
-                            .parseFromString('https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga&key=' + Traccar.Style.googleApiKey, 'text/html').documentElement.textContent,
-                        attributions: 'Map Data 2018 Google'
-                    })
-                });
-                break;
-                case 'googlemodsat':
-                layer = new ol.layer.Tile({
-                    source: new ol.source.XYZ({
-                        url: new DOMParser()
-                            .parseFromString('https://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga&key=' + Traccar.Style.googleApiKey, 'text/html').documentElement.textContent,
-                        attributions: 'Map Data 2018 Google'
-                    })
-                });
-                break;
-                case 'customArcgis':
+            case 'customArcgis':
                 layer = new ol.layer.Tile({
                     source: new ol.source.TileArcGISRest({
                         url: Ext.String.htmlDecode(server.get('mapUrl'))
                     })
-                })
+                });
                 break;
             case 'bingRoad':
                 layer = new ol.layer.Tile({
@@ -245,34 +227,7 @@ Ext.define('Traccar.view.map.BaseMap', {
             } else {
                 self.fireEvent('deselectfeature');
             }
-        }, this);
-        
-        // popup
-		popup = new ol.Overlay.Popup();
-		this.map.addOverlay(popup);
-		//Instantiate with some options and add the Control
-		geocoder = new Geocoder('nominatim', {
-			provider: 'osm',
-			lang: 'en',
-			placeholder: 'Search Address ...',
-			limit: 5,
-			debug: false,
-			autoComplete: true,
-			keepOpen: true
-		});
-		this.map.addControl(geocoder);
-		// prevent marker being added to map
-		geocoder.getLayer().setVisible(false);
-		//Listen when an address is chosen
-		geocoder.on('addresschosen', function (evt) {
-			console.info(evt);
-			window.setTimeout(function () {
-				popup.show(evt.coordinate, evt.address.formatted);
-			}, 3000);
         });
-        
-
-    
     },
 
     listeners: {

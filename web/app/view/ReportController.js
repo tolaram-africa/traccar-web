@@ -161,7 +161,7 @@ Ext.define('Traccar.view.ReportController', {
     },
 
     onReportClick: function (button) {
-        var reportType, from, to, store, url;
+        var reportType, from, to, store, url, daily;
 
         this.getGrid().getSelectionModel().deselectAll();
 
@@ -174,6 +174,9 @@ Ext.define('Traccar.view.ReportController', {
             to = new Date(
                 this.toDate.getFullYear(), this.toDate.getMonth(), this.toDate.getDate(),
                 this.toTime.getHours(), this.toTime.getMinutes(), this.toTime.getSeconds(), this.toTime.getMilliseconds());
+
+            daily = reportType === 'daily';
+
             this.reportProgress = true;
             this.updateButtons();
 
@@ -196,7 +199,8 @@ Ext.define('Traccar.view.ReportController', {
                         groupId: this.groupId,
                         type: this.eventType,
                         from: from.toISOString(),
-                        to: to.toISOString()
+                        to: to.toISOString(),
+                        daily: daily
                     }
                 });
             } else {
@@ -207,6 +211,7 @@ Ext.define('Traccar.view.ReportController', {
                     type: this.eventType,
                     from: Ext.Date.format(from, 'c'),
                     to: Ext.Date.format(to, 'c'),
+                    daily: daily,
                     mail: button.reference === 'emailButton'
                 });
             }
@@ -437,7 +442,7 @@ Ext.define('Traccar.view.ReportController', {
         } else if (newValue === 'events') {
             this.getGrid().reconfigure('ReportEvents', this.eventsColumns);
             this.getView().getLayout().setActiveItem('grid');
-        } else if (newValue === 'summary') {
+        } else if (newValue === 'summary' || newValue === 'daily') {
             this.getGrid().reconfigure('ReportSummary', this.summaryColumns);
             this.getView().getLayout().setActiveItem('grid');
         } else if (newValue === 'trips') {
@@ -521,11 +526,11 @@ Ext.define('Traccar.view.ReportController', {
             if (value == null){
                 return null;
             } else {
-                lesSpeed = Math.round(Traccar.AttributeFormatter.getConverter('speed')(value));
-                if (lesSpeed == 'NaN km/h' || lesSpeed == 'NaN kph'|| lesSpeed == 'NaN kn' || lesSpeed == 'NaN mph') {
+                let Speed = Math.round(Traccar.AttributeFormatter.getConverter('speed')(value));
+                if (Speed == 'NaN km/h' || Speed == 'NaN kph'|| Speed == 'NaN kn' || Speed == 'NaN mph') {
                     return Traccar.AttributeFormatter.getFormatter('speed')(0);
                 } else {
-                    return Traccar.AttributeFormatter.getFormatter('speed')(lesSpeed);
+                    return Traccar.AttributeFormatter.getFormatter('speed')(Speed);
                 }
             }
         }
@@ -649,6 +654,11 @@ Ext.define('Traccar.view.ReportController', {
         maxWidth: 155,
         resizable: true,
         fixed: false //Will be resized
+    }, {
+        text: Strings.reportStartDate,
+        dataIndex: 'startTime',
+        xtype: 'datecolumn',
+        renderer: Traccar.AttributeFormatter.dateFormatter
     }, {
         text: Strings.sharedDistance,
         dataIndex: 'distance',

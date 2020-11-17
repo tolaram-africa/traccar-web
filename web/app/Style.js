@@ -99,6 +99,9 @@ Ext.define('Traccar.Style', {
     mapAnimateMarkerDuration: 2000,
     mapAnimateMarkerTimeout: 40,
 
+    mapAnimateMarkerDuration: 2000,
+    mapAnimateMarkerTimeout: 40,
+
     coordinatePrecision: 6,
     numberPrecision: 2,
 
