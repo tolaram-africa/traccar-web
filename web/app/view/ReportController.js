@@ -526,11 +526,12 @@ Ext.define('Traccar.view.ReportController', {
             if (value == null){
                 return null;
             } else {
-                let Speed = Math.round(Traccar.AttributeFormatter.getConverter('speed')(value));
-                if (Speed == 'NaN km/h' || Speed == 'NaN kph'|| Speed == 'NaN kn' || Speed == 'NaN mph') {
+                var speed = Traccar.AttributeFormatter.getConverter('speed')(value['speed']);
+                var lesSpeed = Traccar.AttributeFormatter.speedFormatter(speed);
+                if (lesSpeed == 'NaN km/h' || lesSpeed == 'NaN kph'|| lesSpeed == 'NaN kn' || lesSpeed == 'NaN mph') {
                     return Traccar.AttributeFormatter.getFormatter('speed')(0);
                 } else {
-                    return Traccar.AttributeFormatter.getFormatter('speed')(Speed);
+                    return Traccar.AttributeFormatter.getFormatter('speed')(lesSpeed);
                 }
             }
         }
