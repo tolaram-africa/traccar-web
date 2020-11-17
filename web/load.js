@@ -124,6 +124,11 @@
     addStyleFile('https://cdn.traccar.com/js/ol/' + olVersion + '/ol.css');
     addScriptFile('https://cdn.traccar.com/js/ol/' + olVersion + '/ol.js');
 
+    // For address finder
+    addStyleFile('./assets/address.ol.css');
+    addScriptFile('./assets/address.ol.js');
+    
+
     if (debugMode) {
         addScriptFile('https://cdn.traccar.com/js/proj4js/' + proj4jsVersion + '/proj4-src.js');
     } else {
