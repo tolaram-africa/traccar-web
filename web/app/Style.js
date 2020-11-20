@@ -24,34 +24,25 @@ Ext.define('Traccar.Style', {
     reportTimeout: 1200 * 90000000,
     devicesTimeout: 5700,
     googleApiKey: "AIzaSyDN6IyCSlDhf4Ga5WEurMf1khgehJKYT5w",
-
     normalPadding: 10,
-
     windowWidth: 950,
     windowHeight: 600,
-
     formFieldWidth: 295,
     formFieldMaxWidth: 395,
-
     dateTimeFormat24: 'd-m-Y H:i:s',
     dateTimeFormat12: 'd-m-Y g:i:s a',
     timeFormat24: 'H:i',
     timeFormat12: 'g:i a',
     dateFormat: 'd-m-Y',
     weekStartDay: 1,
-
     deviceWidth: 595,
     eventWidth: 255,
     toastWidth: 175,
-
     reportHeight: 378,
-
     columnWidthNormal: 100,
-
     mapDefaultLat: 3.56545,
     mapDefaultLon: 14.948848,
     mapDefaultZoom: 4,
-
     mapRouteColor: [
         '#c3fc32',
         '#027c70',
@@ -70,43 +61,30 @@ Ext.define('Traccar.Style', {
         '#e899a3'
     ],
     mapRouteWidth: 2,
-
     mapTextColor: 'rgba(50, 50, 50, 1.0)',
     mapTextStrokeColor: 'rgba(255, 255, 255, 1.0)',
     mapTextStrokeWidth: 1,
     mapTextOffset: 1,
     mapTextFont: 'bold 10px sans-serif',
-
     mapColorGreen: 'rgba(77, 250, 144, 1.0)',
     mapColorYellow: 'rgba(250, 190, 77, 1.0)',
     mapColorOrange: 'rgba(255, 165, 0, 1.0)',
     mapColorRed: 'rgba(255, 0, 0, 0.7)',
-
     mapScaleNormal: 0.49,
     mapScaleSelected: 0.73,
-
     mapMaxZoom: 21,
     mapDelay: 500,
-
     mapAccuracyColor: 'rgba(96, 96, 96, 1.0)',
-
     mapGeofenceTextColor: 'rgba(102, 104, 235, 1.0)',
     mapGeofenceColor: 'rgba(102, 104, 235, 1.0)',
     mapGeofenceOverlayOpacity: 0.2,
     mapGeofenceWidth: 2,
     mapGeofenceRadius: 4,
-
     mapAnimateMarkerDuration: 2000,
     mapAnimateMarkerTimeout: 40,
-
-    mapAnimateMarkerDuration: 2000,
-    mapAnimateMarkerTimeout: 40,
-
     coordinatePrecision: 6,
     numberPrecision: 2,
-
     reportGridStyle: 'borderTop: 1px solid lightgray',
-
     chartPadding: '20 40 10 10',
     chartMarkerRadius: 3,
     chartMarkerHighlightScaling: 1.5
