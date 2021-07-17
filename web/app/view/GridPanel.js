@@ -16,7 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 Ext.define('Traccar.view.GridPanel', {
-    extend: 'Ext.grid.Panel',
+    extend: 'Traccar.ExportableGrid',
     xtype: 'customGridPanel',
 
     requires: [
@@ -30,13 +30,13 @@ Ext.define('Traccar.view.GridPanel', {
         getRowClass: function () {
             return this.enableTextSelection ? 'x-selectable' : '';
         },
-        listeners : {
-            refresh : function (dataview) {
-             Ext.each(dataview.panel.columns, function (column) {
-              if (column.autoSizeColumn === true)
-               column.autoSize();
-             })
+        listeners: {
+            refresh: function (dataview) {
+                Ext.each(dataview.panel.columns, function (column) {
+                    if (column.autoSizeColumn === true)
+                        column.autoSize();
+                })
             }
-           }
+        }
     }
 });

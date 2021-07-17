@@ -25,7 +25,6 @@ Ext.define('Traccar.store.Devices', {
     sortRoot: 'name',
     sortOnLoad: true,
     remoteSort: false,
-
     proxy: {
         type: 'rest',
         url: 'api/devices',
