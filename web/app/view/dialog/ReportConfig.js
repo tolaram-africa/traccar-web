@@ -33,7 +33,7 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         reference: 'deviceField',
         store: 'Devices',
         valueField: 'id',
-        emptyText: 'Select Assets...',
+        emptyText: 'Select Objects..',
         minWidth: Traccar.Style.formFieldWidth,
         maxWidth: Traccar.Style.formFieldMaxWidth,
         mode: 'local',
