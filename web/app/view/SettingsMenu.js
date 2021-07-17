@@ -69,7 +69,7 @@ Ext.define('Traccar.view.SettingsMenu', {
         }, {
             hidden: true,
             text: Strings.sharedNotifications,
-            glyph: 'xf003@FontAwesome',
+            glyph: 'xf0f3@FontAwesome',
             handler: 'onNotificationsClick',
             reference: 'settingsNotificationsButton'
         }, {

@@ -60,11 +60,13 @@ Ext.define('Traccar.view.Report', {
         }, {
             text: Strings.reportExport,
             reference: 'exportButton',
+            glyph: 'xf1c3@FontAwesome',
             disabled: true,
             handler: 'onReportClick'
         }, {
             text: Strings.reportEmail,
             reference: 'emailButton',
+            glyph: 'xf003@FontAwesome',
             disabled: true,
             handler: 'onReportClick'
         }, '-', {

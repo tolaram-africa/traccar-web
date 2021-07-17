@@ -67,7 +67,7 @@ Ext.define('Traccar.view.edit.Groups', {
             disabled: true,
             handler: 'onNotificationsClick',
             reference: 'toolbarNotificationsButton',
-            glyph: 'xf003@FontAwesome',
+            glyph: 'xf0f3@FontAwesome',
             tooltip: Strings.sharedNotifications,
             tooltipType: 'title'
         }, {

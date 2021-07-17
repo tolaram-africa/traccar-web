@@ -63,7 +63,7 @@ Ext.define('Traccar.view.edit.Users', {
             disabled: true,
             handler: 'onNotificationsClick',
             reference: 'userNotificationsButton',
-            glyph: 'xf003@FontAwesome',
+            glyph: 'xf0f3@FontAwesome',
             tooltip: Strings.sharedNotifications,
             tooltipType: 'title'
         }, {

@@ -60,13 +60,11 @@ Ext.define('Traccar.view.State', {
             menuDisabled: true
         },
         items: [{
-            // text: Strings.stateName,
             text: '',
             dataIndex: 'name',
             minWidth: Traccar.Style.columnWidthNormal,
             maxWidth: Traccar.Style.columnWidthNormal
         }, {
-            // text: Strings.stateValue,
             text: '',
             dataIndex: 'value',
             cellWrap: true,

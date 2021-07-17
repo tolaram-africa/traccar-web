@@ -201,7 +201,7 @@ Ext.define('Traccar.view.dialog.User', {
         tooltip: Strings.sharedGetMapState,
         tooltipType: 'title'
     }, {
-        glyph: 'xf003@FontAwesome',
+        glyph: 'xf0f3@FontAwesome',
         minWidth: 0,
         handler: 'testNotification',
         hidden: true,
