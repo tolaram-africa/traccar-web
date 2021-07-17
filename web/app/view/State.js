@@ -35,9 +35,11 @@ Ext.define('Traccar.view.State', {
         items: [{
             xtype: 'tbtext',
             html: Strings.stateTitle,
-            baseCls: 'x-panel-header-title-default'
+            baseCls: 'x-panel-header-title-default',
+            hidden: true
         }, {
-            xtype: 'tbfill'
+            xtype: 'tbfill',
+            hidden: true
         }, {
             xtype: 'button',
             disabled: true,
@@ -45,7 +47,8 @@ Ext.define('Traccar.view.State', {
             reference: 'computedAttributesButton',
             glyph: 'xf0ae@FontAwesome',
             tooltip: Strings.sharedComputedAttributes,
-            tooltipType: 'title'
+            tooltipType: 'title',
+            hidden: true
         }]
     },
 
@@ -53,15 +56,18 @@ Ext.define('Traccar.view.State', {
         defaults: {
             minWidth: Traccar.Style.columnWidthNormal,
             sortable: false,
-            flex: 1
+            flex: 1,
+            menuDisabled: true
         },
         items: [{
-            text: Strings.stateName,
+            // text: Strings.stateName,
+            text: '',
             dataIndex: 'name',
             minWidth: Traccar.Style.columnWidthNormal,
             maxWidth: Traccar.Style.columnWidthNormal
         }, {
-            text: Strings.stateValue,
+            // text: Strings.stateValue,
+            text: '',
             dataIndex: 'value',
             cellWrap: true,
             renderer: function (value, metaData, record) {
@@ -69,7 +75,6 @@ Ext.define('Traccar.view.State', {
                 if (record.get('attribute') === 'alarm') {
                     metaData.tdCls = 'view-color-red';
                 } else if (record.get('name') === Strings.positionAddress && !value) {
-                    //New address autoloader
                     return '' + Ext.fireEvent('stategeocode') + '';
                 } else if (record.get('name') === Strings.positionImage || record.get('name') === Strings.positionAudio) {
                     position = this.getController().position;

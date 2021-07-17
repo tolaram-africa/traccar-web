@@ -55,7 +55,7 @@ Ext.define('Traccar.view.StateController', {
     init: function () {
         var i, hideAttributesPreference, attributesList;
         if (Traccar.app.getUser().get('administrator') ||
-                !Traccar.app.getUser().get('deviceReadonly') && !Traccar.app.getPreference('readonly', false)) {
+            !Traccar.app.getUser().get('deviceReadonly') && !Traccar.app.getPreference('readonly', false)) {
             this.lookupReference('computedAttributesButton').setDisabled(
                 Traccar.app.getBooleanAttributePreference('ui.disableComputedAttributes'));
         }
@@ -81,7 +81,7 @@ Ext.define('Traccar.view.StateController', {
     keys: (function () {
         var i, list, result;
         result = {};
-        list = ['fixTime', 'address', /*'speed', */ 'course', 'latitude', 'longitude', 'protocol', 'accuracy', 'altitude', 'valid'];
+        list = ['fixTime', 'address', 'speed', 'course', 'latitude', 'longitude', 'protocol', 'accuracy', 'altitude', 'valid'];
         for (i = 0; i < list.length; i++) {
             result[list[i]] = {
                 priority: i,

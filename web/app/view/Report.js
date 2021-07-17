@@ -67,10 +67,10 @@ Ext.define('Traccar.view.Report', {
             reference: 'emailButton',
             disabled: true,
             handler: 'onReportClick'
-        }, {
+        }, '-', {
             text: Strings.reportClear,
             handler: 'onClearClick'
-        }]
+        }, '-']
     },
 
     layout: 'card',
@@ -88,7 +88,7 @@ Ext.define('Traccar.view.Report', {
                 sortable: true,
                 resizable: false,
                 fixed: true, //Will not be resized
-                autoSizeColumn : true
+                autoSizeColumn: true
             },
             items: [
             ]
