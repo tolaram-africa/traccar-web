@@ -103,13 +103,13 @@ Ext.define('Traccar.view.Events', {
       autoSizeColumn: true
     },
     items: [{
-      text: Strings.sharedAsset,
+      text: Strings.sharedObject,
       dataIndex: 'deviceId',
       minWidth: 80,
       renderer: Traccar.AttributeFormatter.getFormatter('deviceId')
     }, {
       text: Strings.positionFixTime,
-      dataIndex: 'serverTime',
+      dataIndex: 'eventTime',
       renderer: Traccar.AttributeFormatter.getFormatter('eventTime')
     }, {
       flex: 2,
@@ -124,13 +124,11 @@ Ext.define('Traccar.view.Events', {
       dataIndex: 'attributes',
       minWidth: 60,
       renderer: function (value) {
-        var speed = Traccar.AttributeFormatter.getConverter('speed')(value['speed']);
-        var lesSpeed = Traccar.AttributeFormatter.speedFormatter(speed);
-        if (lesSpeed == 'NaN km/h' || lesSpeed == 'NaN kph' || lesSpeed == 'NaN kn' || lesSpeed == 'NaN mph') {
-          return 'Not gps';
-        } else {
-          return lesSpeed;
+        if (value['speed'] != null) {
+          var speed = Traccar.AttributeFormatter.getConverter('speed')(value['speed']);
+          return speed == 'NaN' ? '' : Traccar.AttributeFormatter.getFormatter(speed)(speed);
         }
+        return ' - ';
       }
     }, {
       text: Strings.positionAddress,
@@ -141,7 +139,7 @@ Ext.define('Traccar.view.Events', {
         if (value && value['address'] !== undefined) {
           return Traccar.AttributeFormatter.getFormatter('address')(value['address']);
         } else {
-          return 'Not gps';
+          return ' - ';
         }
       }
     }, {
