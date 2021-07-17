@@ -21,6 +21,7 @@ Ext.define('Traccar.store.Positions', {
 
     proxy: {
         type: 'rest',
+        timeout: Traccar.Style.reportTimeout,
         url: 'api/positions',
         noCache: false,
         trackRemoved: false,

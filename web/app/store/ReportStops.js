@@ -19,6 +19,7 @@
 Ext.define('Traccar.store.ReportStops', {
     extend: 'Ext.data.Store',
     model: 'Traccar.model.ReportStop',
+    groupField: 'deviceId',
 
     proxy: {
         type: 'rest',

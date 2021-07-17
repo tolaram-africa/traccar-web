@@ -18,6 +18,7 @@
 Ext.define('Traccar.store.ReportRoute', {
     extend: 'Ext.data.Store',
     model: 'Traccar.model.Position',
+    groupField: 'deviceId',
 
     proxy: {
         type: 'rest',

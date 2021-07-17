@@ -19,6 +19,7 @@
 Ext.define('Traccar.store.ReportTrips', {
     extend: 'Ext.data.Store',
     model: 'Traccar.model.ReportTrip',
+    groupField: 'deviceId',
 
     proxy: {
         type: 'rest',

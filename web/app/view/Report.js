@@ -81,6 +81,15 @@ Ext.define('Traccar.view.Report', {
         listeners: {
             selectionchange: 'onSelectionChange'
         },
+        features: [
+            {
+                ftype: 'grouping',
+                hasFeatureEvent: false,
+                groupHeaderTpl: [
+                    '{name} - {[values.children.length]}'
+                ]
+            }
+        ],
         columns: {
             defaults: {
                 flex: 0,

@@ -23,6 +23,7 @@ Ext.define('Traccar.store.EventPositions', {
 
     proxy: {
         type: 'rest',
+        timeout: Traccar.Style.reportTimeout,
         url: 'api/positions',
         headers: {
             'Accept': 'application/json'

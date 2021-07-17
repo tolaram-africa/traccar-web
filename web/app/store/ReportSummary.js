@@ -19,6 +19,7 @@
 Ext.define('Traccar.store.ReportSummary', {
     extend: 'Ext.data.Store',
     model: 'Traccar.model.ReportSummary',
+    groupField: 'deviceId',
 
     proxy: {
         type: 'rest',

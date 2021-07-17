@@ -27,6 +27,7 @@ Ext.define('Traccar.store.Devices', {
     remoteSort: false,
     proxy: {
         type: 'rest',
+        timeout: Traccar.Style.reportTimeout,
         url: 'api/devices',
         noCache: false,
         writer: {
