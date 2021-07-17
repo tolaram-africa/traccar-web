@@ -19,7 +19,6 @@
 Ext.define('Traccar.store.VisibleDevices', {
     extend: 'Ext.data.ChainedStore',
     source: 'Devices',
-    pageSize: 250,
     groupField: 'groupId',
     proxy: {
         noCache: false
