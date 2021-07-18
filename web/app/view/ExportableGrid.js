@@ -10,7 +10,7 @@
  * FileSaver.js - https://github.com/eligrey/FileSaver.js
  * jszip.js - https://github.com/Stuk/jszip
  */
-Ext.define('Traccar.ExportableGrid', {
+Ext.define('Traccar.view.ExportableGrid', {
     extend: 'Ext.grid.GridPanel',
     xtype: 'exportablegrid',
     alias: 'widget.exportablegrid',

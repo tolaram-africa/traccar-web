@@ -16,17 +16,19 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 Ext.define('Traccar.view.GridPanel', {
-    extend: 'Traccar.ExportableGrid',
+    extend: 'Traccar.view.ExportableGrid',
     xtype: 'customGridPanel',
 
     requires: [
         'Ext.grid.filters.Filters'
     ],
+    reserveScrollbar: false,
+    bufferedRenderer: false,
 
     plugins: 'gridfilters',
 
     viewConfig: {
-        enableTextSelection: true,
+        preserveScrollOnRefresh: true,
         getRowClass: function () {
             return this.enableTextSelection ? 'x-selectable' : '';
         },
