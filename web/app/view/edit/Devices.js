@@ -333,23 +333,34 @@ Ext.define('Traccar.view.edit.Devices', {
                 var speed = record.get('speed');
                 if (expCurTime >= expTime) {
                     return 'Expired';
-                } else if ((status === 'offline' || status === 'unknown') && defTime >= Traccar.Style.devicesTimeout || status === 'nulled') {
+                } else if ((status === 'offline' || status === 'unknown') &&
+                    defTime >= Traccar.Style.devicesTimeout || status === 'nulled') {
                     return 'Offline';
                 } else if (typeof alarm !== undefined && alarm && alarm !== 'nil') {
                     return alarm;
-                } else if (typeof ignition !== undefined && ignition === true && (typeof motion !== undefined && motion === false) && (value === 'moving' || value === 'parked' || value === 'idle')) {
+                } else if (typeof ignition !== undefined && ignition === true &&
+                    (typeof motion !== undefined && motion === false) &&
+                    (value === 'moving' || value === 'parked' || value === 'idle')) {
                     return 'Idle';
                 } else if (value === 'parked') {
                     return 'Parked';
-                } else if (value === 'idle' && (typeof ignition !== undefined && ignition === false && ignition !== null) || typeof motion !== undefined && motion === false && motion !== null && (value === '' || value === null)) {
+                } else if (value === 'idle' && (typeof ignition !== undefined && ignition === false &&
+                    ignition !== null) || typeof motion !== undefined &&
+                    motion === false && motion !== null &&
+                    (value === '' || value === null)
+                ) {
                     return 'Parked';
-                } else if (value === 'idle' && (typeof ignition !== undefined && ignition === false && ignition !== null) && (typeof motion !== undefined && motion === true && motion !== null && speed <= 7)) {
+                } else if (value === 'idle' && (typeof ignition !== undefined && ignition === false && ignition !== null) &&
+                    (typeof motion !== undefined && motion === true && motion !== null && speed <= 7)) {
                     return 'Parked';
-                } else if (value === 'moving' && (typeof ignition !== undefined && ignition === false && ignition !== null) && (typeof motion !== undefined && (motion === true || motion === false) && motion !== null && speed <= 3)) {
+                } else if (value === 'moving' && (typeof ignition !== undefined && ignition === false && ignition !== null) &&
+                    (typeof motion !== undefined && (motion === true || motion === false) && motion !== null && speed <= 3)) {
                     return 'Parked';
                 } else if (value === 'moving' && speed > 2) {
                     return 'Moving';
-                } else if (value === 'moving' && speed > 2 || motion === true && (value === '' || value === null || value === undefined) && (lastupdate !== null || lastupdate !== '')) {
+                } else if (value === 'moving' && speed > 2 || motion === true &&
+                    (value === '' || value === null || value === undefined) &&
+                    (lastupdate !== null || lastupdate !== '')) {
                     return 'Moving';
                 } else if (value === 'idle') {
                     return 'Idle';
@@ -398,7 +409,7 @@ Ext.define('Traccar.view.edit.Devices', {
             hidden: false,
             minWidth: 60,
             maxWidth: 60,
-            filter: 'string'
+            filter: 'number'
         }, {
             text: Strings.positionIgnition,
             dataIndex: 'status',
