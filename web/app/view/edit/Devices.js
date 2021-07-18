@@ -44,6 +44,9 @@ Ext.define('Traccar.view.edit.Devices', {
     store: 'VisibleDevices',
 
     stateId: 'devices-grid',
+    stateful: {
+        columns: true
+    },
 
     listeners: {
         selectionchange: 'onSelectionChange'
