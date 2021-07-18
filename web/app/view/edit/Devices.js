@@ -77,10 +77,14 @@ Ext.define('Traccar.view.edit.Devices', {
         selectionchange: 'onSelectionChange'
     },
 
+    reserveScrollbar: false,
+    bufferedRenderer: false,
+
     viewConfig: {
         enableTextSelection: true,
-        disableCaching: true,
+        // disableCaching: true,
         preserveScrollOnRefresh: true,
+
         getRowClass: function (record) {
             var result = '', status = record.get('status'), movement = record.get('movement'), speed = record.get('speed');
             var lastupdate = "" + record.get('lastUpdate');
@@ -138,8 +142,9 @@ Ext.define('Traccar.view.edit.Devices', {
                 })
             },
             itemdblclick: function (dv, record, item, index, e) {
-                posId = record.get('id');
-                Strings.setDeviceQuick = posId;
+                // TODO: Load report details into config
+                // posId = record.get('id');
+                // console.log(posId);
             }
         }
     },
@@ -454,27 +459,55 @@ Ext.define('Traccar.view.edit.Devices', {
         {
             ftype: 'grouping',
             groupHeaderTpl: [
-                '{columnName} - {name} ( {[values.children.length]} )'
+                '{columnName} - {name} - {[values.children.length]}'
             ],
             hideGroupedHeader: false
         }
     ],
+
     bbar: {
-        xtype: 'pagingtoolbar',
-        displayInfo: true,
-        displayMsg: '{2} &nbsp;Object ',
-        emptyMsg: "No Object &nbsp;",
+        xtype: 'toolbar',
+        dock: 'bottom',
+        padding: '7 0 0 0',
+        margin: '0 0 0 0',
         items: [
             {
+                xtype: 'label',
+                margin: '0 0 0 10',
+                itemId: 'devices-total',
+                text: 'Total: 2x'
+            },
+            {
+                xtype: 'tbfill',
+                maxWidth: 75
+            },
+            '-',
+            {
+                xtype: 'textfield',
+                id: 'name',
+                flex: 1,
+                emptyText: 'Search Objects',
+                allowBlank: true,
+                listeners: {
+                    change: 'searchFilter'
+                }
+            },
+            '-',
+            {
+                xtype: 'tbfill',
+                maxWidth: 75
+            },
+            {
                 xtype: 'button',
-                text: 'Export',
+                html: '&nbsp; Export',
+                glyph: 'xf1c3@FontAwesome',
                 handler: function (b, e) {
                     var d = new Date();
                     b.up('grid').export('Object-list-' + d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes());
                 }
-            }
-        ]
+            }]
     },
+
     includeHeaders: true,
     forceFit: true,
     selModel: {

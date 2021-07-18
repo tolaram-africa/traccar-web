@@ -135,5 +135,30 @@ Ext.define('Traccar.view.edit.DevicesController', {
 
     deselectFeature: function () {
         this.getView().getSelectionModel().deselectAll();
+    },
+
+    filterGrid: function (property, value) {
+        var grid = this.getView().getStore();
+        if (grid.filters) {
+            grid.filters.each(function (item) {
+                if (item.property === property) {
+                    grid.removeFilter(item);
+                }
+            })
+        };
+
+        if (value) {
+            var matcher = new RegExp(Ext.String.escapeRegex(value), "i");
+            grid.addFilter({
+                filterFn: function (record) {
+                    return matcher.test(record.get(property));
+                }
+            });
+            grid.filters.getAt(grid.filters.length - 1).property = property;
+        }
+    },
+
+    searchFilter: function (property, value) {
+        this.filterGrid('name', value);
     }
 });
