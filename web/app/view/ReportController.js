@@ -116,11 +116,20 @@ Ext.define('Traccar.view.ReportController', {
         dialog.lookupReference('groupField').setValue(this.groupId);
         if (this.eventType !== undefined) {
             dialog.lookupReference('eventTypeField').setValue(this.eventType);
+            // eslint-disable-next-line padded-blocks
         } else {
+
+            /*
+             * Dialog.lookupReference('eventTypeField').setValue(
+             *     ['deviceMoving', 'deviceStopped', 'deviceOverspeed',
+             *         'ignitionOn', 'ignitionOff', 'deviceUnknown', 'geofenceEnter',
+             *         'geofenceExit', 'deviceUnknown', 'maintenance', 'driverChanged', 'alarm'
+             *     ]);
+             */
             dialog.lookupReference('eventTypeField').setValue(
                 ['deviceMoving', 'deviceStopped', 'deviceOverspeed',
-                    'ignitionOn', 'ignitionOff', 'deviceUnknown', 'geofenceEnter',
-                    'geofenceExit', 'deviceUnknown', 'maintenance', 'driverChanged', 'alarm'
+                    'ignitionOn', 'ignitionOff', 'geofenceEnter',
+                    'geofenceExit'
                 ]);
         }
         if (this.chartType !== undefined) {
@@ -597,7 +606,13 @@ Ext.define('Traccar.view.ReportController', {
         dataIndex: 'attributes',
         minWidth: 65,
         maxWidth: 65,
-        renderer: Traccar.AttributeFormatter.getFormatter('speed')
+        renderer: function (value, metaData, record) {
+            if (value && value['address'] !== undefined) {
+                return Traccar.AttributeFormatter.getFormatter('speed')(value['speed']);
+            } else {
+                return ' - ';
+            }
+        }
     }, {
         text: Strings.positionIgnition,
         dataIndex: 'attributes',
