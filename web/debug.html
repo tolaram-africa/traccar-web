@@ -20,9 +20,10 @@
 <link rel="stylesheet" href="assets/mod.css">
 <script type="text/javascript">
 (function() {
-    setTimeout(function() {
+    var timeout = setTimeout(function() {
         document.getElementById("play_store_link").style.display = "inline";
     }, 3600 * 10);
+    clearTimeout(timeout);
 })();
 </script>
 </body>
