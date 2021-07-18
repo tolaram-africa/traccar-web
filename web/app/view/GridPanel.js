@@ -33,7 +33,7 @@ Ext.define('Traccar.view.GridPanel', {
             ptype: 'bufferedrenderer',
             trailingBufferZone: 75,
             leadingBufferZone: 75,
-            numFromEdge: 35
+            numFromEdge: 75
         }
     ],
 
