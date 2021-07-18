@@ -120,6 +120,10 @@
     olLayerSwitcherVersion = '3.8.3';
     proj4jsVersion = '2.6.0';
 
+    /** Grid to excel dependencies */
+    addScriptFile('./assets/jszip.min.js');
+    addScriptFile('./assets/FileSaver.min.js');
+
     if (debugMode) {
         addScriptFile('https://cdn.traccar.com/js/extjs/' + extjsVersion + '/ext-all-debug.js');
         addScriptFile('https://cdn.traccar.com/js/extjs/' + extjsVersion + '/packages/charts/classic/charts-debug.js');
@@ -146,6 +150,9 @@
     addStyleFile('https://unpkg.com/ol-geocoder@4.1.2/dist/ol-geocoder.min.css');
     addScriptFile('./assets/ol-popup.js');
     addScriptFile('./assets/ol-geocoder.js');
+
+    /** Main custom style file */
+    addStyleFile('./assets/mod.css');
 
     if (debugMode) {
         addScriptFile('https://cdn.traccar.com/js/proj4js/' + proj4jsVersion + '/proj4-src.js');
