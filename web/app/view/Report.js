@@ -97,7 +97,7 @@ Ext.define('Traccar.view.Report', {
                 ftype: 'grouping',
                 hasFeatureEvent: false,
                 groupHeaderTpl: [
-                    '{name} - {[values.children.length]}'
+                    '{name}'
                 ]
             }
         ],
