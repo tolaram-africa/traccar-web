@@ -20,6 +20,10 @@ Ext.define('Traccar.store.VisibleDevices', {
     extend: 'Ext.data.ChainedStore',
     source: 'Devices',
     groupField: 'groupId',
+    sorters: {
+        property: 'name',
+        direction: 'ASC'
+    },
     proxy: {
         noCache: false
     }
