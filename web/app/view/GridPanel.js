@@ -25,7 +25,17 @@ Ext.define('Traccar.view.GridPanel', {
     reserveScrollbar: true,
     bufferedRenderer: true,
 
-    plugins: 'gridfilters',
+    plugins: [
+        {
+            ptype: 'gridfilters'
+        },
+        {
+            ptype: 'bufferedrenderer',
+            trailingBufferZone: 75,
+            leadingBufferZone: 75,
+            numFromEdge: 35
+        }
+    ],
 
     viewConfig: {
         preserveScrollOnRefresh: true,
