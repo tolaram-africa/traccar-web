@@ -22,8 +22,8 @@ Ext.define('Traccar.view.GridPanel', {
     requires: [
         'Ext.grid.filters.Filters'
     ],
-    reserveScrollbar: false,
-    bufferedRenderer: false,
+    reserveScrollbar: true,
+    bufferedRenderer: true,
 
     plugins: 'gridfilters',
 

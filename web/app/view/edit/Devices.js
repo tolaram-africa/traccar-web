@@ -32,57 +32,121 @@ Ext.define('Traccar.view.edit.Devices', {
 
     stateId: 'devices-grid',
 
-    tbar: {
-        componentCls: 'toolbar-header-style',
-        defaults: {
-            xtype: 'button',
-            disabled: true,
-            tooltipType: 'title'
-        },
-        items: [{
-            xtype: 'tbtext',
-            html: "<span><a href='./'><img src='./logo/back.png' class='showthat' vertical-align: middle;' alt='logo' height='27px' width='82px' /></a></span><span class='showthatmin'>Objects</span>",
-            baseCls: 'x-panel-header-title-default'
-        }, {
-            xtype: 'tbfill',
-            disabled: false
-        }, {
-            handler: 'onAddClick',
-            reference: 'toolbarAddButton',
-            glyph: 'xf067@FontAwesome',
-            tooltip: Strings.sharedAdd
-        }, {
-            handler: 'onEditClick',
-            reference: 'toolbarEditButton',
-            glyph: 'xf040@FontAwesome',
-            tooltip: Strings.sharedEdit
-        }, {
-            handler: 'onRemoveClick',
-            reference: 'toolbarRemoveButton',
-            glyph: 'xf00d@FontAwesome',
-            tooltip: Strings.sharedRemove
-        }, {
-            handler: 'onCommandClick',
-            reference: 'deviceCommandButton',
-            glyph: 'xf093@FontAwesome',
-            tooltip: Strings.deviceCommand
-        }, {
-            xtype: 'deviceMenu',
-            reference: 'toolbarDeviceMenu',
-            enableToggle: false
-        }]
-    },
-
     listeners: {
         selectionchange: 'onSelectionChange'
     },
 
-    reserveScrollbar: false,
-    bufferedRenderer: false,
+    reserveScrollbar: true,
+    bufferedRenderer: true,
+
+    features: [
+        {
+            ftype: 'grouping',
+            groupHeaderTpl: [
+                '{columnName} - {name} - {[values.children.length]}'
+            ],
+            hideGroupedHeader: false
+        }
+    ],
+
+    dockedItems: [
+        {
+            xtype: 'toolbar',
+            componentCls: 'toolbar-header-style',
+            dock: 'top',
+            defaults: {
+                xtype: 'button',
+                disabled: true,
+                tooltipType: 'title'
+            },
+            items: [{
+                xtype: 'tbtext',
+                html: "<span><a href='./'><img src='./logo/back.png' class='showthat' vertical-align: middle;' alt='logo' height='27px' width='82px' /></a></span><span class='showthatmin'>Objects</span>",
+                baseCls: 'x-panel-header-title-default'
+            }, {
+                xtype: 'tbfill',
+                disabled: false
+            }, {
+                handler: 'onAddClick',
+                reference: 'toolbarAddButton',
+                glyph: 'xf067@FontAwesome',
+                tooltip: Strings.sharedAdd
+            }, {
+                handler: 'onEditClick',
+                reference: 'toolbarEditButton',
+                glyph: 'xf040@FontAwesome',
+                tooltip: Strings.sharedEdit
+            }, {
+                handler: 'onRemoveClick',
+                reference: 'toolbarRemoveButton',
+                glyph: 'xf00d@FontAwesome',
+                tooltip: Strings.sharedRemove
+            }, {
+                handler: 'onCommandClick',
+                reference: 'deviceCommandButton',
+                glyph: 'xf093@FontAwesome',
+                tooltip: Strings.deviceCommand
+            }, {
+                xtype: 'deviceMenu',
+                reference: 'toolbarDeviceMenu',
+                enableToggle: false
+            }]
+        },
+        {
+            xtype: 'toolbar',
+            dock: 'top',
+            padding: '7 0 0 0',
+            margin: '0 0 0 0',
+            items: [
+                {
+                    xtype: 'tbtext',
+                    margin: '0 0 0 10',
+                    itemId: 'devicesTotal',
+                    text: 'Loading...'
+                },
+                {
+                    xtype: 'tbfill',
+                    maxWidth: 15
+                },
+                '-',
+                {
+                    xtype: 'textfield',
+                    id: 'name',
+                    flex: 1,
+                    emptyText: 'Search Objects',
+                    allowBlank: true,
+                    listeners: {
+                        change: 'searchFilter'
+                    }
+                },
+                '-',
+                {
+                    xtype: 'tbfill',
+                    maxWidth: 15
+                },
+                {
+                    xtype: 'button',
+                    html: '&nbsp; Export',
+                    glyph: 'xf1c3@FontAwesome',
+                    handler: function (b, e) {
+                        var d = new Date();
+                        b.up('grid').export('Object-list-' + d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes());
+                    }
+                }]
+        }
+    ],
+
+    initComponent: function () {
+        this.callParent(arguments);
+        var store = this.getStore();
+        textItem = this.down('#devicesTotal');
+        this.mon(store, 'load', function () {
+            textItem.setText("Total: " + store.getCount());
+        });
+    },
 
     viewConfig: {
         enableTextSelection: true,
-        // disableCaching: true,
         preserveScrollOnRefresh: true,
 
         getRowClass: function (record) {
@@ -454,67 +518,6 @@ Ext.define('Traccar.view.edit.Devices', {
                 return result;
             }
         }]
-    },
-    features: [
-        {
-            ftype: 'grouping',
-            groupHeaderTpl: [
-                '{columnName} - {name} - {[values.children.length]}'
-            ],
-            hideGroupedHeader: false
-        }
-    ],
-
-    bbar: {
-        xtype: 'toolbar',
-        dock: 'bottom',
-        padding: '7 0 0 0',
-        margin: '0 0 0 0',
-        items: [
-            {
-                xtype: 'tbtext',
-                margin: '0 0 0 10',
-                itemId: 'devicesTotal',
-                text: 'Loading...'
-            },
-            {
-                xtype: 'tbfill',
-                maxWidth: 75
-            },
-            '-',
-            {
-                xtype: 'textfield',
-                id: 'name',
-                flex: 1,
-                emptyText: 'Search Objects',
-                allowBlank: true,
-                listeners: {
-                    change: 'searchFilter'
-                }
-            },
-            '-',
-            {
-                xtype: 'tbfill',
-                maxWidth: 75
-            },
-            {
-                xtype: 'button',
-                html: '&nbsp; Export',
-                glyph: 'xf1c3@FontAwesome',
-                handler: function (b, e) {
-                    var d = new Date();
-                    b.up('grid').export('Object-list-' + d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes());
-                }
-            }]
-    },
-
-    initComponent: function () {
-        this.callParent(arguments);
-        var store = this.getStore();
-        textItem = this.down('#devicesTotal');
-        this.mon(store, 'load', function () {
-            textItem.setText("Total: " + store.getCount());
-        });
     },
 
     includeHeaders: true,
