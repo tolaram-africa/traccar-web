@@ -243,7 +243,7 @@ Ext.define('Traccar.view.edit.Devices', {
             text: Strings.sharedObjectName,
             dataIndex: 'name',
             minWidth: 90,
-            maxWidth: 185,
+            maxWidth: 145,
             filter: 'string',
             renderer: function (value, metaData, record) {
                 var status = record.get('status');
@@ -267,9 +267,10 @@ Ext.define('Traccar.view.edit.Devices', {
         }, {
             text: Strings.groupDialog,
             dataIndex: 'groupId',
+            stateId: 'device-pane-groupId',
             minWidth: 85,
             maxWidth: 185,
-            hidden: false,
+            hidden: true,
             filter: {
                 type: 'list',
                 labelField: 'name',
@@ -285,6 +286,7 @@ Ext.define('Traccar.view.edit.Devices', {
         }, {
             text: Strings.deviceLastTime,
             dataIndex: 'lastUpdate',
+            stateId: 'device-pane-lastUpdate',
             xtype: 'datecolumn',
             minWidth: 100,
             maxWidth: 100,
@@ -313,6 +315,7 @@ Ext.define('Traccar.view.edit.Devices', {
             filter: 'date'
         }, {
             text: 'Status',
+            stateId: 'device-pane-lastUpdate',
             minWidth: 70,
             maxWidth: 70,
             dataIndex: 'movement',
@@ -375,6 +378,7 @@ Ext.define('Traccar.view.edit.Devices', {
         }, {
             text: Strings.deviceStatus,
             dataIndex: 'status',
+            stateId: 'device-pane-status',
             minWidth: 60,
             maxWidth: 60,
             hidden: true,
@@ -405,6 +409,7 @@ Ext.define('Traccar.view.edit.Devices', {
         }, {
             text: Strings.positionSpeed,
             dataIndex: 'speed',
+            stateId: 'device-pane-speed',
             renderer: Traccar.AttributeFormatter.getFormatter('speed'),
             hidden: false,
             minWidth: 60,
@@ -413,6 +418,7 @@ Ext.define('Traccar.view.edit.Devices', {
         }, {
             text: Strings.positionIgnition,
             dataIndex: 'status',
+            stateId: 'device-pane-ignition',
             renderer: function (value, metaData, record) {
                 var spd = record.get('speed');
                 if (typeof record.get('ignition') !== undefined) {
@@ -435,6 +441,7 @@ Ext.define('Traccar.view.edit.Devices', {
         }, {
             text: Strings.deviceModelMain,
             dataIndex: 'protocol',
+            stateId: 'device-pane-model',
             renderer: function (value) {
                 valy = String(value);
                 if (value === null) {
@@ -450,6 +457,7 @@ Ext.define('Traccar.view.edit.Devices', {
         }, {
             text: Strings.positionAddress,
             dataIndex: 'address',
+            stateId: 'device-pane-address',
             minWidth: 165,
             renderer: function (value, metaData, record) {
                 if (!value) {
@@ -467,32 +475,38 @@ Ext.define('Traccar.view.edit.Devices', {
         }, {
             text: Strings.deviceIdentifier,
             dataIndex: 'uniqueId',
+            stateId: 'device-pane-unique-d',
             hidden: true,
             filter: 'string'
         }, {
             text: Strings.sharedPhone,
+            stateId: 'device-pane-phone',
             dataIndex: 'phone',
             hidden: true,
             filter: 'string'
         }, {
             text: Strings.deviceModel,
             dataIndex: 'model',
+            stateId: 'device-pane-model',
             hidden: true,
             filter: 'string'
         }, {
             text: Strings.deviceContact,
             dataIndex: 'contact',
+            stateId: 'device-pane-contact',
             hidden: true,
             filter: 'string'
         }, {
             text: Strings.sharedDisabled,
             dataIndex: 'disabled',
+            stateId: 'device-pane-disabled',
             renderer: Traccar.AttributeFormatter.getFormatter('disabled'),
             hidden: true,
             filter: 'boolean'
         }, {
             text: Strings.userExpirationTime,
             dataIndex: 'expiration',
+            stateId: 'device-pane-expiration',
             xtype: 'datecolumn',
             hidden: true,
             minWidth: 100,
@@ -522,6 +536,7 @@ Ext.define('Traccar.view.edit.Devices', {
         }, {
             text: Strings.sharedGeofences,
             dataIndex: 'geofenceIds',
+            stateId: 'device-pane-geozone',
             hidden: true,
             filter: {
                 type: 'arraylist',
