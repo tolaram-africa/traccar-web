@@ -2,3 +2,5 @@ web/simple/app.js
 web/app.min.js
 web/load.js
 web/modern
+web/assets/
+web/app/view/ExportableGrid.js

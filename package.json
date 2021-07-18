@@ -4,6 +4,6 @@
         "eslint": "^4.4.1"
     },
     "scripts": {
-        "lint": "./node_modules/.bin/eslint web/."
+        "lint": "./node_modules/.bin/eslint --color --ext .js web/."
     }
 }

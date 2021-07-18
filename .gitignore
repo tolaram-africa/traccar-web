@@ -12,3 +12,4 @@ package-lock.json
 
 .*.swp
 *~
+yarn.lock
