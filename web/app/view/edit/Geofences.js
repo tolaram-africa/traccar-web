@@ -44,7 +44,7 @@ Ext.define('Traccar.view.edit.Geofences', {
             text: Strings.sharedName,
             dataIndex: 'name',
             filter: 'string'
-        },{
+        }, {
             text: Strings.sharedCalendar,
             dataIndex: 'calendarId',
             hidden: false,

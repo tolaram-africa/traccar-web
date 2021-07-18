@@ -1,11 +1,11 @@
 /**
  * ExportableGrid.js
  * Wrapper over ExtJs's grid to make grid exportable to xlsx format.
- * 
+ *
  * (c) 2016 Nikita Metzger
  * Distributed under MIT license:
  * https://github.com/yorl1n/ext.ExportableGrid/blob/master/LICENSE.md
- * 
+ *
  * ExportableGrid library uses two libraries distributed under the MIT license:
  * FileSaver.js - https://github.com/eligrey/FileSaver.js
  * jszip.js - https://github.com/Stuk/jszip
@@ -15,22 +15,27 @@ Ext.define('Traccar.view.ExportableGrid', {
     xtype: 'exportablegrid',
     alias: 'widget.exportablegrid',
     config: {
+
         /**
          * Title/name of the exported xlsx.
          */
         xlsTitle: 'export',
+
         /**
          * Color of the headers.
          */
         xlsHeaderColor: 'A3C9F1',
+
         /**
          * Color of the grouping headers.
          */
         xlsGroupHeaderColor: 'EBEBEB',
+
         /**
          * Color of the summary row.
          */
         xlsSummaryColor: 'FFFFFF',
+
         /**
          * Show/hide first row with name of exported file.
          */
@@ -48,7 +53,8 @@ Ext.define('Traccar.view.ExportableGrid', {
                 styles: []
             },
             export: function (grid) {
-                this.zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }).then(function (content) {
+                this.zip.generateAsync({type: 'blob',
+                    mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}).then(function (content) {
                     saveAs(content, exportTask.xlsTitle + '.xlsx');
                 });
             }
@@ -59,7 +65,8 @@ Ext.define('Traccar.view.ExportableGrid', {
         var expColHeaders = new Ext.util.HashMap();
         for (var i = 0; i < cols.length; i++) {
             if (this.isColumnExportable(cols[i])) {
-                var stl = { align: cols[i].align ? cols[i].align : 'left', width: cols[i].getWidth() / 5 };
+                var stl = {align: cols[i].align ? cols[i].align : 'left',
+                    width: cols[i].getWidth() / 5};
                 if (cols[i].exportNumberFormat != null) {
                     stl.numFmt = cols[i].exportNumberFormat;
                 }
@@ -90,16 +97,24 @@ Ext.define('Traccar.view.ExportableGrid', {
         exportTask.export(this);
     },
     privates: {
-        alphabet: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
-        columnTypes: { int: 'n', float: 'n', bool: 'b', boolean: 'b', date: 's', string: 's' },
+        alphabet: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+        columnTypes: {int: 'n',
+            float: 'n',
+            bool: 'b',
+            boolean: 'b',
+            date: 's',
+            string: 's'},
+
         /**
          * The count of predefined styles.
          */
         staticStylesCount: 7,
+
         /**
          * Default type is string.
          */
         defaultType: 's',
+
         /**
          * Returns an excel type by provided extjs's type.
          * @param {type} type
@@ -120,19 +135,21 @@ Ext.define('Traccar.view.ExportableGrid', {
             }
             return this.defaultType;
         },
+
         /**
          * Checks if the column is exportable and should be exported.
          * @param {type} col
          * @returns {Boolean}
          */
         isColumnExportable: function (col) {
-            if (col.xtype !== 'actioncolumn' && (col.dataIndex !== '') && !col.hidden && (col.exportable === undefined || col.exportable)
-                && col.innerCls !== Ext.baseCSSPrefix + 'grid-cell-inner-row-expander') {
+            if (col.xtype !== 'actioncolumn' && col.dataIndex !== '' && !col.hidden && (col.exportable === undefined || col.exportable) &&
+                col.innerCls !== Ext.baseCSSPrefix + 'grid-cell-inner-row-expander') {
                 return true;
             } else {
                 return false;
             }
         },
+
         /**
          * Expand the object and it's children on levels.
          * @param {type} obj
@@ -151,10 +168,11 @@ Ext.define('Traccar.view.ExportableGrid', {
                 }
             }
         },
+
         /**
          * Gets total depth of columns.
          * @param {type} cols
-         * @returns 
+         * @returns
          */
         getTotalHeaderDepth: function (cols) {
             var depth = 1;
@@ -168,19 +186,20 @@ Ext.define('Traccar.view.ExportableGrid', {
             }
             return depth;
         },
+
         /**
          * Prepares the exportable column
          * @param {type} col
          * @param {type} depth
          * @param {type} parent
-         * @returns 
+         * @returns
          */
         prepareExportableColumnHeader: function (col, depth, parent) {
             var obj = {
                 id: col.id,
                 text: col.text,
                 level: parent ? parent.level + 1 : 0,
-                mergeDown: 0, //how many cells should merged down
+                mergeDown: 0, // How many cells should merged down
                 align: col.headerAlign || col.align || 'left',
                 children: []
             };
@@ -193,14 +212,15 @@ Ext.define('Traccar.view.ExportableGrid', {
             } else {
                 obj.mergeDown = depth - obj.level - 1;
             }
-            obj.mergeRight = this.countSubheaders(obj, -1);//how many cells should be merged right.
+            obj.mergeRight = this.countSubheaders(obj, -1);// How many cells should be merged right.
             return obj;
         },
+
         /**
          * Count amount of actual columns.
          * @param {type} obj
          * @param {type} counter
-         * @returns 
+         * @returns
          */
         countSubheaders: function (obj, counter) {
             if (obj.children.length > 0) {
@@ -211,11 +231,12 @@ Ext.define('Traccar.view.ExportableGrid', {
             }
             return counter + 1;
         },
+
         /**
          * Get the top level column for provided column or the depth for provided column.
          * @param {type} col
          * @param {type} depth
-         * @returns 
+         * @returns
          */
         getTopLevelColOrDepth: function (col, depth) {
             if (col.ownerCt.xtype === 'gridcolumn') {
@@ -224,12 +245,10 @@ Ext.define('Traccar.view.ExportableGrid', {
                 } else {
                     return this.getTopLevelColOrDepth(col.ownerCt, depth + 1);
                 }
+            } else if (depth == null) {
+                return col;
             } else {
-                if (depth == null) {
-                    return col;
-                } else {
-                    return depth;
-                }
+                return depth;
             }
         },
         generateAlphabetPositions: function (exportTask) {
@@ -264,6 +283,7 @@ Ext.define('Traccar.view.ExportableGrid', {
                 }
             }
         },
+
         /**
          * Generates total structure.
          * @param {type} exportTask
@@ -275,6 +295,7 @@ Ext.define('Traccar.view.ExportableGrid', {
             this.generateDocProps(exportTask.zip);
             this.generateXl(exportTask);
         },
+
         /**
          * Generates [Content_Types].xml.
          * @param {type} zip
@@ -292,26 +313,28 @@ Ext.define('Traccar.view.ExportableGrid', {
                 '<Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml" />' +
                 '</Types>');
         },
+
         /**
          * Generates _rels folder with structure.
          * @param {type} zip
          * @returns {undefined}
          */
         generateRels: function (zip) {
-            var _rels = zip.folder("_rels");
+            var _rels = zip.folder('_rels');
             _rels.file('.rels', '<?xml version="1.0" encoding="UTF-8"?>' +
                 '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
                 '<Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml" />' +
                 '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml" />' +
                 '</Relationships>');
         },
+
         /**
          * Generates docProps folder with structure.
          * @param {type} zip
          * @returns {undefined}
          */
         generateDocProps: function (zip) {
-            var docProps = zip.folder("docProps");
+            var docProps = zip.folder('docProps');
             docProps.file('app.xml', '<?xml version="1.0" encoding="UTF-8"?>' +
                 '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
                 '<TotalTime>0</TotalTime>' +
@@ -340,26 +363,28 @@ Ext.define('Traccar.view.ExportableGrid', {
                 '<AppVersion>15.0300</AppVersion>' +
                 '</Properties>');
         },
+
         /**
          * Generates xl folder with structure.
          * @param {type} exportTask
          * @returns {undefined}
          */
         generateXl: function (exportTask) {
-            var xl = exportTask.zip.folder("xl");
+            var xl = exportTask.zip.folder('xl');
             this.generateXlRels(xl);
             this.generateWorkbook(xl);
             this.generateWorksheets(xl, exportTask);
             this.generateSharedStrings(xl, exportTask);
             this.generateStyles(xl, exportTask);
         },
+
         /**
          * Generates _rels subfolder of xl folder.
          * @param {type} xl
          * @returns {undefined}
          */
         generateXlRels: function (xl) {
-            var _rels = xl.folder("_rels");
+            var _rels = xl.folder('_rels');
             _rels.file('workbook.xml.rels', '<?xml version="1.0" encoding="UTF-8"?>' +
                 '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
                 '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml" />' +
@@ -367,6 +392,7 @@ Ext.define('Traccar.view.ExportableGrid', {
                 '<Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml" />' +
                 '</Relationships>');
         },
+
         /**
          * Generates workbook.xml.
          * @param {type} xl
@@ -386,6 +412,7 @@ Ext.define('Traccar.view.ExportableGrid', {
                 '<calcPr calcId="0" />' +
                 '</workbook>');
         },
+
         /**
          * Generates main worksheet.
          * @param {type} xl
@@ -514,7 +541,7 @@ Ext.define('Traccar.view.ExportableGrid', {
                                 var exCol = exportTask.exportableColumns[i];
                                 if (exCol) {
                                     var summaryObj = features['groupingsummary'].getSummary(this.store, exCol.summaryType, exCol.dataIndex, this.store.getGroups().map[gr.getGroupKey()]);
-                                    var summaryVal = (summaryObj instanceof Object) && !(summaryObj instanceof Date) ? summaryObj[gr.getGroupKey()] : summaryObj;
+                                    var summaryVal = summaryObj instanceof Object && !(summaryObj instanceof Date) ? summaryObj[gr.getGroupKey()] : summaryObj;
                                     var grSummaryCellValues = this.lockable ? exCol.locked ? this.lockedGrid.view.cellValues : this.normalGrid.view.cellValues : this.view.cellValues;
                                     grSummaryCellValues.record = features['groupingsummary'].metaGroupCache[gr.getGroupKey()].aggregateRecord;
                                     grSummaryCellValues.column = exCol;
@@ -569,7 +596,7 @@ Ext.define('Traccar.view.ExportableGrid', {
                         }
                     }
 
-                    var param = rec.isGroupingHeader === true ? { dataIndex: 'groupingHeaderValue' } : exportTask.exportableColumns[j];
+                    var param = rec.isGroupingHeader === true ? {dataIndex: 'groupingHeaderValue'} : exportTask.exportableColumns[j];
                     var type;
                     if (!rec.isSummaryRecord && !rec.isGroupingHeader) {
                         if (param.xtype === 'templatecolumn') {
@@ -587,7 +614,7 @@ Ext.define('Traccar.view.ExportableGrid', {
 
                     switch (type) {
                         case 's':
-                            var styleId = rec.isGroupingHeader === true ? 5 : rec.isSummaryRecord ? 6 : (j + this.staticStylesCount);
+                            var styleId = rec.isGroupingHeader === true ? 5 : rec.isSummaryRecord ? 6 : j + this.staticStylesCount;
                             if (rec.get(param.dataIndex) != null) {
                                 rows += '<c r="' + exportTask.alphabetColumns[currentCol++] + currentRow + '" t="str" s="' + styleId + '"><v>' + this.removeSpecials(Ext.util.Format.htmlEncode(String(rec.get(param.dataIndex)))) + '</v></c>';
                             } else {
@@ -660,6 +687,7 @@ Ext.define('Traccar.view.ExportableGrid', {
             result += '</worksheet>';
             ws.file('sheet1.xml', result);
         },
+
         /**
          * Generates a sharedStrings.xml.
          * @param {type} xl
@@ -676,15 +704,17 @@ Ext.define('Traccar.view.ExportableGrid', {
                 strings +
                 '</sst>');
         },
+
         /**
-        * Removes special symbols from the string.
-        */
+         * Removes special symbols from the string.
+         */
         removeSpecials: function (str) {
             var spec = /[\x00-\x08\x0E-\x1F\x7F]/g;
             var tab = /\x09/g;
-            str = str.replace(spec, "");
-            return str.replace(tab, "   ");
+            str = str.replace(spec, '');
+            return str.replace(tab, '   ');
         },
+
         /**
          * Generates a styles.xml.
          * @param {type} xl
@@ -693,18 +723,18 @@ Ext.define('Traccar.view.ExportableGrid', {
          */
         generateStyles: function (xl, exportTask) {
             var fonts = '<fonts count="3">' +
-                //common font
+                // Common font
                 '<font>' +
                 '<sz val="10"/>' +
                 '<name val="Arial"/>' +
                 '</font>' +
-                //Table name font
+                // Table name font
                 '<font>' +
                 '<b/>' +
                 '<sz val="18"/>' +
                 '<name val="Arial"/>' +
                 '</font>' +
-                //headers font
+                // Headers font
                 '<font>' +
                 '<b/>' +
                 '<sz val="10"/>' +
@@ -748,7 +778,6 @@ Ext.define('Traccar.view.ExportableGrid', {
                     numFmtStyles += '<numFmt formatCode="' + exportTask.style.styles[i].numFmt + '" numFmtId="' + numFmtId + '"/>';
                     tmpNumFmtId = numFmtId;
                     numFmtId++;
-
                 }
                 colStyles += '<xf borderId="1" fillId="0" fontId="0" numFmtId="' + tmpNumFmtId + '" xfId="0">' +
                     '<alignment wrapText="1" vertical="center" horizontal="' + exportTask.style.styles[i].align + '"/>' +
@@ -791,27 +820,27 @@ Ext.define('Traccar.view.ExportableGrid', {
                 '</cellStyleXfs>' +
                 '<cellXfs count="' + (exportTask.style.styles.length + this.staticStylesCount) + '">' +
                 '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" />' +
-                //Title style
+                // Title style
                 '<xf borderId="1" fillId="0" fontId="1" numFmtId="0" xfId="0">' +
                 '<alignment wrapText="1" vertical="center" horizontal="center"/>' +
                 '</xf>' +
-                //Header align right
+                // Header align right
                 '<xf borderId="1" fillId="2" fontId="2" numFmtId="0" xfId="0">' +
                 '<alignment wrapText="1" vertical="center" horizontal="right"/>' +
                 '</xf>' +
-                //Header align center
+                // Header align center
                 '<xf borderId="1" fillId="2" fontId="2" numFmtId="0" xfId="0">' +
                 '<alignment wrapText="1" vertical="center" horizontal="center"/>' +
                 '</xf>' +
-                //Header align left
+                // Header align left
                 '<xf borderId="1" fillId="2" fontId="2" numFmtId="0" xfId="0">' +
                 '<alignment wrapText="1" vertical="center" horizontal="left"/>' +
                 '</xf>' +
-                //Grouping headers
+                // Grouping headers
                 '<xf borderId="1" fillId="3" fontId="0" numFmtId="0" xfId="0">' +
                 '<alignment wrapText="1" vertical="center" horizontal="left"/>' +
                 '</xf>' +
-                //Summary
+                // Summary
                 '<xf borderId="1" fillId="4" fontId="0" numFmtId="0" xfId="0">' +
                 '<alignment wrapText="1" vertical="center" horizontal="left"/>' +
                 '</xf>' +

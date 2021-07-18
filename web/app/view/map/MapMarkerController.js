@@ -1,3 +1,4 @@
+/* eslint-disable one-var */
 /*
  * Copyright 2015 - 2017 Anton Tananaev (anton@traccar.org)
  * Copyright 2016 - 2017 Andrey Kunitsyn (andrey@traccar.org)
@@ -170,20 +171,18 @@ Ext.define('Traccar.view.map.MapMarkerController', {
     getDeviceColor: function (device) {
         var status = device.get('status'), movement = device.get('movement');
         var lastupdate = device.get('lastUpdate');
-        var defTime = (Number(new Date()) - (Number(new Date(lastupdate))))/1000;
-        var diff = defTime >= Traccar.Style.devicesTimeout
+        var defTime = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
+        var diff = defTime >= Traccar.Style.devicesTimeout;
         if (status === 'nulled' || diff) {
             return Traccar.Style.mapColorRed;
+        } else if (movement === 'moving' && diff) {
+            return Traccar.Style.mapColorRed;
+        } else if (movement === 'moving') {
+            return Traccar.Style.mapColorGreen;
+        } else if (movement === 'idle') {
+            return Traccar.Style.mapColorYellow;
         } else {
-            if (movement === 'moving' && diff) {
-                return Traccar.Style.mapColorRed;
-            } else if (movement === 'moving') {
-                return Traccar.Style.mapColorGreen;
-            } else if (movement === 'idle') {
-                return Traccar.Style.mapColorYellow;
-            } else {
-                return Traccar.Style.mapColorOrange;
-            }            
+            return Traccar.Style.mapColorOrange;
         }
     },
 
@@ -202,7 +201,7 @@ Ext.define('Traccar.view.map.MapMarkerController', {
                 marker = this.latestMarkers[deviceId];
                 style = marker.getStyle();
                 if (style.getImage().fill !== this.getDeviceColor(device) ||
-                        style.getImage().category !== device.get('category')) {
+                    style.getImage().category !== device.get('category')) {
                     this.updateDeviceMarker(style, this.getDeviceColor(device), device.get('category'));
                     marker.changed();
                 }
@@ -368,7 +367,7 @@ Ext.define('Traccar.view.map.MapMarkerController', {
             lastLiveCoordinates = liveCoordinates[liveCoordinates.length - 1];
             newCoordinates = ol.proj.fromLonLat([position.get('longitude'), position.get('latitude')]);
             if (lastLiveCoordinates[0] === newCoordinates[0] &&
-                    lastLiveCoordinates[1] === newCoordinates[1]) {
+                lastLiveCoordinates[1] === newCoordinates[1]) {
                 return;
             }
             if (liveCoordinates.length >= this.liveRouteLength) {
@@ -467,7 +466,7 @@ Ext.define('Traccar.view.map.MapMarkerController', {
         }
 
         if (this.selectedMarker && !this.selectedMarker.get('event') &&
-                this.selectedMarker.get('record') instanceof Traccar.model.Position) {
+            this.selectedMarker.get('record') instanceof Traccar.model.Position) {
             this.selectedMarker = null;
         }
     },
@@ -544,7 +543,7 @@ Ext.define('Traccar.view.map.MapMarkerController', {
             if (this.selectedMarker.get('event')) {
                 this.getView().getMarkersSource().removeFeature(this.selectedMarker);
             } else if (!Ext.getStore('ReportRoute').showMarkers &&
-                    this.selectedMarker.get('record') instanceof Traccar.model.Position) {
+                this.selectedMarker.get('record') instanceof Traccar.model.Position) {
                 this.getView().getMarkersSource().removeFeature(this.selectedMarker);
                 delete this.reportMarkers[this.selectedMarker.get('record').get('id')];
             } else {

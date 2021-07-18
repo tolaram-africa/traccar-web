@@ -1,3 +1,5 @@
+/* eslint-disable func-style */
+/* eslint-disable no-unused-vars */
 /*
  * Copyright 2017 Anton Tananaev (anton@traccar.org)
  * Copyright 2017 Andrey Kunitsyn (andrey@traccar.org)
@@ -56,26 +58,22 @@ Ext.define('Traccar.view.permissions.Drivers', {
             minWidth: 100,
             maxWidth: 100,
             renderer: function (value, metaData, record) {
-                var lastupdate = "" + value;
-                var defTime = (new Date(lastupdate));
-                function formatDate(date) {
-                var year = date.getFullYear().toString().substr(-2),
-                month = date.getMonth() + 1, // months are zero indexed
-                day = date.getDate()  < 10 ? "0" + date.getDate() : date.getDate(),
-                hour = date.getHours(),
-                minute = date.getMinutes(),
-                second = date.getSeconds(),
-                hourFormatted = hour  < 10 ? "0" + hour : hour,// hour returned in 24 hour format
-                minuteFormatted = minute < 10 ? "0" + minute : minute,
-                morning = hour < 12 ? "am" : "pm";
-                return day + "-" + month + "-" + year + " " + hourFormatted + ":" +
-                minuteFormatted;// + morning;
+                // eslint-disable-next-line require-jsdoc
+                function formatDate (date) {
+                    var year = date.getFullYear().toString().substr(-2),
+                        month = date.getMonth() + 1,
+                        day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
+                        hour = date.getHours(),
+                        minute = date.getMinutes(),
+                        hourFormatted = hour < 10 ? '0' + hour : hour,
+                        minuteFormatted = minute < 10 ? '0' + minute : minute;
+                    return day + '-' + month + '-' + year + ' ' + hourFormatted + ':' + minuteFormatted;
                 }
-                var returneder = formatDate(defTime);
-                if (value == null) {
+
+                if (value === null) {
                     return 'Unlimited';
                 } else {
-                    return returneder;
+                    return formatDate(new Date(String(value)));
                 }
             },
             filter: 'date'

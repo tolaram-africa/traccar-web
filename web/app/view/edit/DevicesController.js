@@ -1,3 +1,4 @@
+/* eslint-disable vars-on-top */
 /*
  * Copyright 2015 - 2017 Anton Tananaev (anton@traccar.org)
  *
@@ -144,11 +145,12 @@ Ext.define('Traccar.view.edit.DevicesController', {
                 if (item.property === property) {
                     grid.removeFilter(item);
                 }
-            })
-        };
+            });
+        }
 
         if (value) {
-            var matcher = new RegExp(Ext.String.escapeRegex(value), "i");
+            // eslint-disable-next-line one-var
+            var matcher = new RegExp(Ext.String.escapeRegex(value), 'i');
             grid.addFilter({
                 filterFn: function (record) {
                     return matcher.test(record.get(property));

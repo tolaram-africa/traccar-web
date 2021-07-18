@@ -35,9 +35,10 @@ Ext.define('Traccar.view.GridPanel', {
         listeners: {
             refresh: function (dataview) {
                 Ext.each(dataview.panel.columns, function (column) {
-                    if (column.autoSizeColumn === true)
+                    if (column.autoSizeColumn === true) {
                         column.autoSize();
-                })
+                    }
+                });
             }
         }
     }
