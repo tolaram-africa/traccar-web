@@ -36,46 +36,52 @@ Ext.define('Traccar.view.Report', {
 
     tbar: {
         scrollable: true,
-        items: [{
-            xtype: 'tbtext',
-            html: Strings.sharedType
-        }, {
-            xtype: 'combobox',
-            reference: 'reportTypeField',
-            store: 'ReportTypes',
-            displayField: 'name',
-            valueField: 'key',
-            editable: false,
-            listeners: {
-                change: 'onTypeChange'
-            }
-        }, '-', {
-            text: Strings.reportConfigure,
-            glyph: 'f0b0@FontAwesome',
-            handler: 'onConfigureClick'
-        }, '-', {
-            // Text: Strings.reportShow,
-            glyph: 'f021@FontAwesome',
-            reference: 'showButton',
-            disabled: true,
-            handler: 'onReportClick'
-        }, '-', {
-            // Text: Strings.reportExport,
-            reference: 'exportButton',
-            glyph: 'xf1c3@FontAwesome',
-            disabled: true,
-            handler: 'onReportClick'
-        }, '-', {
-            // Text: Strings.reportEmail,
-            reference: 'emailButton',
-            glyph: 'xf003@FontAwesome',
-            disabled: true,
-            handler: 'onReportClick'
-        }, '-', {
-            // Text: Strings.reportClear,
-            glyph: 'f1f8@FontAwesome',
-            handler: 'onClearClick'
-        }, '-']
+        items: [
+
+            /*
+             *     {
+             *     xtype: 'tbtext',
+             *     html: Strings.sharedType
+             * },
+             */
+            {
+                xtype: 'combobox',
+                reference: 'reportTypeField',
+                emptyText: 'Select Report',
+                store: 'ReportTypes',
+                displayField: 'name',
+                valueField: 'key',
+                editable: false,
+                listeners: {
+                    change: 'onTypeChange'
+                }
+            }, '-', {
+                text: Strings.reportConfigure,
+                glyph: 'f0b0@FontAwesome',
+                handler: 'onConfigureClick'
+            }, '-', {
+                // Text: Strings.reportShow,
+                glyph: 'f021@FontAwesome',
+                reference: 'showButton',
+                disabled: true,
+                handler: 'onReportClick'
+            }, '-', {
+                // Text: Strings.reportExport,
+                reference: 'exportButton',
+                glyph: 'xf1c3@FontAwesome',
+                disabled: true,
+                handler: 'onReportClick'
+            }, '-', {
+                // Text: Strings.reportEmail,
+                reference: 'emailButton',
+                glyph: 'xf003@FontAwesome',
+                disabled: true,
+                handler: 'onReportClick'
+            }, '-', {
+                // Text: Strings.reportClear,
+                glyph: 'f1f8@FontAwesome',
+                handler: 'onClearClick'
+            }, '-']
     },
 
     layout: 'card',
