@@ -472,10 +472,10 @@ Ext.define('Traccar.view.edit.Devices', {
         margin: '0 0 0 0',
         items: [
             {
-                xtype: 'label',
+                xtype: 'tbtext',
                 margin: '0 0 0 10',
-                itemId: 'devices-total',
-                text: 'Total: 2x'
+                itemId: 'devicesTotal',
+                text: 'Loading...'
             },
             {
                 xtype: 'tbfill',
@@ -506,6 +506,15 @@ Ext.define('Traccar.view.edit.Devices', {
                     b.up('grid').export('Object-list-' + d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes());
                 }
             }]
+    },
+
+    initComponent: function () {
+        this.callParent(arguments);
+        var store = this.getStore();
+        textItem = this.down('#devicesTotal');
+        this.mon(store, 'load', function () {
+            textItem.setText("Total: " + store.getCount());
+        });
     },
 
     includeHeaders: true,
