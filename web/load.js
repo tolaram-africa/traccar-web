@@ -1,5 +1,12 @@
+/* eslint-disable one-var */
+/* eslint-disable no-unused-vars */
+/* eslint-disable require-jsdoc */
+/* eslint-disable func-style */
+/* eslint-disable no-implicit-globals */
+/* eslint-disable vars-on-top */
+/* eslint-disable max-statements */
 (function () {
-    var debugMode, touchMode, locale, localeParameter, extjsVersion, proj4jsVersion, olVersion, i, language, languages, languageDefault;
+    var debugMode, touchMode, locale, localeParameter, extjsVersion, proj4jsVersion, olVersion, olLayerSwitcherVersion, i, language, languages, languageDefault;
 
     function addStyleFile (file) {
         var link = document.createElement('link');
@@ -36,7 +43,10 @@
     window.Locale = locale;
 
     locale.languages = {
-        'en': { name: 'English', code: 'en' }
+        'en': {
+            name: 'English',
+            code: 'en'
+        }
     };
 
     languageDefault = 'en';
@@ -65,7 +75,6 @@
     }
 
     window.addEventListener('load', function (event) {
-
         if (debugMode) {
             Ext.Loader.setConfig({
                 disableCaching: false
@@ -94,13 +103,16 @@
                 }
             }
         });
-
     });
 
     // Hack for new versions of Android
     if (navigator.userAgent.indexOf('Android') !== -1 && navigator.userAgent.indexOf('OPR') !== -1) {
+        // eslint-disable-next-line no-underscore-dangle
         var __originalUserAgent = navigator.userAgent;
-        navigator.__defineGetter__('userAgent', function () { return __originalUserAgent.replace(/\/OPR[^)]*/g, ''); });
+        // eslint-disable-next-line no-underscore-dangle
+        navigator.__defineGetter__('userAgent', function () {
+            return __originalUserAgent.replace(/\/OPR[^)]*/g, '');
+        });
     }
 
     extjsVersion = '6.2.0';
@@ -129,8 +141,13 @@
     addScriptFile('https://cdn.traccar.com/js/ol-layerswitcher/' + olLayerSwitcherVersion + '/ol-layerswitcher.js');
 
     /** Required for address search **/
-    addStyleFile('./assets/address.ol.css');
-    addScriptFile('./assets/address.ol.js');
+
+
+    addStyleFile('./assets/ol-popup.css');
+    addScriptFile('./assets/ol-popup.js');
+    addScriptFile('./assets/ol-geocoder.js');
+    // AddStyleFile('./assets/ol-geocoder.min.css');
+    addStyleFile('https://unpkg.com/ol-geocoder/dist/ol-geocoder.min.css');
 
     if (debugMode) {
         addScriptFile('https://cdn.traccar.com/js/proj4js/' + proj4jsVersion + '/proj4-src.js');
