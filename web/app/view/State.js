@@ -18,7 +18,7 @@
 Ext.define('Traccar.view.State', {
     extend: 'Traccar.view.GridPanel',
     xtype: 'stateView',
-    maxHeight: 215,
+    maxHeight: Traccar.Style.eventHeight,
 
     requires: [
         'Traccar.view.StateController'

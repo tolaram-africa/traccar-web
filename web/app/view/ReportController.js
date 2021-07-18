@@ -153,15 +153,23 @@ Ext.define('Traccar.view.ReportController', {
         devices = this.deviceId && this.deviceId.length !== 0 || this.groupId && this.groupId.length !== 0;
         time = this.fromDate && this.fromTime && this.toDate && this.toTime;
         disabled = !reportType || !devices || !time || this.reportProgress;
-        if (Strings.setDeviceQuick) {
-            this.lookupReference('showButton').setDisabled(false);
-            this.lookupReference('exportButton').setDisabled(reportType === 'chart' || false);
-            this.lookupReference('emailButton').setDisabled(reportType === 'chart' || false);
-        } else {
-            this.lookupReference('showButton').setDisabled(disabled);
-            this.lookupReference('exportButton').setDisabled(reportType === 'chart' || disabled);
-            this.lookupReference('emailButton').setDisabled(reportType === 'chart' || disabled);
-        }
+
+        /*
+         * TODO: Use for possible easy report selection
+         *
+         * If (Strings.setDeviceQuick) {
+         *     this.lookupReference('showButton').setDisabled(false);
+         *     this.lookupReference('exportButton').setDisabled(reportType === 'chart' || false);
+         *     this.lookupReference('emailButton').setDisabled(reportType === 'chart' || false);
+         * } else {
+         *     this.lookupReference('showButton').setDisabled(disabled);
+         *     this.lookupReference('exportButton').setDisabled(reportType === 'chart' || disabled);
+         *     this.lookupReference('emailButton').setDisabled(reportType === 'chart' || disabled);
+         * }
+         */
+        this.lookupReference('showButton').setDisabled(disabled);
+        this.lookupReference('exportButton').setDisabled(reportType === 'chart' || disabled);
+        this.lookupReference('emailButton').setDisabled(reportType === 'chart' || disabled);
     },
 
     onReportClick: function (button) {

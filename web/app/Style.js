@@ -17,8 +17,11 @@
 
 Ext.define('Traccar.Style', {
     singleton: true,
-    // Quick set for viewing history..
-    setDeviceQuick: null,
+
+    /**
+     * TODO: Note for possible easy report selection
+     * setDeviceQuick: null,
+     */
     refreshPeriod: 60 * 1000,
     reconnectTimeout: 60 * 1000,
     reportTimeout: 1200 * 90000000,
@@ -42,6 +45,7 @@ Ext.define('Traccar.Style', {
 
     deviceWidth: 595,
     eventWidth: 255,
+    eventHeight: 135,
     toastWidth: 175,
 
     reportHeight: 378,

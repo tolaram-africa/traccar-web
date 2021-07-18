@@ -80,7 +80,6 @@ Ext.define('Traccar.view.Main', {
                 collapsible: false
             },
             {
-                // All new notificaton windows
                 region: 'west',
                 xtype: 'eventsView',
                 reference: 'eventsView',
@@ -89,9 +88,11 @@ Ext.define('Traccar.view.Main', {
                 collapsible: true,
                 header: false,
                 titleCollapse: true,
-                title: 'Activities (live)',
+                title: '',
+                glyph: 'xf0a2@FontAwesome',
                 split: true,
-                tools: [{type: 'search'}]
+                // eslint-disable-next-line object-curly-spacing
+                tools: [{ type: 'search' }]
             }]
 
         },
@@ -109,6 +110,7 @@ Ext.define('Traccar.view.Main', {
             split: true,
             flex: 1,
             tools: [
-            ]}]
+            ]
+        }]
     }]
 });
