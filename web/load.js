@@ -141,13 +141,11 @@
     addScriptFile('https://cdn.traccar.com/js/ol-layerswitcher/' + olLayerSwitcherVersion + '/ol-layerswitcher.js');
 
     /** Required for address search **/
-
-
     addStyleFile('./assets/ol-popup.css');
+    addStyleFile('./assets/ol-geocoder.min.css');
+    addStyleFile('https://unpkg.com/ol-geocoder@4.1.2/dist/ol-geocoder.min.css');
     addScriptFile('./assets/ol-popup.js');
     addScriptFile('./assets/ol-geocoder.js');
-    // AddStyleFile('./assets/ol-geocoder.min.css');
-    addStyleFile('https://unpkg.com/ol-geocoder/dist/ol-geocoder.min.css');
 
     if (debugMode) {
         addScriptFile('https://cdn.traccar.com/js/proj4js/' + proj4jsVersion + '/proj4-src.js');
