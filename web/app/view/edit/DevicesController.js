@@ -47,6 +47,9 @@ Ext.define('Traccar.view.edit.DevicesController', {
                     deselectfeature: 'deselectFeature'
                 }
             },
+            global: {
+                routegeocode: 'onGeocode'
+            },
             store: {
                 '#Devices': {
                     update: 'onUpdateDevice'
@@ -96,6 +99,29 @@ Ext.define('Traccar.view.edit.DevicesController', {
         typesStore.load();
 
         dialog.show();
+    },
+
+    onGeocode: function (positionId) {
+        var position = Ext.getStore('ReportRoute').getById(positionId);
+        if (position && !position.get('address')) {
+            Ext.Ajax.request({
+                scope: this,
+                method: 'GET',
+                url: 'api/server/geocode',
+                params: {
+                    latitude: position.get('latitude'),
+                    longitude: position.get('longitude')
+                },
+                success: function (response) {
+                    position.set('address', response.responseText);
+                    position.commit();
+                    this.fireEvent('selectReport', position);
+                },
+                failure: function (response) {
+                    Traccar.app.showError(response);
+                }
+            });
+        }
     },
 
     updateButtons: function (selected) {
