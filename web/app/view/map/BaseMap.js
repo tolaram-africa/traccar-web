@@ -219,7 +219,7 @@ Ext.define('Traccar.view.map.BaseMap', {
             provider: 'osm',
             lang: 'en',
             placeholder: 'Search Address ...',
-            limit: 5,
+            limit: 12,
             debug: false,
             autoComplete: true,
             keepOpen: true
