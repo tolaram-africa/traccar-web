@@ -31,13 +31,14 @@ Ext.define('Traccar.view.GridPanel', {
         },
         {
             ptype: 'bufferedrenderer',
-            trailingBufferZone: 75,
-            leadingBufferZone: 75,
+            trailingBufferZone: 15,
+            leadingBufferZone: 30,
             numFromEdge: 75
         }
     ],
 
     viewConfig: {
+        enableTextSelection: true,
         preserveScrollOnRefresh: true,
         getRowClass: function () {
             return this.enableTextSelection ? 'x-selectable' : '';
