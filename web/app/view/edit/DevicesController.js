@@ -117,8 +117,11 @@ Ext.define('Traccar.view.edit.DevicesController', {
                     position.commit();
                     this.fireEvent('selectReport', position);
                 },
+                // eslint-disable-next-line no-unused-vars
                 failure: function (response) {
-                    Traccar.app.showError(response);
+                    // Traccar.app.showError(response);
+                    // eslint-disable-next-line no-console
+                    // Console.log(response);
                 }
             });
         }

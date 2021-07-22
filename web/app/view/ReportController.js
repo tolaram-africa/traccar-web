@@ -498,7 +498,9 @@ Ext.define('Traccar.view.ReportController', {
                     this.fireEvent('selectReport', position);
                 },
                 failure: function (response) {
-                    Traccar.app.showError(response);
+                    // Traccar.app.showError(response);
+                    // eslint-disable-next-line no-console
+                    // Console.log(response);
                 }
             });
         }
