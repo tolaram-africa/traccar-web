@@ -292,9 +292,43 @@ Ext.define('Traccar.view.edit.Devices', {
             dataIndex: 'lastUpdate',
             stateId: 'devicePaneLastUpdate',
             xtype: 'datecolumn',
+            // Hidden: true,
             minWidth: 100,
             maxWidth: 100,
             renderer: function (value, metaData, record) {
+
+                /** TODO: Use an attribute formatter */
+                var status = record.get('status');
+                var lastupdate = String(value);
+                var defTime = new Date(lastupdate);
+                function formatDate (date) {
+                    var year = date.getFullYear().toString().substr(-2),
+                        month = date.getMonth() + 1,
+                        day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
+                        hour = date.getHours(),
+                        minute = date.getMinutes(),
+                        hourFormatted = hour < 10 ? '0' + hour : hour,
+                        minuteFormatted = minute < 10 ? '0' + minute : minute;
+                    return day + '-' + month + '-' + year + ' ' + hourFormatted + ':' +
+                        minuteFormatted;
+                }
+                var returneder = formatDate(defTime);
+                if (status === 'offline' && value == null) {
+                    return 'No Info';
+                } else {
+                    return returneder;
+                }
+            },
+            filter: 'date'
+        }, {
+            text: String.deviceLastMovedTime,
+            dataIndex: 'lastMoved',
+            stateId: 'devicePaneLastMoved',
+            xtype: 'datecolumn',
+            minWidth: 100,
+            maxWidth: 100,
+            renderer: function (value, metaData, record) {
+
                 /** TODO: Use an attribute formatter */
                 var status = record.get('status');
                 var lastupdate = String(value);
@@ -329,6 +363,7 @@ Ext.define('Traccar.view.edit.Devices', {
                 type: 'list'
             },
             renderer: function (value, metaData, record) {
+
                 /** TODO: Refactor this function */
                 var status = record.get('status');
                 var lastupdate = String(record.get('lastUpdate'));
@@ -396,6 +431,7 @@ Ext.define('Traccar.view.edit.Devices', {
                 store: 'DeviceStatuses'
             },
             renderer: function (value, metaData, record) {
+
                 /** TODO: Refactor this function */
                 var statusy;
                 if (value) {
@@ -429,7 +465,8 @@ Ext.define('Traccar.view.edit.Devices', {
             dataIndex: 'status',
             stateId: 'devicePaneIgnition',
             renderer: function (value, metaData, record) {
-                /** Optimize code */
+
+                /** TODO: Optimize code */
                 var spd = record.get('speed');
                 if (typeof record.get('ignition') !== undefined) {
                     var ignition = record.get('ignition');
@@ -453,7 +490,9 @@ Ext.define('Traccar.view.edit.Devices', {
             text: Strings.deviceModelMain,
             dataIndex: 'protocol',
             stateId: 'devicePaneDeviceModel',
-            renderer: function (value) { return String(value) === null ? 'Unknown' : String(value); },
+            renderer: function (value) {
+                return String(value) === null ? 'Unknown' : String(value);
+            },
             hidden: true,
             minWidth: 70,
             maxWidth: 70,
@@ -465,8 +504,7 @@ Ext.define('Traccar.view.edit.Devices', {
             minWidth: 165,
             renderer: function (value, metaData, record) {
                 if (!value) {
-                    // return Ext.fireEvent('routegeocode', record.getId())
-                    // Temporariy disabling route geocoding
+                    // Return Ext.fireEvent('routegeocode', record.getId())
                     return 'Pending';
                 }
                 return Traccar.AttributeFormatter.getFormatter('address')(value);
