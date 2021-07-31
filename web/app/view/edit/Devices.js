@@ -172,23 +172,23 @@ Ext.define('Traccar.view.edit.Devices', {
                 speed = record.get('speed');
 
             var lastupdate = String(record.get('lastUpdate'));
-            var defTime = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
+            var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
             var expirationTime = String(record.get('expiration'));
             var expTime = Number(new Date(expirationTime)) / 1000;
-            var expCurTime = Number(new Date()) / 1000;
+            var currentTimeNumeric = Number(new Date()) / 1000;
             var motion = record.get('motion');
             if (typeof record.get('ignition') !== undefined) {
                 var ignition = record.get('ignition');
             } else {
                 var ignition = false;
             }
-            if (record.get('disabled') || expCurTime >= expTime) {
+            if (record.get('disabled') || currentTimeNumeric >= expTime) {
                 result = 'view-item-disabled ';
             }
             if (status && movement) {
                 if (status === 'nulled') {
                     result += 'view-color-red';
-                } else if (defTime >= Traccar.Style.devicesTimeout || (movement === '' || movement === undefined) && status === '' && defTime >= Traccar.Style.devicesTimeout || movement === 'moving' && defTime >= Traccar.Style.devicesTimeout) {
+                } else if (deviceTimeDiff >= Traccar.Style.devicesTimeout || (movement === '' || movement === undefined) && status === '' && deviceTimeDiff >= Traccar.Style.devicesTimeout || movement === 'moving' && deviceTimeDiff >= Traccar.Style.devicesTimeout) {
                     result += 'view-color-red';
                 } else if (typeof ignition !== undefined && ignition === true && (movement === 'moving' || movement === 'parked' || movement === 'idle') && (typeof motion !== undefined && motion === false)) {
                     result += 'view-color-yellow';
@@ -252,12 +252,12 @@ Ext.define('Traccar.view.edit.Devices', {
             renderer: function (value, metaData, record) {
                 var status = record.get('status');
                 var lastupdate = String(record.get('lastUpdate'));
-                var defTime = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
-                if (status === 'online' || defTime < Traccar.Style.devicesTimeout) {
+                var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
+                if (status === 'online' || deviceTimeDiff < Traccar.Style.devicesTimeout) {
                     metaData.tdCls = 'view-color-green-text';
                 } else if (status === 'offline' && record.get('lastUpdate') == null) {
                     metaData.tdCls = 'view-color-null-text';
-                } else if (status === 'offline' && defTime >= Traccar.Style.devicesTimeout) {
+                } else if (status === 'offline' && deviceTimeDiff >= Traccar.Style.devicesTimeout) {
                     metaData.tdCls = 'view-color-red-text';
                 } else if (status === 'offline') {
                     metaData.tdCls = 'view-color-blue-text';
@@ -292,65 +292,20 @@ Ext.define('Traccar.view.edit.Devices', {
             dataIndex: 'lastUpdate',
             stateId: 'devicePaneLastUpdate',
             xtype: 'datecolumn',
-            // Hidden: true,
+            hidden: true,
             minWidth: 100,
             maxWidth: 100,
-            renderer: function (value, metaData, record) {
-
-                /** TODO: Use an attribute formatter */
-                var status = record.get('status');
-                var lastupdate = String(value);
-                var defTime = new Date(lastupdate);
-                function formatDate (date) {
-                    var year = date.getFullYear().toString().substr(-2),
-                        month = date.getMonth() + 1,
-                        day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
-                        hour = date.getHours(),
-                        minute = date.getMinutes(),
-                        hourFormatted = hour < 10 ? '0' + hour : hour,
-                        minuteFormatted = minute < 10 ? '0' + minute : minute;
-                    return day + '-' + month + '-' + year + ' ' + hourFormatted + ':' +
-                        minuteFormatted;
-                }
-                var returneder = formatDate(defTime);
-                if (status === 'offline' && value == null) {
-                    return 'No Info';
-                } else {
-                    return returneder;
-                }
-            },
+            renderer: Traccar.AttributeFormatter.getFormatter('dateTime'),
             filter: 'date'
         }, {
-            text: String.deviceLastMovedTime,
+            text: Strings.deviceLastMovedTime,
             dataIndex: 'lastMoved',
             stateId: 'devicePaneLastMoved',
             xtype: 'datecolumn',
+            hidden: true,
             minWidth: 100,
             maxWidth: 100,
-            renderer: function (value, metaData, record) {
-
-                /** TODO: Use an attribute formatter */
-                var status = record.get('status');
-                var lastupdate = String(value);
-                var defTime = new Date(lastupdate);
-                function formatDate (date) {
-                    var year = date.getFullYear().toString().substr(-2),
-                        month = date.getMonth() + 1,
-                        day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
-                        hour = date.getHours(),
-                        minute = date.getMinutes(),
-                        hourFormatted = hour < 10 ? '0' + hour : hour,
-                        minuteFormatted = minute < 10 ? '0' + minute : minute;
-                    return day + '-' + month + '-' + year + ' ' + hourFormatted + ':' +
-                        minuteFormatted;
-                }
-                var returneder = formatDate(defTime);
-                if (status === 'offline' && value == null) {
-                    return 'No Info';
-                } else {
-                    return returneder;
-                }
-            },
+            renderer: Traccar.AttributeFormatter.getFormatter('dateTime'),
             filter: 'date'
         }, {
             text: 'Status',
@@ -363,59 +318,71 @@ Ext.define('Traccar.view.edit.Devices', {
                 type: 'list'
             },
             renderer: function (value, metaData, record) {
+                var currentTimeNumeric = Number(new Date()) / 1000,
+                    status = record.get('status'),
+                    motion = record.get('motion'),
+                    ignition = record.get('ignition'),
+                    alarms = record.get('alarms'),
+                    speed = record.get('speed'),
+                    lastupdate = String(record.get('lastUpdate')),
+                    expirationTime = Number(new Date(String(record.get('expiration')))) / 1000;
+                var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
+                var typeAlarms = typeof alarms !== undefined,
+                    typeIgnition = typeof ignition !== undefined,
+                    typeMotion = typeof motion !== undefined;
 
-                /** TODO: Refactor this function */
-                var status = record.get('status');
-                var lastupdate = String(record.get('lastUpdate'));
-                var expirationTime = String(record.get('expiration'));
-                var expTime = Number(new Date(expirationTime)) / 1000;
-                var expCurTime = Number(new Date()) / 1000;
-                var defTime = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
-                var motion = record.get('motion');
-                var ignition = record.get('ignition');
-                var alarm = record.get('alarms');
-                var speed = record.get('speed');
-
-                /** TODO: Optimize condiftion */
-                if (expCurTime >= expTime) {
+                /** Object expiration check **/
+                if (currentTimeNumeric > expirationTime) {
                     return 'Expired';
-                } else if ((status === 'offline' || status === 'unknown') &&
-                    defTime >= Traccar.Style.devicesTimeout || status === 'nulled') {
+                }
+
+                /** Offline status check **/
+                if ((status === 'offline' || status === 'unknown') &&
+                    deviceTimeDiff >= Traccar.Style.devicesTimeout || status === 'nulled') {
                     return 'Offline';
-                } else if (typeof alarm !== undefined && alarm && alarm !== 'nil') {
-                    return alarm;
-                } else if (typeof ignition !== undefined && ignition === true &&
-                    (typeof motion !== undefined && motion === false) &&
-                    (value === 'moving' || value === 'parked' || value === 'idle')) {
-                    return 'Idle';
-                } else if (value === 'parked') {
-                    return 'Parked';
-                } else if (value === 'idle' && (typeof ignition !== undefined && ignition === false &&
-                    ignition !== null) || typeof motion !== undefined &&
-                    motion === false && motion !== null &&
-                    (value === '' || value === null)
-                ) {
-                    return 'Parked';
-                } else if (value === 'idle' && (typeof ignition !== undefined && ignition === false && ignition !== null) &&
-                    (typeof motion !== undefined && motion === true && motion !== null && speed <= 7)) {
-                    return 'Parked';
-                } else if (value === 'moving' && (typeof ignition !== undefined && ignition === false && ignition !== null) &&
-                    (typeof motion !== undefined && (motion === true || motion === false) && motion !== null && speed <= 3)) {
-                    return 'Parked';
-                } else if (value === 'moving' && speed > 2) {
-                    return 'Moving';
-                } else if (value === 'moving' && speed > 2 || motion === true &&
-                    (value === '' || value === null || value === undefined) &&
-                    (lastupdate !== null || lastupdate !== '')) {
-                    return 'Moving';
-                } else if (value === 'idle') {
-                    return 'Idle';
-                } else if (speed >= 0.1 && value !== null) {
-                    return 'Idle';
-                } else if (value === '' || value === null) {
-                    return 'Pending';
+                }
+
+                /** Alarms status check **/
+                if (typeAlarms && alarms && alarms !== 'nil') {
+                    return alarms;
+                }
+
+                /** Ignition value check **/
+                if (typeIgnition && (ignition || speed >= 2)) {
+                    ignition = true;
+                } else if (typeIgnition && (!ignition || speed < 1)) {
+                    ignition = false;
                 } else {
+                    ignition = false;
+                }
+
+                /** Motion value check **/
+                if (typeMotion && (motion || speed >= 2)) {
+                    motion = true;
+                } else if (typeMotion && (!motion || speed < 1)) {
+                    motion = false;
+                } else {
+                    motion = false;
+                }
+
+                /** Object null status check */
+                if (value === '' || value === null) {
+                    return 'Pending';
+                }
+
+                /** Movement Idle status check **/
+                if (value === 'idle' && ignition || ignition && !motion) {
                     return 'Idle';
+                }
+
+                /** Movement Parked status check **/
+                if (value === 'parked' || !ignition && !motion) {
+                    return 'Parked';
+                }
+
+                /** Movement Moving status check **/
+                if (value === 'moving' || ignition && motion) {
+                    return 'Moving';
                 }
             }
         }, {
@@ -437,10 +404,10 @@ Ext.define('Traccar.view.edit.Devices', {
                 if (value) {
                     var status = record.get('status');
                     var lastupdate = String(record.get('lastUpdate'));
-                    var defTime = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
+                    var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
                     statusy = Ext.getStore('DeviceStatuses').getById(value);
                     if (statusy) {
-                        if ((status === 'offline' || status === 'unknown') && defTime >= Traccar.Style.devicesTimeout) {
+                        if ((status === 'offline' || status === 'unknown') && deviceTimeDiff >= Traccar.Style.devicesTimeout) {
                             return 'Offline';
                         } else if (status === 'offline' && record.get('lastUpdate') == null) {
                             return 'No Info';
@@ -552,7 +519,7 @@ Ext.define('Traccar.view.edit.Devices', {
             maxWidth: 100,
             renderer: function (value, metaData, record) {
                 var lastupdate = String(value);
-                var defTime = new Date(lastupdate);
+                var deviceTimeDiff = new Date(lastupdate);
                 function formatDate (date) {
                     var year = date.getFullYear().toString().substr(-2),
                         month = date.getMonth() + 1,
@@ -564,11 +531,11 @@ Ext.define('Traccar.view.edit.Devices', {
                     return day + '-' + month + '-' + year + ' ' + hourFormatted + ':' +
                         minuteFormatted;
                 }
-                var returneder = formatDate(defTime);
+                var returneder = formatDate(deviceTimeDiff);
                 if (value == null) {
                     return 'Unlimited';
                 } else {
-                    return returneder;
+                    return Traccar.AttributeFormatter.getFormatter('dateTime')(value);
                 }
             },
             filter: 'date'
