@@ -246,8 +246,8 @@ Ext.define('Traccar.view.edit.Devices', {
             text: Strings.sharedObjectName,
             dataIndex: 'name',
             stateId: 'devicePaneName',
-            minWidth: 90,
-            maxWidth: 145,
+            minWidth: 60,
+            maxWidth: 115,
             filter: 'string',
             renderer: function (value, metaData, record) {
                 var status = record.get('status');
@@ -272,8 +272,8 @@ Ext.define('Traccar.view.edit.Devices', {
             text: Strings.groupDialog,
             dataIndex: 'groupId',
             stateId: 'devicePaneGroupId',
-            minWidth: 85,
-            maxWidth: 185,
+            minWidth: 65,
+            maxWidth: 115,
             hidden: true,
             filter: {
                 type: 'list',
@@ -424,33 +424,26 @@ Ext.define('Traccar.view.edit.Devices', {
             dataIndex: 'speed',
             stateId: 'devicePaneSpeed',
             renderer: Traccar.AttributeFormatter.getFormatter('speed'),
-            hidden: false,
+            hidden: true,
             minWidth: 60,
-            maxWidth: 60,
+            maxWidth: 65,
             filter: 'number'
         }, {
             text: Strings.positionIgnition,
             dataIndex: 'status',
             stateId: 'devicePaneIgnition',
             renderer: function (value, metaData, record) {
+                var speed = record.get('speed'), ignition = record.get('ignition');
+                ignition = typeof ignition === undefined ? false : ignition || speed >= 2;
 
-                /** TODO: Optimize code */
-                var spd = record.get('speed');
-                if (typeof record.get('ignition') !== undefined) {
-                    var ignition = record.get('ignition');
-                } else {
-                    var ignition = false;
-                }
-
-                if (ignition === true || spd >= 14.2) {
+                if (ignition) {
                     metaData.tdCls = 'ign-color-green-text';
                     return 'On';
-                } else {
-                    metaData.tdCls = 'ign-color-red-text';
-                    return 'Off';
                 }
+                metaData.tdCls = 'ign-color-red-text';
+                return 'Off';
             },
-            hidden: false,
+            hidden: true,
             minWidth: 50,
             maxWidth: 50,
             filter: 'boolean'
