@@ -318,7 +318,7 @@ Ext.define('Traccar.view.edit.Devices', {
                 type: 'list'
             },
             renderer: function (value, metaData, record) {
-                var currentTimeNumeric = Number(new Date()) / 1000,
+                var currentTimeNumeric = Number(new Date()) / 1000, state = 'None',
                     status = record.get('status'),
                     motion = record.get('motion'),
                     ignition = record.get('ignition'),
@@ -333,18 +333,18 @@ Ext.define('Traccar.view.edit.Devices', {
 
                 /** Object expiration check **/
                 if (currentTimeNumeric > expirationTime) {
-                    return 'Expired';
+                    state = 'Expired';
                 }
 
                 /** Offline status check **/
                 if ((status === 'offline' || status === 'unknown') &&
                     deviceTimeDiff >= Traccar.Style.devicesTimeout || status === 'nulled') {
-                    return 'Offline';
+                    state = 'Offline';
                 }
 
                 /** Alarms status check **/
                 if (typeAlarms && alarms && alarms !== 'nil') {
-                    return alarms;
+                    state = alarms;
                 }
 
                 /** Ignition value check **/
@@ -365,60 +365,61 @@ Ext.define('Traccar.view.edit.Devices', {
                     motion = false;
                 }
 
-                /** Object null status check */
-                if (value === '' || value === null) {
-                    return 'Pending';
-                }
-
                 /** Movement Idle status check **/
                 if (value === 'idle' && ignition || ignition && !motion) {
-                    return 'Idle';
+                    state = 'Idle';
                 }
 
                 /** Movement Parked status check **/
-                if (value === 'parked' || !ignition && !motion) {
-                    return 'Parked';
+                if (value !== null && (value === 'parked' || !ignition && !motion)) {
+                    state = 'Parked';
                 }
 
                 /** Movement Moving status check **/
                 if (value === 'moving' || ignition && motion) {
-                    return 'Moving';
+                    state = 'Moving';
                 }
-            }
-        }, {
-            text: Strings.deviceStatus,
-            dataIndex: 'status',
-            stateId: 'devicePaneStatus',
-            minWidth: 60,
-            maxWidth: 60,
-            hidden: true,
-            filter: {
-                type: 'list',
-                labelField: 'name',
-                store: 'DeviceStatuses'
-            },
-            renderer: function (value, metaData, record) {
 
-                /** TODO: Refactor this function */
-                var statusy;
-                if (value) {
-                    var status = record.get('status');
-                    var lastupdate = String(record.get('lastUpdate'));
-                    var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
-                    statusy = Ext.getStore('DeviceStatuses').getById(value);
-                    if (statusy) {
-                        if ((status === 'offline' || status === 'unknown') && deviceTimeDiff >= Traccar.Style.devicesTimeout) {
-                            return 'Offline';
-                        } else if (status === 'offline' && record.get('lastUpdate') == null) {
-                            return 'No Info';
-                        } else {
-                            return statusy.get('name');
-                        }
-                    }
-                }
-                return null;
+                return state;
             }
-        }, {
+        },
+
+        /**
+         * {
+         * text: Strings.deviceStatus,
+         * dataIndex: 'status',
+         * stateId: 'devicePaneStatus',
+         * minWidth: 60,
+         * maxWidth: 60,
+         * hidden: true,
+         * filter: {
+         * type: 'list',
+         * labelField: 'name',
+         * store: 'DeviceStatuses'
+         * },
+         * renderer: function (value, metaData, record) {
+         * var statusy;
+         * if (value) {
+         * var status = record.get('status');
+         * var lastupdate = String(record.get('lastUpdate'));
+         * var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
+         * statusy = Ext.getStore('DeviceStatuses').getById(value);
+         * if (statusy) {
+         * if ((status === 'offline' || status === 'unknown') && deviceTimeDiff >= Traccar.Style.devicesTimeout) {
+         * return 'Offline';
+         * } else if (status === 'offline' && record.get('lastUpdate') == null) {
+         * return 'No Info';
+         * } else {
+         * return statusy.get('name');
+         * }
+         * }
+         * }
+         * return null;
+         * }
+         * },
+         *
+         */
+        {
             text: Strings.positionSpeed,
             dataIndex: 'speed',
             stateId: 'devicePaneSpeed',
