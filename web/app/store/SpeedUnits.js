@@ -48,6 +48,6 @@ Ext.define('Traccar.store.SpeedUnits', {
             unit = 'kn';
         }
         model = this.findRecord('key', unit);
-        return (convert ? this.convertValue(value, unit) : value).toFixed(1) + ' ' + model.get('name');
+        return Math.round((convert ? this.convertValue(value, unit) : value).toFixed(1)) + ' ' + model.get('name');
     }
 });
