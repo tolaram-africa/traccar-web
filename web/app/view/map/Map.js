@@ -62,7 +62,7 @@ Ext.define('Traccar.view.map.Map', {
             handler: 'updateGeofences',
             reference: 'showGeofencesButton',
             glyph: 'xf21d@FontAwesome',
-            pressed: true,
+            pressed: false,
             stateId: 'show-geofences-button',
             tooltip: Strings.sharedGeofences
         }, {
