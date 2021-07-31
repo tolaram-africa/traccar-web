@@ -1,3 +1,10 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-eq-null */
+/* eslint-disable vars-on-top */
+/* eslint-disable one-var */
+/* eslint-disable require-jsdoc */
+/* eslint-disable func-style */
+/* eslint-disable no-unused-vars */
 /*
  * Copyright 2015 - 2018 Anton Tananaev (anton@traccar.org)
  *
@@ -170,6 +177,27 @@ Ext.define('Traccar.AttributeFormatter', {
         return null;
     },
 
+    dateTimeFormmater: function (value) {
+        function formatDate (date) {
+            var year = date.getFullYear().toString().substr(-2),
+                month = date.getMonth() + 1,
+                day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
+                hour = date.getHours(),
+                minute = date.getMinutes(),
+                hourFormatted = hour < 10 ? '0' + hour : hour,
+                minuteFormatted = minute < 10 ? '0' + minute : minute;
+            return day + '-' + month + '-' + year + ' ' + hourFormatted + ':' +
+                minuteFormatted;
+        }
+
+        if (value == null) {
+            return 'None';
+        }
+        var lastupdate = String(value);
+        var defTime = new Date(lastupdate);
+        return formatDate(defTime);
+    },
+
     commandTypeFormatter: function (value) {
         var name = Strings['command' + value.charAt(0).toUpperCase() + value.slice(1)];
         return name ? name : value;
@@ -224,6 +252,8 @@ Ext.define('Traccar.AttributeFormatter', {
                 return this.calendarIdFormatter;
             case 'lastUpdate':
                 return this.lastUpdateFormatter;
+            case 'dateTime':
+                return this.dateTimeFormmater;
             case 'spentFuel':
                 return this.volumeFormatter;
             case 'driverUniqueId':
