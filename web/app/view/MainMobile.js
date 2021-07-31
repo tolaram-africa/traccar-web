@@ -53,6 +53,7 @@ Ext.define('Traccar.view.MainMobile', {
         }, {
             region: 'center',
             xtype: 'mapView',
+            title: '',
             collapsible: false,
             flex: 2
         }, {

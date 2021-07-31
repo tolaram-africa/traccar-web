@@ -109,30 +109,15 @@ Ext.define('Traccar.view.Events', {
         items: [{
             text: Strings.sharedObject,
             dataIndex: 'deviceId',
-            minWidth: 80,
+            minWidth: 75,
             renderer: Traccar.AttributeFormatter.getFormatter('deviceId')
-        }, {
-            text: Strings.positionFixTime,
-            dataIndex: 'eventTime',
-            renderer: Traccar.AttributeFormatter.getFormatter('eventTime')
         }, {
             flex: 2,
             text: Strings.positionEvent,
-            minWidth: 150,
+            minWidth: 85,
             dataIndex: 'text',
             renderer: function (value, record) {
                 return value;
-            }
-        }, {
-            text: Strings.positionSpeed,
-            dataIndex: 'attributes',
-            minWidth: 60,
-            renderer: function (value) {
-                if (value['speed'] != null) {
-                    var speed = Traccar.AttributeFormatter.getConverter('speed')(value['speed']);
-                    return speed == 'NaN' ? '' : Traccar.AttributeFormatter.getFormatter(speed)(speed);
-                }
-                return ' - ';
             }
         }, {
             text: Strings.positionAddress,
@@ -145,6 +130,21 @@ Ext.define('Traccar.view.Events', {
                 } else {
                     return ' - ';
                 }
+            }
+        }, {
+            text: Strings.positionFixTime,
+            dataIndex: 'eventTime',
+            renderer: Traccar.AttributeFormatter.getFormatter('eventTime')
+        }, {
+            text: Strings.positionSpeed,
+            dataIndex: 'attributes',
+            minWidth: 60,
+            renderer: function (value) {
+                if (value['speed'] != null) {
+                    var speed = Traccar.AttributeFormatter.getConverter('speed')(value['speed']);
+                    return speed == 'NaN' ? '' : Traccar.AttributeFormatter.getFormatter(speed)(speed);
+                }
+                return ' - ';
             }
         }, {
             text: Strings.sharedGeofence,
