@@ -530,7 +530,7 @@ Ext.define('Traccar.view.edit.Devices', {
             minWidth: 100,
             maxWidth: 100,
             renderer: function (value, metaData, record) {
-                if (value == null) {
+                if (value === null) {
                     return 'Unlimited';
                 } else {
                     return Traccar.AttributeFormatter.getFormatter('dateTime')(value);
