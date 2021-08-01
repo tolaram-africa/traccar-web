@@ -88,7 +88,7 @@ body.x-border-layout-ct, div.x-border-layout-ct {
     margin-top: -30px;
     margin-left: -30px;
     border-radius: 50%;
-    border-top: 6px solid #5fa2dd;
+    border-top: 6px solid #808080;
     border-right: 6px solid transparent;
     animation: spinner .6s linear infinite;
 }

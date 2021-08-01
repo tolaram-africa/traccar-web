@@ -73,17 +73,17 @@
 
 /** Dropdown Menu color styles */
 
-.x-btn-focus.x-btn-default-small {
-  border-color: #808080 !important;
-  background-color: #808080 !important;
-}
-
+.x-btn-focus.x-btn-default-small,
+.x-boundlist-item-over,
 .x-menu-item-default.x-menu-item-focus,
 .x-menu-item-default.x-menu-item-active {
   border-color: #808080 !important;
   background-color: #808080 !important;
 }
 
+.x-window-body-default {
+    border-color: #808080 !important;
+}
 
 /*Windows header styling */
 
