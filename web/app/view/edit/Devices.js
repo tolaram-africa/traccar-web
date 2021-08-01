@@ -143,8 +143,9 @@ Ext.define('Traccar.view.edit.Devices', {
                 },
                 {
                     xtype: 'button',
-                    html: '&nbsp; Export',
                     glyph: 'xf1c3@FontAwesome',
+                    tooltip: 'Export to Excel',
+                    tooltipType: 'title',
                     handler: function (b, e) {
                         var d = new Date();
                         b.up('grid').export('Object-list-' + d.getDate() + '-' + d.getMonth() + '-' +
@@ -411,11 +412,14 @@ Ext.define('Traccar.view.edit.Devices', {
             minWidth: 100,
             maxWidth: 100,
             renderer: function (value, metaData, record) {
+                var currentTimeNumeric = Number(new Date()) / 1000,
+                    expirationTime = Number(new Date(String(record.get('expiration')))) / 1000;
                 if (value === null) {
                     return 'Unlimited';
                 } else {
                     return Traccar.AttributeFormatter.getFormatter('dateTime')(value);
                 }
+                return Traccar.AttributeFormatter.getFormatter('lastUpdate')(value) + ' ago';
             },
             filter: 'date'
         }, {
@@ -448,6 +452,8 @@ Ext.define('Traccar.view.edit.Devices', {
     forceFit: true,
     selModel: {
         selType: 'rowmodel',
-        mode: 'MULTI'
+        allowDeselect: false,
+        ignoreRightMouseSelection: true,
+        mode: 'SINGLE'
     }
 });
