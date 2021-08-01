@@ -58,22 +58,10 @@ Ext.define('Traccar.view.permissions.Drivers', {
             minWidth: 100,
             maxWidth: 100,
             renderer: function (value, metaData, record) {
-                // eslint-disable-next-line require-jsdoc
-                function formatDate (date) {
-                    var year = date.getFullYear().toString().substr(-2),
-                        month = date.getMonth() + 1,
-                        day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
-                        hour = date.getHours(),
-                        minute = date.getMinutes(),
-                        hourFormatted = hour < 10 ? '0' + hour : hour,
-                        minuteFormatted = minute < 10 ? '0' + minute : minute;
-                    return day + '-' + month + '-' + year + ' ' + hourFormatted + ':' + minuteFormatted;
-                }
-
                 if (value === null) {
                     return 'Unlimited';
                 } else {
-                    return formatDate(new Date(String(value)));
+                    return Traccar.AttributeFormatter.getFormatter('dateTime')(value);
                 }
             },
             filter: 'date'

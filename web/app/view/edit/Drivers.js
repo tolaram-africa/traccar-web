@@ -72,29 +72,7 @@ Ext.define('Traccar.view.edit.Drivers', {
             hidden: false,
             minWidth: 100,
             maxWidth: 100,
-            renderer: function (value, metaData, record) {
-                var lastupdate = String(value);
-                var defTime = new Date(lastupdate);
-                function formatDate (date) {
-                    var year = date.getFullYear().toString().substr(-2),
-                        month = date.getMonth() + 1,
-                        day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
-                        hour = date.getHours(),
-                        minute = date.getMinutes(),
-                        second = date.getSeconds(),
-                        hourFormatted = hour < 10 ? '0' + hour : hour,
-                        minuteFormatted = minute < 10 ? '0' + minute : minute,
-                        morning = hour < 12 ? 'am' : 'pm';
-                    return day + '-' + month + '-' + year + ' ' + hourFormatted + ':' +
-                        minuteFormatted;
-                }
-                var returneder = formatDate(defTime);
-                if (value == null) {
-                    return 'Unlimited';
-                } else {
-                    return returneder;
-                }
-            },
+            renderer: Traccar.AttributeFormatter.getFormatter('dateTime'),
             filter: 'date'
         }, {
             text: Strings.sharedDriverEmployed,
