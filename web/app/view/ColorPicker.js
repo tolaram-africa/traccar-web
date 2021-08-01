@@ -19,6 +19,7 @@ Ext.define('Traccar.view.ColorPicker', {
     extend: 'Ext.form.field.Picker',
     xtype: 'customcolorpicker',
     cls: 'rounded',
+    minWidth: Traccar.Style.formFieldWidth,
 
     config: {
         value: '#008000'

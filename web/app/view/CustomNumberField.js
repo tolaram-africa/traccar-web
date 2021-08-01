@@ -19,6 +19,7 @@ Ext.define('Traccar.view.CustomNumberField', {
     extend: 'Ext.form.field.Number',
     xtype: 'customNumberField',
     cls: 'rounded',
+    minWidth: Traccar.Style.formFieldWidth,
 
     beforeEl: '<div style="width:100%;display:inline-table;">',
     unitEl: '<div id="numberUnitEl" style="display:table-cell;padding-left:10px;vertical-align:middle;width:1px;white-space:nowrap;">',

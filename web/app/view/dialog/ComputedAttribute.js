@@ -30,14 +30,17 @@ Ext.define('Traccar.view.dialog.ComputedAttribute', {
 
     items: {
         xtype: 'form',
+        defaults: {
+            minWidth: Traccar.Style.formFieldWidth - 35
+        },
         items: [{
             xtype: 'unescapedTextField',
             name: 'description',
-            fieldLabel: Strings.sharedDescription
+            emptyText: Strings.sharedDescription
         }, {
             xtype: 'combobox',
             name: 'attribute',
-            fieldLabel: Strings.sharedAttribute,
+            emptyText: Strings.sharedAttribute,
             cls: 'rounded',
             store: 'PositionAttributes',
             displayField: 'name',
@@ -49,7 +52,7 @@ Ext.define('Traccar.view.dialog.ComputedAttribute', {
             xtype: 'unescapedTextAreaField',
             reference: 'expressionField',
             name: 'expression',
-            fieldLabel: Strings.sharedExpression,
+            emptyText: Strings.sharedExpression,
             allowBlank: false
         }, {
             xtype: 'combobox',
@@ -57,7 +60,7 @@ Ext.define('Traccar.view.dialog.ComputedAttribute', {
             reference: 'typeComboField',
             cls: 'rounded',
             store: 'AttributeValueTypes',
-            fieldLabel: Strings.sharedType,
+            emptyText: Strings.sharedType,
             displayField: 'name',
             valueField: 'id',
             editable: false

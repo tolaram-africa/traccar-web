@@ -19,6 +19,7 @@ Ext.define('Traccar.view.ClearableComboBox', {
     extend: 'Ext.form.field.ComboBox',
     xtype: 'clearableComboBox',
     cls: 'rounded',
+    minWidth: Traccar.Style.formFieldWidth,
 
     editable: false,
     triggers: {

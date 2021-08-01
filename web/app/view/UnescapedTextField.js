@@ -27,6 +27,7 @@ Ext.define('Traccar.view.UnescapedTextField', {
         field.setValue(Ext.String.htmlDecode(newValue));
     },
     maxLength: 255,
+    minWidth: Traccar.Style.formFieldWidth,
     allowBlank: false,
     cls: 'rounded',
     inputAttrTpl: ['autocomplete="off" autocapitalize="none"'],

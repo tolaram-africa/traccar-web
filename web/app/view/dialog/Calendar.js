@@ -35,13 +35,14 @@ Ext.define('Traccar.view.dialog.Calendar', {
             items: [{
                 xtype: 'unescapedTextField',
                 name: 'name',
-                fieldLabel: Strings.sharedName,
+                emptyText: Strings.sharedName,
                 allowBlank: false
             }, {
                 xtype: 'filefield',
                 name: 'file',
                 cls: 'rounded',
-                fieldLabel: Strings.sharedFile,
+                emptyText: Strings.sharedFile,
+                minWidth: Traccar.Style.formFieldWidth,
                 allowBlank: false,
                 buttonConfig: {
                     glyph: 'xf093@FontAwesome',

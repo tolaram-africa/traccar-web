@@ -33,30 +33,33 @@ Ext.define('Traccar.view.dialog.Driver', {
             items: [{
                 xtype: 'unescapedTextField',
                 name: 'name',
-                fieldLabel: Strings.sharedName,
+                emptyText: Strings.sharedName,
                 allowBlank: false
             }, {
                 xtype: 'unescapedTextField',
                 name: 'uniqueId',
-                fieldLabel: Strings.sharedDriverId,
+                emptyText: Strings.sharedDriverId,
                 allowBlank: false
             }, {
                 xtype: 'textfield',
                 cls: 'rounded',
                 name: 'driverEmail',
-                fieldLabel: Strings.sharedDriverEmail,
+                emptyText: Strings.sharedDriverEmail,
+                minWidth: Traccar.Style.formFieldWidth,
                 allowBlank: false
             }, {
                 xtype: 'textfield',
                 cls: 'rounded',
                 name: 'driverPhone',
-                fieldLabel: Strings.sharedDriverPhone,
+                emptyText: Strings.sharedDriverPhone,
+                minWidth: Traccar.Style.formFieldWidth,
                 allowBlank: false
             }, {
                 xtype: 'datefield',
                 name: 'employment',
                 cls: 'rounded',
-                fieldLabel: Strings.sharedDriverDate,
+                emptyText: Strings.sharedDriverDate,
+                minWidth: Traccar.Style.formFieldWidth,
                 disabled: false,
                 reference: 'employmentField',
                 startDay: Traccar.Style.weekStartDay,
@@ -67,6 +70,7 @@ Ext.define('Traccar.view.dialog.Driver', {
                 uncheckedValue: false,
                 name: 'disabled',
                 fieldLabel: Strings.sharedDriverEmployed,
+                minWidth: Traccar.Style.formFieldWidth,
                 hidden: false,
                 reference: 'disabledField'
             }]

@@ -28,7 +28,6 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
     title: Strings.reportConfigure,
 
     items: [{
-        fieldLabel: Strings.reportDevice,
         xtype: 'tagfield',
         reference: 'deviceField',
         cls: 'rounded',
@@ -36,38 +35,39 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         valueField: 'id',
         emptyText: 'Select Objects..',
         minWidth: Traccar.Style.formFieldWidth,
-        maxWidth: Traccar.Style.formFieldMaxWidth,
+        maxWidth: Traccar.Style.formFieldWidth,
         mode: 'local',
         displayField: 'name',
         queryMode: 'local'
     }, {
-        fieldLabel: Strings.reportGroup,
+        emptyText: Strings.reportGroup,
         xtype: 'tagfield',
         reference: 'groupField',
         cls: 'rounded',
         minWidth: Traccar.Style.formFieldWidth,
-        maxWidth: Traccar.Style.formFieldMaxWidth,
+        maxWidth: Traccar.Style.formFieldWidth,
         store: 'Groups',
         valueField: 'id',
         displayField: 'name',
         queryMode: 'local'
     }, {
-        fieldLabel: Strings.reportEventTypes,
+        emptyText: Strings.reportEventTypes,
         xtype: 'tagfield',
         reference: 'eventTypeField',
         cls: 'rounded',
         minWidth: Traccar.Style.formFieldWidth,
-        maxWidth: Traccar.Style.formFieldMaxWidth,
+        maxWidth: Traccar.Style.formFieldWidth,
         store: 'ReportEventTypes',
         hidden: true,
         valueField: 'type',
         displayField: 'name',
         queryMode: 'local'
     }, {
-        fieldLabel: Strings.reportChartType,
+        emptyText: Strings.reportChartType,
         xtype: 'combobox',
         reference: 'chartTypeField',
         cls: 'rounded',
+        minWidth: Traccar.Style.formFieldWidth,
         store: 'ReportChartTypes',
         hidden: true,
         value: 'speed',
@@ -75,16 +75,10 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         displayField: 'name',
         queryMode: 'local'
     }, {
-        fieldLabel: Strings.reportShowMarkers,
-        xtype: 'checkbox',
-        reference: 'showMarkersField',
-        inputValue: true,
-        uncheckedValue: false,
-        value: true
-    }, {
-        fieldLabel: Strings.reportPeriod,
+        emptyText: Strings.reportPeriod,
         reference: 'periodField',
         cls: 'rounded',
+        minWidth: Traccar.Style.formFieldWidth,
         xtype: 'combobox',
         store: 'ReportPeriods',
         editable: false,
@@ -99,17 +93,19 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         layout: 'vbox',
         reference: 'fromContainer',
         hidden: true,
-        fieldLabel: Strings.reportFrom,
+        emptyText: Strings.reportFrom,
         items: [{
             xtype: 'datefield',
             reference: 'fromDateField',
             cls: 'rounded',
+            minWidth: Traccar.Style.formFieldWidth,
             startDay: Traccar.Style.weekStartDay,
             format: Traccar.Style.dateFormat,
             value: new Date(new Date().getTime() - 1080 * 60 * 1000)
         }, {
             xtype: 'customTimeField',
             reference: 'fromTimeField',
+            minWidth: Traccar.Style.formFieldWidth,
             value: new Date(new Date().getTime() - 1080 * 60 * 1000)
         }]
     }, {
@@ -117,19 +113,28 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         layout: 'vbox',
         reference: 'toContainer',
         hidden: true,
-        fieldLabel: Strings.reportTo,
+        emptyText: Strings.reportTo,
         items: [{
             xtype: 'datefield',
             reference: 'toDateField',
             cls: 'rounded',
+            minWidth: Traccar.Style.formFieldWidth,
             startDay: Traccar.Style.weekStartDay,
             format: Traccar.Style.dateFormat,
             value: new Date()
         }, {
             xtype: 'customTimeField',
             reference: 'toTimeField',
+            minWidth: Traccar.Style.formFieldWidth,
             value: new Date()
         }]
+    }, {
+        fieldLabel: Strings.reportShowMarkers,
+        xtype: 'checkbox',
+        reference: 'showMarkersField',
+        inputValue: true,
+        uncheckedValue: false,
+        value: true
     }],
 
     buttons: [{

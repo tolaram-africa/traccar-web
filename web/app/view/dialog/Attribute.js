@@ -34,19 +34,29 @@ Ext.define('Traccar.view.dialog.Attribute', {
         listeners: {
             validitychange: 'onValidityChange'
         },
-        items: [{
-            xtype: 'unescapedTextField',
-            reference: 'nameTextField',
-            name: 'name',
-            allowBlank: false,
-            fieldLabel: Strings.sharedName
-        }, {
-            xtype: 'textfield',
-            name: 'value',
-            reference: 'valueField',
-            allowBlank: false,
-            fieldLabel: Strings.stateValue
-        }]
+        items: [
+            {
+                xtype: 'unescapedTextField',
+                reference: 'nameTextField',
+                name: 'name',
+                allowBlank: false,
+                emptyText: Strings.sharedName,
+                minWidth: Traccar.Style.formFieldWidth
+            },
+            {
+                xtype: 'fieldset',
+                title: Strings.sharedRequired,
+                defaults: {
+                    minWidth: Traccar.Style.formFieldWidth - 35
+                },
+                items: [{
+                    xtype: 'textfield',
+                    name: 'value',
+                    reference: 'valueField',
+                    allowBlank: false,
+                    emptyText: Strings.stateValue
+                }]
+            }]
     },
 
     buttons: [{

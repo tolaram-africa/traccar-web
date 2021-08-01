@@ -30,23 +30,23 @@ Ext.define('Traccar.view.dialog.Device', {
     items: {
         xtype: 'form',
         defaults: {
-            minWidth: 330
+            minWidth: Traccar.Style.formFieldWidth
         },
         items: [{
             xtype: 'unescapedTextField',
             name: 'name',
-            fieldLabel: Strings.sharedName,
+            emptyText: Strings.sharedName,
             allowBlank: false
         }, {
             xtype: 'unescapedTextField',
             name: 'uniqueId',
-            fieldLabel: Strings.deviceIdentifier,
+            emptyText: Strings.deviceIdentifier,
             allowBlank: false
         }, {
             xtype: 'combobox',
             name: 'groupId',
             cls: 'rounded',
-            fieldLabel: Strings.groupDialog,
+            emptyText: Strings.groupDialog,
             store: 'Groups',
             forceSelection: true,
             allowBlank: false,
@@ -65,28 +65,28 @@ Ext.define('Traccar.view.dialog.Device', {
         }, {
             xtype: 'unescapedTextField',
             name: 'phone',
-            fieldLabel: Strings.sharedPhone
+            emptyText: Strings.sharedPhone
         }, {
             xtype: 'fieldset',
             title: Strings.sharedExtra,
             collapsible: true,
             collapsed: false,
             defaults: {
-                minWidth: 300
+                minWidth: Traccar.Style.formFieldWidth - 35
             },
             items: [{
                 xtype: 'unescapedTextField',
                 name: 'model',
-                fieldLabel: Strings.deviceModel
+                emptyText: Strings.deviceModel
             }, {
                 xtype: 'unescapedTextField',
                 name: 'contact',
-                fieldLabel: Strings.deviceContact
+                emptyText: Strings.deviceContact
             }, {
                 xtype: 'combobox',
                 name: 'category',
                 cls: 'rounded',
-                fieldLabel: Strings.deviceCategory,
+                emptyText: Strings.deviceCategory,
                 store: 'DeviceImages',
                 queryMode: 'local',
                 displayField: 'name',
@@ -101,6 +101,15 @@ Ext.define('Traccar.view.dialog.Device', {
                     }
                 }
             }, {
+                xtype: 'datefield',
+                name: 'expiration',
+                emptyText: Strings.userExpirationTime,
+                cls: 'rounded',
+                disabled: true,
+                reference: 'expirationField',
+                startDay: Traccar.Style.weekStartDay,
+                format: Traccar.Style.dateFormat
+            }, {
                 xtype: 'checkboxfield',
                 inputValue: true,
                 uncheckedValue: false,
@@ -108,15 +117,6 @@ Ext.define('Traccar.view.dialog.Device', {
                 fieldLabel: Strings.sharedDisabled,
                 hidden: true,
                 reference: 'disabledField'
-            }, {
-                xtype: 'datefield',
-                name: 'expiration',
-                fieldLabel: Strings.userExpirationTime,
-                cls: 'rounded',
-                disabled: true,
-                reference: 'expirationField',
-                startDay: Traccar.Style.weekStartDay,
-                format: Traccar.Style.dateFormat
             }]
         }]
     }

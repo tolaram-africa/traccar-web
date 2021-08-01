@@ -18,6 +18,7 @@ Ext.define('Traccar.view.UnescapedTextAreaField', {
     extend: 'Ext.form.field.TextArea',
     xtype: 'unescapedTextAreaField',
     cls: 'rounded',
+    minWidth: Traccar.Style.formFieldWidth,
 
     initComponent: function () {
         this.callParent();

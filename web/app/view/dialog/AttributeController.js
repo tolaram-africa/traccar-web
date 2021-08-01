@@ -49,7 +49,7 @@ Ext.define('Traccar.view.dialog.AttributeController', {
         name: 'value',
         reference: 'valueField',
         allowBlank: false,
-        fieldLabel: Strings.stateValue
+        emptyText: Strings.stateValue
     },
 
     onNameChange: function (combobox, newValue) {
@@ -111,7 +111,7 @@ Ext.define('Traccar.view.dialog.AttributeController', {
                     break;
             }
             if (valueField.getXType() !== config.xtype ||
-                    config.xtype === 'customNumberField' && valueField.dataType !== config.dataType) {
+                config.xtype === 'customNumberField' && valueField.dataType !== config.dataType) {
                 this.getView().down('form').insert(this.getView().down('form').items.indexOf(valueField), config);
                 this.getView().down('form').remove(valueField);
             } else if (config.xtype === 'customNumberField') {

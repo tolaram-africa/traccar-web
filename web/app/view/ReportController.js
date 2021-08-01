@@ -128,8 +128,7 @@ Ext.define('Traccar.view.ReportController', {
              */
             dialog.lookupReference('eventTypeField').setValue(
                 ['deviceMoving', 'deviceStopped', 'deviceOverspeed',
-                    'ignitionOn', 'ignitionOff', 'geofenceEnter',
-                    'geofenceExit'
+                    'geofenceEnter', 'geofenceExit'
                 ]);
         }
         if (this.chartType !== undefined) {
