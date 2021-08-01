@@ -18,6 +18,7 @@
 Ext.define('Traccar.store.AllDevices', {
     extend: 'Ext.data.Store',
     model: 'Traccar.model.Device',
+    groupField: 'groupId',
     sorters: [{
         property: 'name',
         direction: 'ASC'

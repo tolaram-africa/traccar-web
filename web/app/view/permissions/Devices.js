@@ -1,7 +1,3 @@
-/* eslint-disable vars-on-top */
-/* eslint-disable one-var */
-/* eslint-disable require-jsdoc */
-/* eslint-disable func-style */
 /* eslint-disable no-unused-vars */
 /*
  * Copyright 2015 - 2017 Anton Tananaev (anton@traccar.org)
@@ -23,6 +19,16 @@
 Ext.define('Traccar.view.permissions.Devices', {
     extend: 'Traccar.view.permissions.Base',
     xtype: 'linkDevicesView',
+
+    features: [
+        {
+            ftype: 'grouping',
+            groupHeaderTpl: [
+                '{columnName} - {name} - {[values.children.length]}'
+            ],
+            hideGroupedHeader: false
+        }
+    ],
 
     requires: [
         'Traccar.AttributeFormatter'
@@ -89,39 +95,13 @@ Ext.define('Traccar.view.permissions.Devices', {
             minWidth: 100,
             maxWidth: 100,
             renderer: function (value, metaData, record) {
-                var exptimed = String(value);
-                var defTime = new Date(exptimed);
-                function formatDate (date) {
-                    var year = date.getFullYear().toString().substr(-2),
-                        month = date.getMonth() + 1,
-                        day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
-                        hour = date.getHours(),
-                        minute = date.getMinutes(),
-                        hourFormatted = hour < 10 ? '0' + hour : hour,
-                        minuteFormatted = minute < 10 ? '0' + minute : minute;
-                    return day + '-' + month + '-' + year + ' ' + hourFormatted + ':' +
-                        minuteFormatted;
-                }
-                var returneder = formatDate(defTime);
                 if (value === null) {
                     return 'Unlimited';
                 } else {
-                    return returneder;
+                    return Traccar.AttributeFormatter.getFormatter('dateTime')(value);
                 }
             },
             filter: 'date'
-        }, {
-            text: Strings.groupDialog,
-            dataIndex: 'groupId',
-            flex: 1,
-            minWidth: Traccar.Style.columnWidthNormal,
-            hidden: false,
-            filter: {
-                type: 'list',
-                labelField: 'name',
-                store: 'AllGroups'
-            },
-            renderer: Traccar.AttributeFormatter.getFormatter('groupId')
         }]
     }
 });
