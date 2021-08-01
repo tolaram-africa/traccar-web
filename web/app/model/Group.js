@@ -18,6 +18,7 @@
 Ext.define('Traccar.model.Group', {
     extend: 'Ext.data.Model',
     identifier: 'negative',
+    autoload: true,
 
     fields: [{
         name: 'id',

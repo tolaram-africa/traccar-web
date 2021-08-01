@@ -33,34 +33,38 @@ Ext.define('Traccar.view.dialog.Device', {
             minWidth: 330
         },
         items: [{
-            xtype: 'fieldset',
-            title: Strings.sharedRequired,
-            defaults: {
-                minWidth: 320
-            },
-            items: [{
-                xtype: 'unescapedTextField',
-                name: 'name',
-                fieldLabel: Strings.sharedName,
-                allowBlank: false
-            }, {
-                xtype: 'unescapedTextField',
-                name: 'uniqueId',
-                fieldLabel: Strings.deviceIdentifier,
-                allowBlank: false
-            }, {
-                xtype: 'clearableComboBox',
-                name: 'groupId',
-                fieldLabel: Strings.groupDialog,
-                store: 'Groups',
-                queryMode: 'local',
-                displayField: 'name',
-                valueField: 'id'
-            }, {
-                xtype: 'unescapedTextField',
-                name: 'phone',
-                fieldLabel: Strings.sharedPhone
-            }]
+            xtype: 'unescapedTextField',
+            name: 'name',
+            fieldLabel: Strings.sharedName,
+            allowBlank: false
+        }, {
+            xtype: 'unescapedTextField',
+            name: 'uniqueId',
+            fieldLabel: Strings.deviceIdentifier,
+            allowBlank: false
+        }, {
+            xtype: 'combo',
+            name: 'groupId',
+            fieldLabel: Strings.groupDialog,
+            store: 'Groups',
+            forceSelection: true,
+            allowBlank: false,
+            editable: false,
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'id',
+            listeners: {
+                afterrender: function (combo) {
+                    var store = combo.getStore();
+                    if (!combo.getValue() && store.getCount() > 0) {
+                        combo.setValue(store.getAt(0).get(combo.valueField));
+                    }
+                }
+            }
+        }, {
+            xtype: 'unescapedTextField',
+            name: 'phone',
+            fieldLabel: Strings.sharedPhone
         }, {
             xtype: 'fieldset',
             title: Strings.sharedExtra,
@@ -89,9 +93,9 @@ Ext.define('Traccar.view.dialog.Device', {
                 listConfig: {
                     getInnerTpl: function () {
                         return '<table><tr valign="middle" ><td><div align="center" style="width:40px;height:40px;" >' +
-              '{[new XMLSerializer().serializeToString(Traccar.DeviceImages.getImageSvg(' +
-              'Traccar.Style.mapColorGreen, false, 0, values.key))]}</div></td>' +
-              '<td>{name}</td></tr></table>';
+                            '{[new XMLSerializer().serializeToString(Traccar.DeviceImages.getImageSvg(' +
+                            'Traccar.Style.mapColorGreen, false, 0, values.key))]}</div></td>' +
+                            '<td>{name}</td></tr></table>';
                     }
                 }
             }, {
