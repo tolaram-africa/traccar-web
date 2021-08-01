@@ -147,6 +147,8 @@ Ext.define('Traccar.view.edit.DevicesController', {
         }
     },
 
+    /** TODO: Review marker selection */
+
     selectDevice: function (device) {
         this.getView().getSelectionModel().select([device], false, true);
         this.updateButtons(this.getView().getSelectionModel().getSelected().items);
