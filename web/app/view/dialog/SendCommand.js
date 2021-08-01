@@ -30,6 +30,7 @@ Ext.define('Traccar.view.dialog.SendCommand', {
         xtype: 'combobox',
         reference: 'commandsComboBox',
         fieldLabel: Strings.deviceCommand,
+        cls: 'rounded',
         displayField: 'description',
         valueField: 'id',
         store: 'DeviceCommands',
@@ -62,6 +63,7 @@ Ext.define('Traccar.view.dialog.SendCommand', {
                 xtype: 'combobox',
                 name: 'type',
                 reference: 'commandType',
+                cls: 'rounded',
                 fieldLabel: Strings.sharedType,
                 store: 'CommandTypes',
                 displayField: 'name',
@@ -73,6 +75,7 @@ Ext.define('Traccar.view.dialog.SendCommand', {
                 }
             }, {
                 xtype: 'fieldcontainer',
+                cls: 'rounded',
                 reference: 'parameters'
             }]
         }]

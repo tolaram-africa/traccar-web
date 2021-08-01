@@ -30,6 +30,7 @@ Ext.define('Traccar.view.dialog.Attribute', {
 
     items: {
         xtype: 'form',
+        cls: 'rounded',
         listeners: {
             validitychange: 'onValidityChange'
         },

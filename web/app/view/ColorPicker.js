@@ -18,6 +18,7 @@
 Ext.define('Traccar.view.ColorPicker', {
     extend: 'Ext.form.field.Picker',
     xtype: 'customcolorpicker',
+    cls: 'rounded',
 
     config: {
         value: '#008000'

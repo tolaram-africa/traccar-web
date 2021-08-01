@@ -40,6 +40,7 @@ Ext.define('Traccar.view.dialog.Calendar', {
             }, {
                 xtype: 'filefield',
                 name: 'file',
+                cls: 'rounded',
                 fieldLabel: Strings.sharedFile,
                 allowBlank: false,
                 buttonConfig: {

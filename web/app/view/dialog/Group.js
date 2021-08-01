@@ -28,28 +28,18 @@ Ext.define('Traccar.view.dialog.Group', {
     items: {
         xtype: 'form',
         items: [{
-            xtype: 'fieldset',
-            title: Strings.sharedRequired,
-            items: [{
-                xtype: 'unescapedTextField',
-                name: 'name',
-                fieldLabel: Strings.sharedName,
-                allowBlank: false
-            }]
+            xtype: 'unescapedTextField',
+            name: 'name',
+            fieldLabel: Strings.sharedName,
+            allowBlank: false
         }, {
-            xtype: 'fieldset',
-            title: Strings.sharedExtra,
-            collapsible: true,
-            collapsed: false,
-            items: [{
-                xtype: 'clearableComboBox',
-                name: 'groupId',
-                fieldLabel: Strings.groupParent,
-                store: 'Groups',
-                queryMode: 'local',
-                displayField: 'name',
-                valueField: 'id'
-            }]
+            xtype: 'clearableComboBox',
+            name: 'groupId',
+            fieldLabel: Strings.groupParent,
+            store: 'Groups',
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'id'
         }]
     }
 });

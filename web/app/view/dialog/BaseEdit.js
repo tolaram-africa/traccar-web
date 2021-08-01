@@ -34,6 +34,7 @@ Ext.define('Traccar.view.dialog.BaseEdit', {
         reference: 'saveButton',
         tooltip: Strings.sharedSave,
         tooltipType: 'title',
+        formBind: true,
         minWidth: 0,
         handler: 'onSaveClick'
     }, {

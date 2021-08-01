@@ -58,6 +58,7 @@ Ext.define('Traccar.view.dialog.Login', {
 
             /* FieldLabel: Strings.userEmail,*/
             allowBlank: false,
+            cls: 'rounded',
             enableKeyEvents: true,
             minWidth: 320,
             listeners: {
@@ -76,6 +77,7 @@ Ext.define('Traccar.view.dialog.Login', {
             /* FieldLabel: Strings.userPassword,*/
             inputType: 'password',
             allowBlank: false,
+            cls: 'rounded',
             enableKeyEvents: true,
             minWidth: 320,
             listeners: {

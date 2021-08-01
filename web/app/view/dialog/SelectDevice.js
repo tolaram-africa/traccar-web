@@ -30,6 +30,7 @@ Ext.define('Traccar.view.dialog.SelectDevice', {
         items: [{
             xtype: 'combobox',
             reference: 'deviceField',
+            cls: 'rounded',
             store: 'Devices',
             queryMode: 'local',
             displayField: 'name',

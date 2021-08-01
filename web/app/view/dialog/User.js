@@ -50,6 +50,7 @@ Ext.define('Traccar.view.dialog.User', {
                 xtype: 'textfield',
                 name: 'password',
                 fieldLabel: Strings.userPassword,
+                cls: 'rounded',
                 inputType: 'password',
                 allowBlank: false
             }]
@@ -57,7 +58,7 @@ Ext.define('Traccar.view.dialog.User', {
             xtype: 'fieldset',
             title: Strings.sharedPreferences,
             collapsible: true,
-            collapsed: false,
+            collapsed: true,
             defaults: {
                 minWidth: 250
             },
@@ -75,18 +76,21 @@ Ext.define('Traccar.view.dialog.User', {
             }, {
                 xtype: 'numberfield',
                 reference: 'latitude',
+                cls: 'rounded',
                 name: 'latitude',
                 fieldLabel: Strings.positionLatitude,
                 decimalPrecision: Traccar.Style.coordinatePrecision
             }, {
                 xtype: 'numberfield',
                 reference: 'longitude',
+                cls: 'rounded',
                 name: 'longitude',
                 fieldLabel: Strings.positionLongitude,
                 decimalPrecision: Traccar.Style.coordinatePrecision
             }, {
                 xtype: 'numberfield',
                 reference: 'zoom',
+                cls: 'rounded',
                 name: 'zoom',
                 fieldLabel: Strings.serverZoom
             }, {
@@ -160,12 +164,14 @@ Ext.define('Traccar.view.dialog.User', {
                 xtype: 'datefield',
                 name: 'expirationTime',
                 fieldLabel: Strings.userExpirationTime,
+                cls: 'rounded',
                 disabled: true,
                 reference: 'expirationTimeField',
                 startDay: Traccar.Style.weekStartDay,
                 format: Traccar.Style.dateFormat
             }, {
                 xtype: 'numberfield',
+                cls: 'rounded',
                 name: 'deviceLimit',
                 fieldLabel: Strings.userDeviceLimit,
                 disabled: true,
@@ -174,6 +180,7 @@ Ext.define('Traccar.view.dialog.User', {
                 xtype: 'numberfield',
                 name: 'userLimit',
                 fieldLabel: Strings.userUserLimit,
+                cls: 'rounded',
                 disabled: true,
                 reference: 'userLimitField'
             }, {

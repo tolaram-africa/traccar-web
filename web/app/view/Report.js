@@ -49,6 +49,7 @@ Ext.define('Traccar.view.Report', {
                 reference: 'reportTypeField',
                 emptyText: 'Select Report',
                 store: 'ReportTypes',
+                cls: 'rounded',
                 displayField: 'name',
                 valueField: 'key',
                 editable: false,

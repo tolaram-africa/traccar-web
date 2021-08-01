@@ -43,8 +43,9 @@ Ext.define('Traccar.view.dialog.Device', {
             fieldLabel: Strings.deviceIdentifier,
             allowBlank: false
         }, {
-            xtype: 'combo',
+            xtype: 'combobox',
             name: 'groupId',
+            cls: 'rounded',
             fieldLabel: Strings.groupDialog,
             store: 'Groups',
             forceSelection: true,
@@ -84,6 +85,7 @@ Ext.define('Traccar.view.dialog.Device', {
             }, {
                 xtype: 'combobox',
                 name: 'category',
+                cls: 'rounded',
                 fieldLabel: Strings.deviceCategory,
                 store: 'DeviceImages',
                 queryMode: 'local',
@@ -110,6 +112,7 @@ Ext.define('Traccar.view.dialog.Device', {
                 xtype: 'datefield',
                 name: 'expiration',
                 fieldLabel: Strings.userExpirationTime,
+                cls: 'rounded',
                 disabled: true,
                 reference: 'expirationField',
                 startDay: Traccar.Style.weekStartDay,

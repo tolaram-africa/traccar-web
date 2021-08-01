@@ -36,7 +36,8 @@ Ext.define('Traccar.view.edit.Devices', {
         'Traccar.AttributeFormatter',
         'Traccar.view.edit.DevicesController',
         'Traccar.view.ArrayListFilter',
-        'Traccar.view.DeviceMenu'
+        'Traccar.view.DeviceMenu',
+        'Traccar.view.UnescapedTextField'
     ],
 
     controller: 'devices',
@@ -126,7 +127,7 @@ Ext.define('Traccar.view.edit.Devices', {
                 },
                 '-',
                 {
-                    xtype: 'textfield',
+                    xtype: 'unescapedTextField',
                     id: 'name',
                     flex: 1,
                     emptyText: 'Search Objects',

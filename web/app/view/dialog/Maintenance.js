@@ -46,6 +46,7 @@ Ext.define('Traccar.view.dialog.Maintenance', {
                 xtype: 'combobox',
                 name: 'type',
                 reference: 'typeComboField',
+                cls: 'rounded',
                 fieldLabel: Strings.sharedType,
                 displayField: 'name',
                 valueField: 'key',

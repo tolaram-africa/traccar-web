@@ -31,6 +31,7 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         fieldLabel: Strings.reportDevice,
         xtype: 'tagfield',
         reference: 'deviceField',
+        cls: 'rounded',
         store: 'Devices',
         valueField: 'id',
         emptyText: 'Select Objects..',
@@ -43,6 +44,7 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         fieldLabel: Strings.reportGroup,
         xtype: 'tagfield',
         reference: 'groupField',
+        cls: 'rounded',
         minWidth: Traccar.Style.formFieldWidth,
         maxWidth: Traccar.Style.formFieldMaxWidth,
         store: 'Groups',
@@ -53,6 +55,7 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         fieldLabel: Strings.reportEventTypes,
         xtype: 'tagfield',
         reference: 'eventTypeField',
+        cls: 'rounded',
         minWidth: Traccar.Style.formFieldWidth,
         maxWidth: Traccar.Style.formFieldMaxWidth,
         store: 'ReportEventTypes',
@@ -64,6 +67,7 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         fieldLabel: Strings.reportChartType,
         xtype: 'combobox',
         reference: 'chartTypeField',
+        cls: 'rounded',
         store: 'ReportChartTypes',
         hidden: true,
         value: 'speed',
@@ -80,6 +84,7 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
     }, {
         fieldLabel: Strings.reportPeriod,
         reference: 'periodField',
+        cls: 'rounded',
         xtype: 'combobox',
         store: 'ReportPeriods',
         editable: false,
@@ -98,6 +103,7 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         items: [{
             xtype: 'datefield',
             reference: 'fromDateField',
+            cls: 'rounded',
             startDay: Traccar.Style.weekStartDay,
             format: Traccar.Style.dateFormat,
             value: new Date(new Date().getTime() - 1080 * 60 * 1000)
@@ -115,6 +121,7 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         items: [{
             xtype: 'datefield',
             reference: 'toDateField',
+            cls: 'rounded',
             startDay: Traccar.Style.weekStartDay,
             format: Traccar.Style.dateFormat,
             value: new Date()

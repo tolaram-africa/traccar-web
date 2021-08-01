@@ -41,6 +41,7 @@ Ext.define('Traccar.view.dialog.SavedCommand', {
             }, {
                 xtype: 'checkboxfield',
                 name: 'textChannel',
+                cls: 'rounded',
                 inputValue: true,
                 uncheckedValue: false,
                 fieldLabel: Strings.commandSendSms
@@ -48,6 +49,7 @@ Ext.define('Traccar.view.dialog.SavedCommand', {
                 xtype: 'combobox',
                 name: 'type',
                 reference: 'commandType',
+                cls: 'rounded',
                 fieldLabel: Strings.sharedType,
                 store: 'AllCommandTypes',
                 queryMode: 'local',
@@ -60,6 +62,7 @@ Ext.define('Traccar.view.dialog.SavedCommand', {
                 }
             }, {
                 xtype: 'fieldcontainer',
+                cls: 'rounded',
                 reference: 'parameters'
             }]
         }]

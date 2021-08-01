@@ -35,11 +35,13 @@ Ext.define('Traccar.view.dialog.Register', {
             xtype: 'textfield',
             name: 'name',
             fieldLabel: Strings.sharedName,
+            cls: 'rounded',
             allowBlank: false
         }, {
             xtype: 'textfield',
             name: 'email',
             fieldLabel: Strings.userEmail,
+            cls: 'rounded',
             validator: function (val) {
                 if (/(.+)@(.+)\.(.{2,})/.test(val)) {
                     return true;
@@ -52,6 +54,7 @@ Ext.define('Traccar.view.dialog.Register', {
             xtype: 'textfield',
             name: 'password',
             fieldLabel: Strings.userPassword,
+            cls: 'rounded',
             inputType: 'password',
             allowBlank: false
         }]

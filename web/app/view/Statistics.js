@@ -33,6 +33,7 @@ Ext.define('Traccar.view.Statistics', {
         }, {
             xtype: 'datefield',
             reference: 'fromDateField',
+            cls: 'rounded',
             startDay: Traccar.Style.weekStartDay,
             format: Traccar.Style.dateFormat,
             value: new Date(new Date().getTime() - 24 * 60 * 60 * 1000)
@@ -42,6 +43,7 @@ Ext.define('Traccar.view.Statistics', {
         }, {
             xtype: 'datefield',
             reference: 'toDateField',
+            cls: 'rounded',
             startDay: Traccar.Style.weekStartDay,
             format: Traccar.Style.dateFormat,
             value: new Date()

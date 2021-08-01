@@ -54,18 +54,21 @@ Ext.define('Traccar.view.dialog.Server', {
             }, {
                 xtype: 'numberfield',
                 reference: 'latitude',
+                cls: 'rounded',
                 name: 'latitude',
                 fieldLabel: Strings.positionLatitude,
                 decimalPrecision: Traccar.Style.coordinatePrecision
             }, {
                 xtype: 'numberfield',
                 reference: 'longitude',
+                cls: 'rounded',
                 name: 'longitude',
                 fieldLabel: Strings.positionLongitude,
                 decimalPrecision: Traccar.Style.coordinatePrecision
             }, {
                 xtype: 'numberfield',
                 reference: 'zoom',
+                cls: 'rounded',
                 name: 'zoom',
                 fieldLabel: Strings.serverZoom
             }, {

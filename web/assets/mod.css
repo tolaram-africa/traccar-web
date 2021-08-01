@@ -27,7 +27,13 @@
     animation: spinner .6s linear infinite;
 }
 
-
+/** Rounded corners */
+.x-window,
+.x-btn,
+.rounded .x-form-text-wrap,
+.rounded .x-form-trigger-wrap {
+  border-radius: 4px;
+}
 
 .toolbar-header-style {
     background-color: #ffffff !important;
@@ -36,6 +42,19 @@
 .x-panel-header-default {
     font-size: 12px;
     border: 1px solid #d0d0d0;
+}
+
+/** Dropdown Menu color styles */
+
+.x-btn-focus.x-btn-default-small {
+  border-color: #808080;
+  background-color: #808080;
+}
+
+.x-menu-item-default.x-menu-item-focus,
+.x-menu-item-default.x-menu-item-active {
+  border-color: #808080;
+  background-color: #808080;
 }
 
 

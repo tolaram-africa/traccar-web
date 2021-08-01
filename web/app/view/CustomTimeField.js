@@ -18,6 +18,7 @@
 Ext.define('Traccar.view.CustomTimeField', {
     extend: 'Ext.form.field.Time',
     xtype: 'customTimeField',
+    cls: 'rounded',
 
     constructor: function (config) {
         if (Traccar.app.getPreference('twelveHourFormat', false)) {
