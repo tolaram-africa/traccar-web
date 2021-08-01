@@ -65,19 +65,22 @@ Ext.define('Traccar.view.Main', {
         region: 'center',
         layout: 'border',
         xtype: 'panel',
+        title: '',
         floatable: false,
         constrain: false,
         items: [{
             region: 'center',
             layout: 'border',
             xtype: 'panel',
+            title: '',
             floatable: false,
             constrain: false,
             items: [{
                 region: 'center',
                 xtype: 'mapView',
                 constrain: false,
-                collapsible: false
+                collapsible: false,
+                title: ''
             },
             {
                 region: 'west',
@@ -95,9 +98,7 @@ Ext.define('Traccar.view.Main', {
                 tools: [{ type: 'search' }]
             }]
 
-        },
-
-        {
+        }, {
             region: 'south',
             xtype: 'reportView',
             reference: 'reportView',
