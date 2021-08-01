@@ -534,6 +534,10 @@ Ext.define('Traccar.view.ReportController', {
             return Traccar.AttributeFormatter.getFormatter('address')(value);
         }
     }, {
+        text: Strings.positionSpeed,
+        dataIndex: 'speed',
+        renderer: Traccar.AttributeFormatter.getFormatter('speed')
+    }, {
         text: Strings.positionIgnition,
         dataIndex: 'attributes',
         renderer: function (value, metaData, record) {
@@ -544,12 +548,9 @@ Ext.define('Traccar.view.ReportController', {
             }
         }
     }, {
-        text: Strings.positionSpeed,
-        dataIndex: 'speed',
-        renderer: Traccar.AttributeFormatter.getFormatter('speed')
-    }, {
         text: Strings.positionCourse,
         dataIndex: 'course',
+        hidden: true,
         renderer: Traccar.AttributeFormatter.getFormatter('course')
     }, {
         text: Strings.positionLatitude,
@@ -562,10 +563,12 @@ Ext.define('Traccar.view.ReportController', {
     }, {
         text: Strings.positionAltitude,
         dataIndex: 'altitude',
+        hidden: true,
         renderer: Traccar.AttributeFormatter.getFormatter('altitude')
     }, {
         text: Strings.positionValid,
         dataIndex: 'valid',
+        hidden: true,
         renderer: Traccar.AttributeFormatter.getFormatter('valid')
     }],
 
