@@ -73,6 +73,7 @@
 
 /** Dropdown Menu color styles */
 
+.x-boundlist-selected,
 .x-btn-focus.x-btn-default-small,
 .x-boundlist-item-over,
 .x-menu-item-default.x-menu-item-focus,
