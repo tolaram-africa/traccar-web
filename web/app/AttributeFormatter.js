@@ -207,7 +207,7 @@ Ext.define('Traccar.AttributeFormatter', {
             deviceTimeDiff >= Traccar.Style.devicesTimeout || status === 'nulled';
     },
 
-    deviceStateFormmater: function (value, record) {
+    deviceStateFormmater: function (record) {
         var currentTimeNumeric = Number(new Date()) / 1000, state = 'None',
             movement = record.get('movement'),
             motion = record.get('motion'),
@@ -263,8 +263,8 @@ Ext.define('Traccar.AttributeFormatter', {
         return state;
     },
 
-    deviceColorFormatter: function (value, record) {
-        var deviceState = Traccar.AttributeFormatter.getFormatter('deviceState')(value, record);
+    deviceColorFormatter: function (record) {
+        var deviceState = Traccar.AttributeFormatter.getFormatter('deviceState')(record);
         if (Traccar.AttributeFormatter.getFormatter('deviceOffline')(record)) {
             return Traccar.Style.colorOffline;
         }

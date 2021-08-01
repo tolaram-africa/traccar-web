@@ -169,7 +169,7 @@ Ext.define('Traccar.view.map.MapMarkerController', {
     },
 
     getDeviceColor: function (device) {
-        return Traccar.AttributeFormatter.getFormatter('deviceColor')(0, device);
+        return Traccar.AttributeFormatter.getFormatter('deviceColor')(device);
     },
 
     updateDevice: function (store, data) {

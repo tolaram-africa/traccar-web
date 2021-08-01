@@ -214,7 +214,7 @@ Ext.define('Traccar.view.edit.Devices', {
                 store: 'VisibleDevices'
             },
             renderer: function (value, metaData, record) {
-                var color = Traccar.AttributeFormatter.getFormatter('deviceColor')(value, record);
+                var color = Traccar.AttributeFormatter.getFormatter('deviceColor')(record);
                 return '<span><span data-device="status" style="background-color: ' + color + ';"></span>' + value + '</span>';
             }
         }, {
@@ -275,7 +275,7 @@ Ext.define('Traccar.view.edit.Devices', {
                     return alarms;
                 }
 
-                return Traccar.AttributeFormatter.getFormatter('deviceState')(value, record);
+                return Traccar.AttributeFormatter.getFormatter('deviceState')(record);
             }
         },
 
