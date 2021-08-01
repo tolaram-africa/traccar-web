@@ -199,28 +199,27 @@ Ext.define('Traccar.AttributeFormatter', {
         return formatDate(defTime);
     },
 
+    deviceOfflineFormatter: function (record) {
+        var status = record.get('status'),
+            lastupdate = String(record.get('lastUpdate'));
+        var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
+        return (status === 'offline' || status === 'unknown') &&
+            deviceTimeDiff >= Traccar.Style.devicesTimeout || status === 'nulled';
+    },
+
     deviceStateFormmater: function (value, record) {
         var currentTimeNumeric = Number(new Date()) / 1000, state = 'None',
             movement = record.get('movement'),
-            status = record.get('status'),
             motion = record.get('motion'),
             ignition = record.get('ignition'),
             speed = record.get('speed'),
-            lastupdate = String(record.get('lastUpdate')),
             expirationTime = Number(new Date(String(record.get('expiration')))) / 1000;
-        var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
         var typeIgnition = typeof ignition !== undefined,
             typeMotion = typeof motion !== undefined;
 
         /** Object expiration check **/
         if (currentTimeNumeric > expirationTime) {
             state = 'Expired';
-        }
-
-        /** Offline status check **/
-        if ((status === 'offline' || status === 'unknown') &&
-            deviceTimeDiff >= Traccar.Style.devicesTimeout || status === 'nulled') {
-            state = 'Offline';
         }
 
         /** Ignition value check **/
@@ -256,11 +255,19 @@ Ext.define('Traccar.AttributeFormatter', {
             state = 'Moving';
         }
 
+        /** Offline status check **/
+        if (Traccar.AttributeFormatter.getFormatter('deviceOffline')(record)) {
+            state = 'Offline';
+        }
+
         return state;
     },
 
     deviceColorFormatter: function (value, record) {
         var deviceState = Traccar.AttributeFormatter.getFormatter('deviceState')(value, record);
+        if (Traccar.AttributeFormatter.getFormatter('deviceOffline')(record)) {
+            return Traccar.Style.colorOffline;
+        }
         switch (deviceState) {
             case 'Expired':
                 return Traccar.Style.colorExpired;
@@ -337,6 +344,8 @@ Ext.define('Traccar.AttributeFormatter', {
                 return this.deviceStateFormmater;
             case 'deviceColor':
                 return this.deviceColorFormatter;
+            case 'deviceOffline':
+                return this.deviceOfflineFormatter;
             case 'spentFuel':
                 return this.volumeFormatter;
             case 'driverUniqueId':
