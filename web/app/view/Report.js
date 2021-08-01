@@ -59,28 +59,34 @@ Ext.define('Traccar.view.Report', {
             }, '-', {
                 text: Strings.reportConfigure,
                 glyph: 'f0b0@FontAwesome',
+                tooltip: Strings.reportConfigure,
+                tooltipType: 'title',
                 handler: 'onConfigureClick'
             }, '-', {
-                // Text: Strings.reportShow,
                 glyph: 'f021@FontAwesome',
+                tooltip: Strings.reportShow,
+                tooltipType: 'title',
                 reference: 'showButton',
                 disabled: true,
                 handler: 'onReportClick'
             }, '-', {
-                // Text: Strings.reportExport,
                 reference: 'exportButton',
                 glyph: 'xf1c3@FontAwesome',
+                tooltip: Strings.reportExport,
+                tooltipType: 'title',
                 disabled: true,
                 handler: 'onReportClick'
             }, '-', {
-                // Text: Strings.reportEmail,
                 reference: 'emailButton',
                 glyph: 'xf003@FontAwesome',
+                tooltip: Strings.reportEmail,
+                tooltipType: 'title',
                 disabled: true,
                 handler: 'onReportClick'
             }, '-', {
-                // Text: Strings.reportClear,
                 glyph: 'f1f8@FontAwesome',
+                tooltip: Strings.reportClear,
+                tooltipType: 'title',
                 handler: 'onClearClick'
             }, '-']
     },
