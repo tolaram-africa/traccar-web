@@ -264,11 +264,7 @@ Ext.define('Traccar.AttributeFormatter', {
     },
 
     deviceColorFormatter: function (record) {
-        var deviceState = Traccar.AttributeFormatter.getFormatter('deviceState')(record);
-        if (Traccar.AttributeFormatter.getFormatter('deviceOffline')(record)) {
-            return Traccar.Style.colorOffline;
-        }
-        switch (deviceState) {
+        switch (Traccar.AttributeFormatter.getFormatter('deviceState')(record)) {
             case 'Expired':
                 return Traccar.Style.colorExpired;
             case 'Offline':

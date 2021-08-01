@@ -416,7 +416,8 @@ Ext.define('Traccar.view.edit.Devices', {
                     expirationTime = Number(new Date(String(record.get('expiration')))) / 1000;
                 if (value === null) {
                     return 'Unlimited';
-                } else {
+                }
+                if (expirationTime > currentTimeNumeric) {
                     return Traccar.AttributeFormatter.getFormatter('dateTime')(value);
                 }
                 return Traccar.AttributeFormatter.getFormatter('lastUpdate')(value) + ' ago';
