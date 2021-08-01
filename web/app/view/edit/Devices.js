@@ -147,7 +147,8 @@ Ext.define('Traccar.view.edit.Devices', {
                     glyph: 'xf1c3@FontAwesome',
                     handler: function (b, e) {
                         var d = new Date();
-                        b.up('grid').export('Object-list-' + d.getDate() + '-' + d.getMonth() + '-' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes());
+                        b.up('grid').export('Object-list-' + d.getDate() + '-' + d.getMonth() + '-' +
+                            d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes());
                     }
                 }]
         }
@@ -170,61 +171,9 @@ Ext.define('Traccar.view.edit.Devices', {
             var result = '',
                 currentTimeNumeric = Number(new Date()) / 1000,
                 expirationTime = Number(new Date(String(record.get('expiration')))) / 1000;
-
-            /*
-             * Var status = record.get('status'),
-             *     lastupdate = String(record.get('lastUpdate')),
-             *     movement = record.get('movement'),
-             *     speed = record.get('speed');
-             */
-
-            /*
-             * Var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
-             * var expTime = Number(new Date(expirationTime)) / 1000;
-             * var motion = record.get('motion');
-             * if (typeof record.get('ignition') !== undefined) {
-             *     var ignition = record.get('ignition');
-             * } else {
-             *     var ignition = false;
-             * }
-             */
-
             if (record.get('disabled') || currentTimeNumeric > expirationTime) {
                 result = 'view-item-disabled ';
             }
-
-            /**
-             *
-             * If (status && movement) {
-             * if (status === 'nulled') {
-             * result += 'view-color-red';
-             * } else if (deviceTimeDiff >= Traccar.Style.devicesTimeout || (movement === '' || movement === undefined) && status === '' && deviceTimeDiff >= Traccar.Style.devicesTimeout || movement === 'moving' && deviceTimeDiff >= Traccar.Style.devicesTimeout) {
-             * result += 'view-color-red';
-             * } else if (typeof ignition !== undefined && ignition === true && (movement === 'moving' || movement === 'parked' || movement === 'idle') && (typeof motion !== undefined && motion === false)) {
-             * result += 'view-color-yellow';
-             * } else if (movement === 'parked') {
-             * result += 'view-color-orange';
-             * } else if ((movement === '' || movement === null || movement === undefined) && (typeof motion !== undefined && motion === false) && (lastupdate !== null || lastupdate !== '')) {
-             * result += 'view-color-orange';
-             * } else if ((movement === 'idle' || movement === '') && (typeof ignition !== undefined && ignition === false && ignition !== null) || typeof motion !== undefined && motion === false && motion !== null && (movement === '' || movement === null)) {
-             * result += 'view-color-orange';
-             * } else if (movement === 'idle' && (typeof ignition !== undefined && ignition === false && ignition !== null) && (typeof motion !== undefined && motion === true && motion !== null && speed <= 7)) {
-             * result += 'view-color-orange';
-             * } else if (movement === 'moving' && (typeof ignition !== undefined && ignition === false && ignition !== null) && (typeof motion !== undefined && (motion === true || motion === false) && motion !== null && speed <= 3)) {
-             * result += 'view-color-orange';
-             * } else if (movement === 'moving' && speed > 2) {
-             * result += 'view-color-green';
-             * } else if (motion === true && speed > 2 && (motion === true && (movement === '' || movement === null || movement === undefined)) && (lastupdate !== null || lastupdate !== '')) {
-             * result += 'view-color-green';
-             * } else if (movement === 'idle') {
-             * result += 'view-color-yellow';
-             * } else if ((movement === '' || movement === null) && (lastupdate === null || lastupdate === '')) {
-             * result += 'view-color-red';
-             * } else {
-             * result += 'view-color-yellow';
-             * }
-             *} *
-             */
             return result;
         },
         listeners: {
@@ -265,23 +214,8 @@ Ext.define('Traccar.view.edit.Devices', {
                 store: 'VisibleDevices'
             },
             renderer: function (value, metaData, record) {
-                var status = record.get('status');
-                var lastupdate = String(record.get('lastUpdate'));
-                var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
-                if (status === 'online' || deviceTimeDiff < Traccar.Style.devicesTimeout) {
-                    metaData.tdCls = 'view-color-green-text';
-                } else if (status === 'offline' && record.get('lastUpdate') == null) {
-                    metaData.tdCls = 'view-color-null-text';
-                } else if (status === 'offline' && deviceTimeDiff >= Traccar.Style.devicesTimeout) {
-                    metaData.tdCls = 'view-color-red-text';
-                } else if (status === 'offline') {
-                    metaData.tdCls = 'view-color-blue-text';
-                } else if (status === 'unknown') {
-                    metaData.tdCls = 'view-color-red-text';
-                } else {
-                    metaData.tdCls = 'view-color-gen-text';
-                }
-                return value;
+                var color = Traccar.AttributeFormatter.getFormatter('deviceColor')(value, record);
+                return '<span><span data-device="status" style="background-color: ' + color + ';"></span>' + value + '</span>';
             }
         }, {
             text: Strings.groupDialog,
@@ -299,7 +233,7 @@ Ext.define('Traccar.view.edit.Devices', {
                 if (value) {
                     return Traccar.AttributeFormatter.getFormatter('groupId')(value);
                 } else {
-                    return 'No Group';
+                    return 'None';
                 }
             }
         }, {
@@ -333,69 +267,15 @@ Ext.define('Traccar.view.edit.Devices', {
                 type: 'list'
             },
             renderer: function (value, metaData, record) {
-                var currentTimeNumeric = Number(new Date()) / 1000, state = 'None',
-                    status = record.get('status'),
-                    motion = record.get('motion'),
-                    ignition = record.get('ignition'),
-                    alarms = record.get('alarms'),
-                    speed = record.get('speed'),
-                    lastupdate = String(record.get('lastUpdate')),
-                    expirationTime = Number(new Date(String(record.get('expiration')))) / 1000;
-                var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
-                var typeAlarms = typeof alarms !== undefined,
-                    typeIgnition = typeof ignition !== undefined,
-                    typeMotion = typeof motion !== undefined;
-
-                /** Object expiration check **/
-                if (currentTimeNumeric > expirationTime) {
-                    state = 'Expired';
-                }
-
-                /** Offline status check **/
-                if ((status === 'offline' || status === 'unknown') &&
-                    deviceTimeDiff >= Traccar.Style.devicesTimeout || status === 'nulled') {
-                    state = 'Offline';
-                }
+                var alarms = record.get('alarms');
+                var typeAlarms = typeof alarms !== undefined;
 
                 /** Alarms status check **/
                 if (typeAlarms && alarms && alarms !== 'nil') {
-                    state = alarms;
+                    return alarms;
                 }
 
-                /** Ignition value check **/
-                if (typeIgnition && (ignition || speed >= 2)) {
-                    ignition = true;
-                } else if (typeIgnition && (!ignition || speed < 1)) {
-                    ignition = false;
-                } else {
-                    ignition = false;
-                }
-
-                /** Motion value check **/
-                if (typeMotion && (motion || speed >= 2)) {
-                    motion = true;
-                } else if (typeMotion && (!motion || speed < 1)) {
-                    motion = false;
-                } else {
-                    motion = false;
-                }
-
-                /** Movement Idle status check **/
-                if (value === 'idle' && ignition || ignition && !motion) {
-                    state = 'Idle';
-                }
-
-                /** Movement Parked status check **/
-                if (value !== null && (value === 'parked' || !ignition && !motion)) {
-                    state = 'Parked';
-                }
-
-                /** Movement Moving status check **/
-                if (value === 'moving' || ignition && motion) {
-                    state = 'Moving';
-                }
-
-                return state;
+                return Traccar.AttributeFormatter.getFormatter('deviceState')(value, record);
             }
         },
 

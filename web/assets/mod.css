@@ -39,6 +39,21 @@
   text-decoration: none !important;
 }
 
+[data-device=status] {
+  display: inline-block;
+  vertical-align: middle;
+  width: 12px;
+  height: 12px;
+  margin-top: -2px;
+  margin-right: 4px;
+  border-radius: 50%;
+  background: #ededed;
+  border: 1px solid #bebebe;
+  text-indent: 999999px;
+  overflow: hidden;
+}
+
+
 /** Rounded corners */
 .x-window,
 .x-btn,
