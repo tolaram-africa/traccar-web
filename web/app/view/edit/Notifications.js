@@ -42,6 +42,11 @@ Ext.define('Traccar.view.edit.Notifications', {
             minWidth: Traccar.Style.columnWidthNormal
         },
         items: [{
+            text: Strings.sharedName,
+            dataIndex: 'name',
+            flex: 2,
+            filter: 'string'
+        }, {
             text: Strings.notificationType,
             dataIndex: 'type',
             flex: 2,

@@ -21,7 +21,8 @@ Ext.define('Traccar.view.dialog.Notification', {
 
     requires: [
         'Traccar.view.ClearableComboBox',
-        'Traccar.view.dialog.NotificationController'
+        'Traccar.view.dialog.NotificationController',
+        'Traccar.view.UnescapedTextField'
     ],
 
     controller: 'notification',
@@ -33,9 +34,15 @@ Ext.define('Traccar.view.dialog.Notification', {
             xtype: 'fieldset',
             title: Strings.sharedRequired,
             items: [{
+                xtype: 'unescapedTextField',
+                name: 'name',
+                fieldLabel: Strings.sharedName,
+                allowBlank: false
+            }, {
                 xtype: 'combobox',
                 name: 'type',
                 fieldLabel: Strings.sharedType,
+                cls: 'rounded',
                 store: 'AllNotificationTypes',
                 queryMode: 'local',
                 displayField: 'name',
@@ -54,6 +61,7 @@ Ext.define('Traccar.view.dialog.Notification', {
             }, {
                 xtype: 'tagfield',
                 reference: 'alarmsField',
+                cls: 'rounded',
                 fieldLabel: Strings.sharedAlarms,
                 maxWidth: Traccar.Style.formFieldWidth,
                 store: 'AlarmTypes',
@@ -69,6 +77,7 @@ Ext.define('Traccar.view.dialog.Notification', {
                 xtype: 'tagfield',
                 fieldLabel: Strings.notificationNotificators,
                 name: 'notificators',
+                cls: 'rounded',
                 maxWidth: Traccar.Style.formFieldWidth,
                 store: 'AllNotificators',
                 valueField: 'type',

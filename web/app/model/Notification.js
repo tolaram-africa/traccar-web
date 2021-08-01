@@ -26,6 +26,9 @@ Ext.define('Traccar.model.Notification', {
         name: 'type',
         type: 'string'
     }, {
+        name: 'name',
+        type: 'string'
+    }, {
         name: 'always',
         type: 'bool'
     }, {
