@@ -96,7 +96,7 @@ Ext.define('Traccar.view.dialog.Device', {
                     getInnerTpl: function () {
                         return '<table><tr valign="middle" ><td><div align="center" style="width:40px;height:40px;" >' +
                             '{[new XMLSerializer().serializeToString(Traccar.DeviceImages.getImageSvg(' +
-                            'Traccar.Style.mapColorGreen, false, 0, values.key))]}</div></td>' +
+                            'Traccar.Style.ColorOnline, false, 0, values.key))]}</div></td>' +
                             '<td>{name}</td></tr></table>';
                     }
                 }

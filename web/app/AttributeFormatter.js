@@ -260,20 +260,20 @@ Ext.define('Traccar.AttributeFormatter', {
     },
 
     deviceColorFormatter: function (value, record) {
-        var deviceState = Traccar.AttributeFormatter.getFormatter('deviceState')(value, record), color = 'rgba(124, 122, 122, 0.8)';
+        var deviceState = Traccar.AttributeFormatter.getFormatter('deviceState')(value, record);
         switch (deviceState) {
             case 'Expired':
-                return 'rgba(58, 27, 133, 0.7)';
+                return Traccar.Style.colorExpired;
             case 'Offline':
-                return 'rgba(255, 0, 0, 0.7)';
+                return Traccar.Style.colorOffline;
             case 'Idle':
-                return 'rgba(250, 190, 77, 0.4)';
+                return Traccar.Style.colorIdle;
             case 'Parked':
-                return 'rgba(255, 165, 0, 1)';
+                return Traccar.Style.colorParked;
             case 'Moving':
-                return 'rgba(1, 120, 1, 0.8)';
+                return Traccar.Style.colorMoving;
             default:
-                return color;
+                return Traccar.Style.colorDefault;
         }
     },
 

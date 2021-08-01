@@ -169,21 +169,7 @@ Ext.define('Traccar.view.map.MapMarkerController', {
     },
 
     getDeviceColor: function (device) {
-        var status = device.get('status'), movement = device.get('movement');
-        var lastupdate = device.get('lastUpdate');
-        var defTime = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
-        var diff = defTime >= Traccar.Style.devicesTimeout;
-        if (status === 'nulled' || diff) {
-            return Traccar.Style.mapColorRed;
-        } else if (movement === 'moving' && diff) {
-            return Traccar.Style.mapColorRed;
-        } else if (movement === 'moving') {
-            return Traccar.Style.mapColorGreen;
-        } else if (movement === 'idle') {
-            return Traccar.Style.mapColorYellow;
-        } else {
-            return Traccar.Style.mapColorOrange;
-        }
+        return Traccar.AttributeFormatter.getFormatter('deviceColor')(0, device);
     },
 
     updateDevice: function (store, data) {
