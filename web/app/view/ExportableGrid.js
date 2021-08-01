@@ -53,8 +53,10 @@ Ext.define('Traccar.view.ExportableGrid', {
                 styles: []
             },
             export: function (grid) {
-                this.zip.generateAsync({type: 'blob',
-                    mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}).then(function (content) {
+                this.zip.generateAsync({
+                    type: 'blob',
+                    mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                }).then(function (content) {
                     saveAs(content, exportTask.xlsTitle + '.xlsx');
                 });
             }
@@ -65,8 +67,10 @@ Ext.define('Traccar.view.ExportableGrid', {
         var expColHeaders = new Ext.util.HashMap();
         for (var i = 0; i < cols.length; i++) {
             if (this.isColumnExportable(cols[i])) {
-                var stl = {align: cols[i].align ? cols[i].align : 'left',
-                    width: cols[i].getWidth() / 5};
+                var stl = {
+                    align: cols[i].align ? cols[i].align : 'left',
+                    width: cols[i].getWidth() / 5
+                };
                 if (cols[i].exportNumberFormat != null) {
                     stl.numFmt = cols[i].exportNumberFormat;
                 }
@@ -98,12 +102,14 @@ Ext.define('Traccar.view.ExportableGrid', {
     },
     privates: {
         alphabet: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-        columnTypes: {int: 'n',
+        columnTypes: {
+            int: 'n',
             float: 'n',
             bool: 'b',
             boolean: 'b',
             date: 's',
-            string: 's'},
+            string: 's'
+        },
 
         /**
          * The count of predefined styles.
@@ -596,7 +602,7 @@ Ext.define('Traccar.view.ExportableGrid', {
                         }
                     }
 
-                    var param = rec.isGroupingHeader === true ? {dataIndex: 'groupingHeaderValue'} : exportTask.exportableColumns[j];
+                    var param = rec.isGroupingHeader === true ? { dataIndex: 'groupingHeaderValue' } : exportTask.exportableColumns[j];
                     var type;
                     if (!rec.isSummaryRecord && !rec.isGroupingHeader) {
                         if (param.xtype === 'templatecolumn') {
@@ -711,7 +717,9 @@ Ext.define('Traccar.view.ExportableGrid', {
         removeSpecials: function (str) {
             var spec = /[\x00-\x08\x0E-\x1F\x7F]/g;
             var tab = /\x09/g;
+            var tag = /<\/?[^>]+(>|$)/g;
             str = str.replace(spec, '');
+            str = Ext.util.Format.htmlDecode(str).replace(tag, '').replace('&nbsp;', '');
             return str.replace(tab, '   ');
         },
 
