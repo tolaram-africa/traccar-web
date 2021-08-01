@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /* eslint-disable eqeqeq */
 /* eslint-disable no-eq-null */
 /* eslint-disable vars-on-top */
@@ -198,6 +199,84 @@ Ext.define('Traccar.AttributeFormatter', {
         return formatDate(defTime);
     },
 
+    deviceStateFormmater: function (value, record) {
+        var currentTimeNumeric = Number(new Date()) / 1000, state = 'None',
+            movement = record.get('movement'),
+            status = record.get('status'),
+            motion = record.get('motion'),
+            ignition = record.get('ignition'),
+            speed = record.get('speed'),
+            lastupdate = String(record.get('lastUpdate')),
+            expirationTime = Number(new Date(String(record.get('expiration')))) / 1000;
+        var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
+        var typeIgnition = typeof ignition !== undefined,
+            typeMotion = typeof motion !== undefined;
+
+        /** Object expiration check **/
+        if (currentTimeNumeric > expirationTime) {
+            state = 'Expired';
+        }
+
+        /** Offline status check **/
+        if ((status === 'offline' || status === 'unknown') &&
+            deviceTimeDiff >= Traccar.Style.devicesTimeout || status === 'nulled') {
+            state = 'Offline';
+        }
+
+        /** Ignition value check **/
+        if (typeIgnition && (ignition || speed >= 2)) {
+            ignition = true;
+        } else if (typeIgnition && (!ignition || speed < 1)) {
+            ignition = false;
+        } else {
+            ignition = false;
+        }
+
+        /** Motion value check **/
+        if (typeMotion && (motion || speed >= 2)) {
+            motion = true;
+        } else if (typeMotion && (!motion || speed < 1)) {
+            motion = false;
+        } else {
+            motion = false;
+        }
+
+        /** Movement Idle status check **/
+        if (movement === 'idle' && ignition || ignition && !motion) {
+            state = 'Idle';
+        }
+
+        /** Movement Parked status check **/
+        if (movement !== null && (movement === 'parked' || !ignition && !motion)) {
+            state = 'Parked';
+        }
+
+        /** Movement Moving status check **/
+        if (movement === 'moving' || ignition && motion) {
+            state = 'Moving';
+        }
+
+        return state;
+    },
+
+    deviceColorFormatter: function (value, record) {
+        var deviceState = Traccar.AttributeFormatter.getFormatter('deviceState')(value, record), color = 'rgba(124, 122, 122, 0.8)';
+        switch (deviceState) {
+            case 'Expired':
+                return 'rgba(58, 27, 133, 0.7)';
+            case 'Offline':
+                return 'rgba(255, 0, 0, 0.7)';
+            case 'Idle':
+                return 'rgba(250, 190, 77, 0.4)';
+            case 'Parked':
+                return 'rgba(255, 165, 0, 1)';
+            case 'Moving':
+                return 'rgba(1, 120, 1, 0.8)';
+            default:
+                return color;
+        }
+    },
+
     commandTypeFormatter: function (value) {
         var name = Strings['command' + value.charAt(0).toUpperCase() + value.slice(1)];
         return name ? name : value;
@@ -254,6 +333,10 @@ Ext.define('Traccar.AttributeFormatter', {
                 return this.lastUpdateFormatter;
             case 'dateTime':
                 return this.dateTimeFormmater;
+            case 'deviceState':
+                return this.deviceStateFormmater;
+            case 'deviceColor':
+                return this.deviceColorFormatter;
             case 'spentFuel':
                 return this.volumeFormatter;
             case 'driverUniqueId':
