@@ -86,21 +86,25 @@ Ext.define('Traccar.view.dialog.Login', {
             inputAttrTpl: ['autocomplete="on"']
         }, {
             height: 1
-        }, {
-            xtype: 'combobox',
-            name: 'language',
+        },
 
-            /* FieldLabel: Strings.loginLanguage,*/
-            store: 'Languages',
-            displayField: 'name',
-            valueField: 'code',
-            editable: false,
-            submitValue: false,
-            listeners: {
-                select: 'onSelectLanguage'
-            },
-            reference: 'languageField'
-        }, {
+        /**
+         *{
+         * xtype: 'combobox',
+         * name: 'language',
+         * FieldLabel: Strings.loginLanguage,
+         * store: 'Languages',
+         * displayField: 'name',
+         * valueField: 'code',
+         * editable: false,
+         * submitValue: false,
+         * listeners: {
+         * select: 'onSelectLanguage'
+         * },
+         * reference: 'languageField'
+         *},
+         */
+        {
             xtype: 'checkboxfield',
             inputValue: true,
             uncheckedValue: false,
@@ -116,25 +120,36 @@ Ext.define('Traccar.view.dialog.Login', {
         }, {
             xtype: 'component',
             html: '<input type="submit" id="submitButton" style="display:none">'
-        }]
+        }
+        ]
     },
 
     buttons: [{
+        align: 'left',
         text: Strings.loginReset,
+        dock: 'left',
+        cls: 'forget-password-link',
+        style: {
+            marginRight: '95px'
+        },
         handler: 'onResetClick',
         reference: 'resetButton'
     },
 
     /**
      * {{
+     * xtype: 'button',
      * text: Strings.loginRegister,
      * handler: 'onRegisterClick',
      * reference: 'registerButton'
      * }, *
      */
     {
+        dock: 'right',
         text: Strings.loginLogin,
         handler: 'onLoginClick'
     }
     ]
+
+
 });

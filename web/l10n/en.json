@@ -141,7 +141,7 @@
     "userToken": "API Key",
     "loginTitle": "Sign in",
     "loginLanguage": "Language",
-    "loginReset": "Reset Password",
+    "loginReset": "Forgot Password?",
     "loginRegister": "",
     "loginLogin": "Sign in",
     "loginFailed": "Incorrect email address or password",
