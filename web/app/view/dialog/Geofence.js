@@ -36,6 +36,10 @@ Ext.define('Traccar.view.dialog.Geofence', {
                 xtype: 'unescapedTextField',
                 name: 'name',
                 fieldLabel: Strings.sharedName
+            }, {
+                xtype: 'unescapedTextField',
+                name: 'tag',
+                fieldLabel: 'Tag'
             }]
         }, {
             xtype: 'fieldset',
@@ -49,6 +53,7 @@ Ext.define('Traccar.view.dialog.Geofence', {
             }, {
                 xtype: 'clearableComboBox',
                 reference: 'calendarCombo',
+                cls: 'rounded',
                 name: 'calendarId',
                 store: 'Calendars',
                 queryMode: 'local',

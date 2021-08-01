@@ -22,6 +22,7 @@ Ext.define('Traccar.store.Geofences', {
         property: 'name',
         direction: 'ASC'
     }],
+    groupField: 'tag',
     sortRoot: 'name',
     sortOnLoad: true,
     remoteSort: false,

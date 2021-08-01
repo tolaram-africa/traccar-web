@@ -31,6 +31,16 @@ Ext.define('Traccar.view.edit.Geofences', {
         xtype: 'editToolbar'
     },
 
+    features: [
+        {
+            ftype: 'grouping',
+            groupHeaderTpl: [
+                '{columnName} - {name} - {[values.children.length]}'
+            ],
+            hideGroupedHeader: false
+        }
+    ],
+
     listeners: {
         selectionchange: 'onSelectionChange'
     },
@@ -43,6 +53,10 @@ Ext.define('Traccar.view.edit.Geofences', {
         items: [{
             text: Strings.sharedName,
             dataIndex: 'name',
+            filter: 'string'
+        }, {
+            text: 'Tag',
+            dataIndex: 'tag',
             filter: 'string'
         }, {
             text: Strings.sharedCalendar,

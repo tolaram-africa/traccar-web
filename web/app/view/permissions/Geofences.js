@@ -19,12 +19,28 @@ Ext.define('Traccar.view.permissions.Geofences', {
     extend: 'Traccar.view.permissions.Base',
     xtype: 'linkGeofencesView',
 
+    features: [
+        {
+            ftype: 'grouping',
+            groupHeaderTpl: [
+                '{name} - {[values.children.length]}'
+            ],
+            hideGroupedHeader: false
+        }
+    ],
+
     columns: {
         items: [{
             text: Strings.sharedName,
             dataIndex: 'name',
             flex: 1,
             minWidth: Traccar.Style.columnWidthNormal,
+            filter: 'string'
+        }, {
+            text: 'Tag',
+            flex: 1,
+            dataIndex: 'tag',
+            hidden: false,
             filter: 'string'
         }, {
             text: Strings.sharedCalendar,
