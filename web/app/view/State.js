@@ -79,8 +79,8 @@ Ext.define('Traccar.view.State', {
                     if (position) {
                         device = Ext.getStore('Devices').getById(position.get('deviceId'));
                         if (device) {
-                            return '<a target="_blank" href="/api/media/' + device.get('uniqueId') + '/' + value + '" >' +
-                                value + '</a>';
+                            return String.format('<a target=\'_blank\' href=\'/api/media/' + device.get('uniqueId') + '/' + value + '\' > Media: ' +
+                                value + '</a>');
                         }
                     }
                 }
