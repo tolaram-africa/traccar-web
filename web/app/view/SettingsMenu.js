@@ -23,23 +23,22 @@ Ext.define('Traccar.view.SettingsMenu', {
         'Traccar.view.SettingsMenuController'
     ],
 
-    glyph: 'xf013@FontAwesome',
+    glyph: 'xf007@FontAwesome',
     tooltip: Strings.settingsTitle,
     tooltipType: 'title',
-
     menu: {
         controller: 'settings',
 
         items: [{
             hidden: true,
             text: Strings.settingsUser,
-            glyph: 'xf007@FontAwesome',
+            glyph: 'xf14b@FontAwesome',
             handler: 'onUserClick',
             reference: 'settingsUserButton'
         }, {
             hidden: true,
             text: Strings.settingsGroups,
-            glyph: 'xf247@FontAwesome',
+            glyph: 'xf0e8@FontAwesome',
             handler: 'onGroupsClick',
             reference: 'settingsGroupsButton'
         }, {

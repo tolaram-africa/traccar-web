@@ -43,11 +43,13 @@ Ext.define('Traccar.view.map.MapController', {
     },
 
     init: function () {
+        var userFullName = Traccar.app.truncateText(Traccar.app.getUser().get('name'), 13);
         this.callParent();
         this.lookupReference('showReportsButton').setVisible(
             Traccar.app.isMobile() && !Traccar.app.getBooleanAttributePreference('ui.disableReport'));
         this.lookupReference('showEventsButton').setVisible(
             Traccar.app.isMobile() && !Traccar.app.getBooleanAttributePreference('ui.disableEvents'));
+        Ext.getCmp('settingsMenuUser').setText(userFullName.charAt(0).toUpperCase() + userFullName.slice(1));
     },
 
     showReports: function () {

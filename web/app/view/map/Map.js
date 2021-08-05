@@ -39,12 +39,6 @@ Ext.define('Traccar.view.map.Map', {
             }
         },
         items: [{
-            xtype: 'tbtext',
-            html: Strings.mapTitle,
-            baseCls: 'x-panel-header-title-default'
-        }, {
-            xtype: 'tbfill'
-        }, {
             handler: 'showReports',
             reference: 'showReportsButton',
             glyph: 'xf0f6@FontAwesome',
@@ -84,7 +78,10 @@ Ext.define('Traccar.view.map.Map', {
             stateId: 'device-follow-button',
             toggleHandler: 'onFollowClick'
         }, {
+            xtype: 'tbfill'
+        }, {
             xtype: 'settingsMenu',
+            id: 'settingsMenuUser',
             enableToggle: false,
             text: Strings.settingsTitle
         }]
