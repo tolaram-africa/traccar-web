@@ -69,6 +69,10 @@ Ext.define('Traccar.view.edit.DevicesController', {
         this.lookupReference('toolbarAddButton').setDisabled(readonly || deviceReadonly);
         this.lookupReference('toolbarDeviceMenu').setHidden(readonly || deviceReadonly);
 
+        if (Traccar.app.isMobile()) {
+            this.lookupReference('showStateButton').setHidden(true);
+        }
+
         setInterval(function () {
             self.getView().getView().refresh();
         }, Traccar.Style.refreshPeriod);
