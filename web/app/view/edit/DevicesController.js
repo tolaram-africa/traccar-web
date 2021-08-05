@@ -193,5 +193,9 @@ Ext.define('Traccar.view.edit.DevicesController', {
 
     searchFilter: function (property, value) {
         this.filterGrid('name', value);
+    },
+    statePressed: function () {
+        var stateViewPane = Ext.getCmp('stateViewPane');
+        stateViewPane.setHidden(!this.lookupReference('showStateButton').pressed);
     }
 });

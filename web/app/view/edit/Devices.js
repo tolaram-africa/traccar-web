@@ -113,6 +113,21 @@ Ext.define('Traccar.view.edit.Devices', {
                 enableToggle: false
             },
             {
+                toggleHandler: 'statePressed',
+                reference: 'showStateButton',
+                id: 'showStateButtonId',
+                glyph: 'xf0ae@FontAwesome',
+                pressed: false,
+                disabled: false,
+                stateful: {
+                    pressed: true
+                },
+                stateId: 'show-state-pane',
+                tooltip: 'Toggle State',
+                stateEvents: ['toggle'],
+                enableToggle: true
+            },
+            {
                 xtype: 'tbfill',
                 disabled: false
             }]

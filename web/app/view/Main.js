@@ -72,8 +72,11 @@ Ext.define('Traccar.view.Main', {
                         region: 'center',
                         xtype: 'devicesView'
                     }, {
+                        reference: 'stateViewRef',
                         region: 'south',
-                        xtype: 'stateView'
+                        id: 'stateViewPane',
+                        xtype: 'stateView',
+                        hidden: true
                     }]
                 },
                 {
