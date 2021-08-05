@@ -76,6 +76,7 @@ Ext.define('Traccar.view.Main', {
                         region: 'south',
                         id: 'stateViewPane',
                         xtype: 'stateView',
+                        maxHeight: Traccar.Style.eventHeight,
                         hidden: true
                     }]
                 },
