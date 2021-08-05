@@ -71,6 +71,7 @@ Ext.define('Traccar.view.edit.DevicesController', {
 
         if (Traccar.app.isMobile()) {
             this.lookupReference('showStateButton').setHidden(true);
+            this.lookupReference('deviceStatusType').setHidden(true);
         }
 
         setInterval(function () {

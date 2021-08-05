@@ -176,6 +176,41 @@ Ext.define('Traccar.view.edit.Devices', {
                             d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes());
                     }
                 }]
+        },
+        {
+            xtype: 'toolbar',
+            reference: 'deviceStatusType',
+            componentCls: 'toolbar-header-style',
+            dock: 'bottom',
+            defaults: {
+                xtype: 'button'
+            },
+            items: [{
+                xtype: 'tbfill'
+            }, {
+                tooltip: 'Moving',
+                tooltipType: 'title',
+                html: '<span><span data-device="status" style="background-color: ' + Traccar.Style.colorMoving + ';"></span>Moving</span>'
+            }, {
+                tooltip: 'Parked',
+                tooltipType: 'title',
+                html: '<span><span data-device="status" style="background-color: ' + Traccar.Style.colorParked + ';"></span>Parked</span>'
+            }, {
+                tooltip: 'Idle',
+                tooltipType: 'title',
+                html: '<span><span data-device="status" style="background-color: ' + Traccar.Style.colorIdle + ';"></span>Idle</span>'
+            }, {
+                tooltip: 'Offline',
+                tooltipType: 'title',
+                html: '<span><span data-device="status" style="background-color: ' + Traccar.Style.colorOffline + ';"></span>Off</span>'
+            }, {
+                tooltip: 'Pending',
+                tooltipType: 'title',
+                html: '<span><span data-device="status" style="background-color: ' + Traccar.Style.colorDefault + ';"></span>Pending</span>'
+            },
+            {
+                xtype: 'tbfill'
+            }]
         }
     ],
 
@@ -276,7 +311,7 @@ Ext.define('Traccar.view.edit.Devices', {
             dataIndex: 'lastMoved',
             stateId: 'devicePaneLastMoved',
             xtype: 'datecolumn',
-            hidden: true,
+            hidden: false,
             minWidth: 100,
             maxWidth: 100,
             renderer: Traccar.AttributeFormatter.getFormatter('dateTime'),
@@ -287,7 +322,7 @@ Ext.define('Traccar.view.edit.Devices', {
             minWidth: 70,
             maxWidth: 70,
             dataIndex: 'movement',
-            hidden: false,
+            hidden: true,
             filter: {
                 type: 'list'
             },
