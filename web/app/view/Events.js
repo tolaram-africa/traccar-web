@@ -46,49 +46,48 @@ Ext.define('Traccar.view.Events', {
                 pressed: true
             }
         },
-        items: [{
-            xtype: 'tbfill',
-            disabled: false
-        }, {
-            glyph: 'xf063@FontAwesome',
-            pressed: true,
-            toggleHandler: 'onScrollToLastClick',
-            stateId: 'events-scroll-to-last-button',
-            tooltip: Strings.eventsScrollToLast,
-            reference: 'scrollToLastButton'
-        }, {
-            id: 'soundButton',
-            pressed: true,
-            glyph: 'xf0a2@FontAwesome',
-            tooltip: Strings.sharedSound,
-            stateId: 'sound-button'
-        }, {
-            glyph: 'xf014@FontAwesome',
-            tooltip: Strings.sharedRemove,
-            handler: 'onRemoveClick',
-            reference: 'removeEventButton',
-            disabled: true,
-            stateful: false,
-            enableToggle: false
-        }, {
-            glyph: 'xf1f8@FontAwesome',
-            tooltip: Strings.reportClear,
-            handler: 'onClearClick',
-            stateful: false,
-            enableToggle: false
-        }, {
-            glyph: 'xf00d@FontAwesome',
-            tooltip: Strings.sharedHide,
-            handler: 'onHideEvents',
-            reference: 'hideEventsButton',
-            hidden: true,
-            stateful: false,
-            enableToggle: false
-        },
-        {
-            xtype: 'tbfill',
-            disabled: false
-        }]
+        items: ['-',
+            {
+                glyph: 'xf063@FontAwesome',
+                pressed: true,
+                toggleHandler: 'onScrollToLastClick',
+                stateId: 'events-scroll-to-last-button',
+                tooltip: Strings.eventsScrollToLast,
+                reference: 'scrollToLastButton'
+            }, {
+                id: 'soundButton',
+                pressed: true,
+                glyph: 'xf0a2@FontAwesome',
+                tooltip: Strings.sharedSound,
+                stateId: 'sound-button'
+            }, {
+                glyph: 'xf014@FontAwesome',
+                tooltip: Strings.sharedRemove,
+                handler: 'onRemoveClick',
+                reference: 'removeEventButton',
+                disabled: true,
+                stateful: false,
+                enableToggle: false
+            }, {
+                glyph: 'xf1f8@FontAwesome',
+                tooltip: Strings.reportClear,
+                handler: 'onClearClick',
+                stateful: false,
+                enableToggle: false
+            }, {
+                glyph: 'xf00d@FontAwesome',
+                tooltip: Strings.sharedHide,
+                handler: 'onHideEvents',
+                reference: 'hideEventsButton',
+                hidden: true,
+                stateful: false,
+                enableToggle: false
+            },
+            '-',
+            {
+                xtype: 'tbfill',
+                disabled: false
+            }]
     },
 
     listeners: {

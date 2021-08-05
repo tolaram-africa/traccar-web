@@ -88,7 +88,7 @@ Ext.define('Traccar.view.edit.Devices', {
                 toggleHandler: 'statePressed',
                 reference: 'showStateButton',
                 id: 'showStateButtonId',
-                glyph: 'xf0ae@FontAwesome',
+                glyph: 'xf0c9@FontAwesome',
                 pressed: false,
                 disabled: false,
                 stateful: {
@@ -101,7 +101,8 @@ Ext.define('Traccar.view.edit.Devices', {
             }, {
                 xtype: 'tbfill',
                 disabled: false
-            }, {
+            }, '-',
+            {
                 handler: 'onAddClick',
                 reference: 'toolbarAddButton',
                 glyph: 'xf067@FontAwesome',
@@ -125,7 +126,7 @@ Ext.define('Traccar.view.edit.Devices', {
                 xtype: 'deviceMenu',
                 reference: 'toolbarDeviceMenu',
                 enableToggle: false
-            }]
+            }, '-']
         },
         {
             xtype: 'toolbar',
