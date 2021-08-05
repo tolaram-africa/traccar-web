@@ -54,6 +54,7 @@ Ext.define('Traccar.view.Main', {
             },
             activeTab: 0,
             width: Traccar.Style.deviceWidth,
+            minWidth: Traccar.Style.deviceWidth,
             stateful: true,
             stateId: 'sideViewPanel',
             titleCollapse: true,
@@ -81,17 +82,17 @@ Ext.define('Traccar.view.Main', {
                     }]
                 },
                 {
+                    xtype: 'eventsView',
+                    reference: 'eventsView',
+                    glyph: 'xf0f3@FontAwesome',
+                    title: 'Activities'
+                },
+                {
                     xtype: 'geofencesView',
                     hidden: true,
                     reference: 'geofencesView',
                     glyph: 'xf21d@FontAwesome',
                     title: Strings.sharedGeofences
-                },
-                {
-                    xtype: 'eventsView',
-                    reference: 'eventsView',
-                    glyph: 'xf0f3@FontAwesome',
-                    title: 'Activities'
                 }
             ]
         },
