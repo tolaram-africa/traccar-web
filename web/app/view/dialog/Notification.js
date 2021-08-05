@@ -30,65 +30,68 @@ Ext.define('Traccar.view.dialog.Notification', {
 
     items: {
         xtype: 'form',
+        defaults: {
+            minWidth: Traccar.Style.formFieldWidth
+        },
         items: [{
-            xtype: 'fieldset',
-            title: Strings.sharedRequired,
-            items: [{
-                xtype: 'unescapedTextField',
-                name: 'name',
-                fieldLabel: Strings.sharedName,
-                allowBlank: false
-            }, {
-                xtype: 'combobox',
-                name: 'type',
-                fieldLabel: Strings.sharedType,
-                cls: 'rounded',
-                store: 'AllNotificationTypes',
-                queryMode: 'local',
-                displayField: 'name',
-                valueField: 'type',
-                editable: false,
-                allowBlank: false,
-                listeners: {
-                    change: 'onTypeChange'
-                }
-            }, {
-                xtype: 'checkboxfield',
-                inputValue: true,
-                uncheckedValue: false,
-                name: 'always',
-                fieldLabel: Strings.notificationAlways
-            }, {
-                xtype: 'tagfield',
-                reference: 'alarmsField',
-                cls: 'rounded',
-                fieldLabel: Strings.sharedAlarms,
-                maxWidth: Traccar.Style.formFieldWidth,
-                store: 'AlarmTypes',
-                valueField: 'key',
-                displayField: 'name',
-                queryMode: 'local',
-                hidden: true,
-                listeners: {
-                    beforerender: 'onAlarmsLoad',
-                    change: 'onAlarmsChange'
-                }
-            }, {
-                xtype: 'tagfield',
-                fieldLabel: Strings.notificationNotificators,
-                name: 'notificators',
-                cls: 'rounded',
-                maxWidth: Traccar.Style.formFieldWidth,
-                store: 'AllNotificators',
-                valueField: 'type',
-                displayField: 'name',
-                queryMode: 'local'
-            }]
+            xtype: 'unescapedTextField',
+            name: 'name',
+            emptyText: Strings.sharedName,
+            allowBlank: false
+        }, {
+            xtype: 'combobox',
+            name: 'type',
+            emptyText: Strings.sharedType,
+            cls: 'rounded',
+            store: 'AllNotificationTypes',
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'type',
+            editable: false,
+            allowBlank: false,
+            listeners: {
+                change: 'onTypeChange'
+            }
+        }, {
+            xtype: 'tagfield',
+            reference: 'alarmsField',
+            cls: 'rounded',
+            emptyText: Strings.sharedAlarms,
+            maxWidth: Traccar.Style.formFieldWidth,
+            store: 'AlarmTypes',
+            valueField: 'key',
+            displayField: 'name',
+            queryMode: 'local',
+            hidden: true,
+            listeners: {
+                beforerender: 'onAlarmsLoad',
+                change: 'onAlarmsChange'
+            }
+        }, {
+            xtype: 'tagfield',
+            emptyText: Strings.notificationNotificators,
+            name: 'notificators',
+            cls: 'rounded',
+            maxWidth: Traccar.Style.formFieldWidth,
+            store: 'AllNotificators',
+            valueField: 'type',
+            displayField: 'name',
+            queryMode: 'local'
+        }, {
+            xtype: 'checkboxfield',
+            inputValue: true,
+            uncheckedValue: false,
+            name: 'always',
+            minWidth: 10,
+            boxLabel: Strings.notificationAlways + ' linked Objects'
         }, {
             xtype: 'fieldset',
             title: Strings.sharedExtra,
             collapsible: true,
-            collapsed: true,
+            collapsed: false,
+            defaults: {
+                minWidth: Traccar.Style.formFieldWidth - 35
+            },
             items: [{
                 xtype: 'clearableComboBox',
                 reference: 'calendarCombo',
@@ -97,7 +100,7 @@ Ext.define('Traccar.view.dialog.Notification', {
                 queryMode: 'local',
                 displayField: 'name',
                 valueField: 'id',
-                fieldLabel: Strings.sharedCalendar
+                emptyText: Strings.sharedCalendar
             }]
         }]
     }

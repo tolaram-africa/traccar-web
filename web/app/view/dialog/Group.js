@@ -30,12 +30,12 @@ Ext.define('Traccar.view.dialog.Group', {
         items: [{
             xtype: 'unescapedTextField',
             name: 'name',
-            fieldLabel: Strings.sharedName,
+            emptyText: Strings.sharedName,
             allowBlank: false
         }, {
             xtype: 'clearableComboBox',
             name: 'groupId',
-            fieldLabel: Strings.groupParent,
+            emptyText: Strings.groupParent,
             store: 'Groups',
             queryMode: 'local',
             displayField: 'name',

@@ -26,6 +26,10 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
 
     controller: 'reportConfig',
     title: Strings.reportConfigure,
+    defaults: {
+        minWidth: Traccar.Style.formFieldWidth,
+        maxWidth: Traccar.Style.formFieldWidth
+    },
 
     items: [{
         xtype: 'tagfield',
@@ -34,8 +38,6 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         store: 'Devices',
         valueField: 'id',
         emptyText: 'Select Objects..',
-        minWidth: Traccar.Style.formFieldWidth,
-        maxWidth: Traccar.Style.formFieldWidth,
         mode: 'local',
         displayField: 'name',
         queryMode: 'local'
@@ -44,8 +46,6 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         xtype: 'tagfield',
         reference: 'groupField',
         cls: 'rounded',
-        minWidth: Traccar.Style.formFieldWidth,
-        maxWidth: Traccar.Style.formFieldWidth,
         store: 'Groups',
         valueField: 'id',
         displayField: 'name',
@@ -55,8 +55,6 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         xtype: 'tagfield',
         reference: 'eventTypeField',
         cls: 'rounded',
-        minWidth: Traccar.Style.formFieldWidth,
-        maxWidth: Traccar.Style.formFieldWidth,
         store: 'ReportEventTypes',
         hidden: true,
         valueField: 'type',
@@ -94,18 +92,19 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         reference: 'fromContainer',
         hidden: true,
         emptyText: Strings.reportFrom,
+        defaults: {
+            minWidth: Traccar.Style.formFieldWidth
+        },
         items: [{
             xtype: 'datefield',
             reference: 'fromDateField',
             cls: 'rounded',
-            minWidth: Traccar.Style.formFieldWidth,
             startDay: Traccar.Style.weekStartDay,
             format: Traccar.Style.dateFormat,
             value: new Date(new Date().getTime() - 1080 * 60 * 1000)
         }, {
             xtype: 'customTimeField',
             reference: 'fromTimeField',
-            minWidth: Traccar.Style.formFieldWidth,
             value: new Date(new Date().getTime() - 1080 * 60 * 1000)
         }]
     }, {
@@ -114,22 +113,24 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         reference: 'toContainer',
         hidden: true,
         emptyText: Strings.reportTo,
+        defaults: {
+            minWidth: Traccar.Style.formFieldWidth
+        },
         items: [{
             xtype: 'datefield',
             reference: 'toDateField',
             cls: 'rounded',
-            minWidth: Traccar.Style.formFieldWidth,
             startDay: Traccar.Style.weekStartDay,
             format: Traccar.Style.dateFormat,
             value: new Date()
         }, {
             xtype: 'customTimeField',
             reference: 'toTimeField',
-            minWidth: Traccar.Style.formFieldWidth,
             value: new Date()
         }]
     }, {
-        fieldLabel: Strings.reportShowMarkers,
+        boxLabel: Strings.reportShowMarkers,
+        minWidth: 10,
         xtype: 'checkbox',
         reference: 'showMarkersField',
         inputValue: true,

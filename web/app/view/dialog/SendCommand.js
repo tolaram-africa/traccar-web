@@ -25,11 +25,14 @@ Ext.define('Traccar.view.dialog.SendCommand', {
 
     controller: 'sendCommand',
     title: Strings.commandTitle,
+    defaults: {
+        minWidth: Traccar.Style.formFieldWidth
+    },
 
     items: [{
         xtype: 'combobox',
         reference: 'commandsComboBox',
-        fieldLabel: Strings.deviceCommand,
+        emptyText: Strings.deviceCommand,
         cls: 'rounded',
         displayField: 'description',
         valueField: 'id',
@@ -49,13 +52,17 @@ Ext.define('Traccar.view.dialog.SendCommand', {
             xtype: 'fieldset',
             reference: 'newCommandFields',
             disabled: true,
+            defaults: {
+                minWidth: Traccar.Style.formFieldWidth - 35
+            },
             items: [{
                 xtype: 'checkboxfield',
                 name: 'textChannel',
                 reference: 'textChannelCheckBox',
                 inputValue: true,
                 uncheckedValue: false,
-                fieldLabel: Strings.commandSendSms,
+                boxLabel: Strings.commandSendSms,
+                minWidth: 10,
                 listeners: {
                     change: 'onTextChannelChange'
                 }
@@ -64,7 +71,7 @@ Ext.define('Traccar.view.dialog.SendCommand', {
                 name: 'type',
                 reference: 'commandType',
                 cls: 'rounded',
-                fieldLabel: Strings.sharedType,
+                emptyText: Strings.sharedType,
                 store: 'CommandTypes',
                 displayField: 'name',
                 valueField: 'type',

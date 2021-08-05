@@ -25,6 +25,9 @@ Ext.define('Traccar.view.dialog.SavedCommand', {
 
     controller: 'savedCommand',
     title: Strings.sharedSavedCommand,
+    defaults: {
+        minWidth: Traccar.Style.formFieldWidth
+    },
 
     items: [{
         xtype: 'form',
@@ -32,39 +35,37 @@ Ext.define('Traccar.view.dialog.SavedCommand', {
             validitychange: 'onValidityChange'
         },
         items: [{
-            xtype: 'fieldset',
-            title: Strings.sharedRequired,
-            items: [{
-                xtype: 'unescapedTextField',
-                name: 'description',
-                fieldLabel: Strings.sharedDescription
-            }, {
-                xtype: 'checkboxfield',
-                name: 'textChannel',
-                cls: 'rounded',
-                inputValue: true,
-                uncheckedValue: false,
-                fieldLabel: Strings.commandSendSms
-            }, {
-                xtype: 'combobox',
-                name: 'type',
-                reference: 'commandType',
-                cls: 'rounded',
-                fieldLabel: Strings.sharedType,
-                store: 'AllCommandTypes',
-                queryMode: 'local',
-                displayField: 'name',
-                valueField: 'type',
-                editable: false,
-                allowBlank: false,
-                listeners: {
-                    change: 'onTypeChange'
-                }
-            }, {
-                xtype: 'fieldcontainer',
-                cls: 'rounded',
-                reference: 'parameters'
-            }]
+            xtype: 'unescapedTextField',
+            name: 'description',
+            emptyText: Strings.sharedDescription
+        }, {
+            xtype: 'checkboxfield',
+            name: 'textChannel',
+            cls: 'rounded',
+            inputValue: true,
+            uncheckedValue: false,
+            boxLabel: Strings.commandSendSms,
+            minWidth: 10
+        }, {
+            xtype: 'combobox',
+            name: 'type',
+            reference: 'commandType',
+            cls: 'rounded',
+            emptyText: Strings.sharedType,
+            store: 'AllCommandTypes',
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'type',
+            editable: false,
+            allowBlank: false,
+            minWidth: Traccar.Style.formFieldWidth,
+            listeners: {
+                change: 'onTypeChange'
+            }
+        }, {
+            xtype: 'fieldcontainer',
+            cls: 'rounded',
+            reference: 'parameters'
         }]
     }],
 

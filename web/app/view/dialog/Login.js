@@ -27,8 +27,6 @@ Ext.define('Traccar.view.dialog.Login', {
 
     header: false,
     closable: false,
-    minWidth: 320,
-
     items: {
         xtype: 'form',
         reference: 'form',
@@ -39,17 +37,22 @@ Ext.define('Traccar.view.dialog.Login', {
             action: 'fake-login.html',
             target: 'submitTarget'
         },
+        defaults: {
+            minWidth: Traccar.Style.formFieldWidth
+        },
 
         items: [{
             xtype: 'image',
             src: './logo/front.png',
             alt: Strings.loginLogo,
-            width: 122,
-            height: 43,
+            minWidth: Traccar.Style.logoWidth,
+            height: Traccar.Style.logoHeight,
             style: {
                 display: 'block',
-                margin: '10px auto 25px'
+                margin: '5px auto 0px'
             }
+        }, {
+            height: 30
         }, {
             xtype: 'textfield',
             name: 'email',
@@ -60,14 +63,13 @@ Ext.define('Traccar.view.dialog.Login', {
             allowBlank: false,
             cls: 'rounded',
             enableKeyEvents: true,
-            minWidth: 320,
             listeners: {
                 specialKey: 'onSpecialKey',
                 afterrender: 'onAfterRender'
             },
             inputAttrTpl: ['autocomplete="on" autocapitalize="none"']
         }, {
-            height: 1
+            height: 3
         }, {
             xtype: 'textfield',
             name: 'password',
@@ -79,13 +81,12 @@ Ext.define('Traccar.view.dialog.Login', {
             allowBlank: false,
             cls: 'rounded',
             enableKeyEvents: true,
-            minWidth: 320,
             listeners: {
                 specialKey: 'onSpecialKey'
             },
             inputAttrTpl: ['autocomplete="on"']
         }, {
-            height: 1
+            height: 3
         },
 
         /**
@@ -110,10 +111,9 @@ Ext.define('Traccar.view.dialog.Login', {
             uncheckedValue: false,
             reference: 'rememberField',
             labelAlign: 'left',
-            hideLabel: true,
             checked: true,
-            fieldLabel: Strings.userRemember,
-            boxLabel: Strings.userRemember
+            boxLabel: Strings.userRemember,
+            minWidth: 10
         }, {
             xtype: 'component',
             html: '<iframe id="submitTarget" name="submitTarget" style="display:none"></iframe>'

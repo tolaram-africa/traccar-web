@@ -106,8 +106,15 @@
   border-width: 0px 1px 0px 1px !important;
 }
 
+/** Center window title */
 .x-window-header-title-default {
-  color: #808080 !important;
+    text-align: center !important;
+    color: #808080 !important;
+}
+
+/** Center fieldSet text and toggler */
+.x-window {
+  text-align: center;
 }
 
 /* Little icons deeper background styling */
@@ -232,6 +239,10 @@
     border-style: solid;
     border-color: #d0d0d0;
     border-width: 0px;
+}
+
+.x-toolbar-footer {
+    background-color: #fff !important;
 }
 
 /* Button img selected styling */

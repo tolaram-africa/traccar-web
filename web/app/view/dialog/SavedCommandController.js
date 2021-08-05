@@ -34,7 +34,8 @@ Ext.define('Traccar.view.dialog.SavedCommandController', {
                 parameter = new Traccar.model.KnownAttribute(parameters[i]);
                 config = Ext.clone(this.defaultFieldConfig);
                 config.key = parameter.get('key');
-                config.fieldLabel = parameter.get('name');
+                config.emptyText = parameter.get('name');
+                config.minWidth = Traccar.Style.formFieldWidth;
                 if (record.get('attributes')) {
                     config.value = record.get('attributes')[parameter.get('key')];
                 }
@@ -53,6 +54,8 @@ Ext.define('Traccar.view.dialog.SavedCommandController', {
                         break;
                     case 'boolean':
                         config.xtype = 'checkboxfield';
+                        config.boxLabel = parameter.get('name');
+                        config.minWidth = 10;
                         config.inputValue = true;
                         config.uncheckedValue = false;
                         break;

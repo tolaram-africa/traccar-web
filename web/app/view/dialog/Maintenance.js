@@ -28,6 +28,9 @@ Ext.define('Traccar.view.dialog.Maintenance', {
     controller: 'maintenance',
 
     title: Strings.sharedMaintenance,
+    defaults: {
+        minWidth: Traccar.Style.formFieldWidth
+    },
 
     items: {
         xtype: 'form',
@@ -35,42 +38,39 @@ Ext.define('Traccar.view.dialog.Maintenance', {
             validitychange: 'onValidityChange'
         },
         items: [{
-            xtype: 'fieldset',
-            title: Strings.sharedRequired,
-            items: [{
-                xtype: 'unescapedTextField',
-                name: 'name',
-                fieldLabel: Strings.sharedName,
-                allowBlank: false
-            }, {
-                xtype: 'combobox',
-                name: 'type',
-                reference: 'typeComboField',
-                cls: 'rounded',
-                fieldLabel: Strings.sharedType,
-                displayField: 'name',
-                valueField: 'key',
-                allowBlank: false,
-                queryMode: 'local',
-                store: 'MaintenanceTypes',
-                listeners: {
-                    change: 'onNameChange'
-                }
-            }, {
-                xtype: 'customNumberField',
-                name: 'start',
-                reference: 'startField',
-                fieldLabel: Strings.maintenanceStart
-            }, {
-                xtype: 'customNumberField',
-                name: 'period',
-                reference: 'periodField',
-                allowBlank: false,
-                fieldLabel: Strings.maintenancePeriod,
-                validator: function (value) {
-                    return this.parseValue(value) !== 0 ? true : Strings.errorZero;
-                }
-            }]
+            xtype: 'unescapedTextField',
+            name: 'name',
+            emptyText: Strings.sharedName,
+            allowBlank: false
+        }, {
+            xtype: 'combobox',
+            name: 'type',
+            reference: 'typeComboField',
+            cls: 'rounded',
+            emptyText: Strings.sharedType,
+            displayField: 'name',
+            valueField: 'key',
+            allowBlank: false,
+            queryMode: 'local',
+            store: 'MaintenanceTypes',
+            minWidth: Traccar.Style.formFieldWidth,
+            listeners: {
+                change: 'onNameChange'
+            }
+        }, {
+            xtype: 'customNumberField',
+            name: 'start',
+            reference: 'startField',
+            emptyText: Strings.maintenanceStart
+        }, {
+            xtype: 'customNumberField',
+            name: 'period',
+            reference: 'periodField',
+            allowBlank: false,
+            emptyText: Strings.maintenancePeriod,
+            validator: function (value) {
+                return this.parseValue(value) !== 0 ? true : Strings.errorZero;
+            }
         }]
     }
 });

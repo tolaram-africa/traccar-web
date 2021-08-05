@@ -70,7 +70,7 @@ Ext.define('Traccar.view.dialog.Device', {
             xtype: 'fieldset',
             title: Strings.sharedExtra,
             collapsible: true,
-            collapsed: false,
+            collapsed: true,
             defaults: {
                 minWidth: Traccar.Style.formFieldWidth - 35
             },
@@ -114,7 +114,8 @@ Ext.define('Traccar.view.dialog.Device', {
                 inputValue: true,
                 uncheckedValue: false,
                 name: 'disabled',
-                fieldLabel: Strings.sharedDisabled,
+                boxLabel: Strings.sharedDisabled,
+                minWidth: 10,
                 hidden: true,
                 reference: 'disabledField'
             }]

@@ -29,49 +29,66 @@ Ext.define('Traccar.view.dialog.Server', {
 
     items: {
         xtype: 'form',
+        defaults: {
+            minWidth: Traccar.Style.formFieldWidth
+        },
         items: [{
-            xtype: 'fieldset',
-            title: Strings.sharedPreferences,
-            defaults: {
-                minWidth: 300
-            },
+            xtype: 'clearableComboBox',
+            name: 'map',
+            emptyText: Strings.mapLayer,
+            store: 'MapTypes',
+            displayField: 'name',
+            valueField: 'key'
+        }, {
+            xtype: 'unescapedTextField',
+            name: 'bingKey',
+            emptyText: Strings.mapBingKey
+        }, {
+            xtype: 'unescapedTextField',
+            reference: 'mapUrlField',
+            name: 'mapUrl',
+            emptyText: Strings.mapCustomLabel
+        }, {
+            xtype: 'numberfield',
+            reference: 'latitude',
+            cls: 'rounded',
+            name: 'latitude',
+            emptyText: Strings.positionLatitude,
+            decimalPrecision: Traccar.Style.coordinatePrecision
+        }, {
+            xtype: 'numberfield',
+            reference: 'longitude',
+            cls: 'rounded',
+            name: 'longitude',
+            emptyText: Strings.positionLongitude,
+            decimalPrecision: Traccar.Style.coordinatePrecision
+        }, {
+            xtype: 'numberfield',
+            reference: 'zoom',
+            cls: 'rounded',
+            name: 'zoom',
+            emptyText: Strings.serverZoom
+        }, {
+            xtype: 'clearableComboBox',
+            name: 'coordinateFormat',
+            emptyText: Strings.settingsCoordinateFormat,
+            store: 'CoordinateFormats',
+            displayField: 'name',
+            valueField: 'key'
+        }, {
+            xtype: 'unescapedTextField',
+            name: 'poiLayer',
+            emptyText: Strings.mapPoiLayer
+        }, {
+            xtype: 'unescapedTextField',
+            name: 'announcement',
+            emptyText: Strings.serverAnnouncement
+        },
+        {
+            xtype: 'checkboxgroup',
+            columns: 2,
+            vertical: true,
             items: [{
-                xtype: 'clearableComboBox',
-                name: 'map',
-                fieldLabel: Strings.mapLayer,
-                store: 'MapTypes',
-                displayField: 'name',
-                valueField: 'key'
-            }, {
-                xtype: 'unescapedTextField',
-                name: 'bingKey',
-                fieldLabel: Strings.mapBingKey
-            }, {
-                xtype: 'unescapedTextField',
-                reference: 'mapUrlField',
-                name: 'mapUrl',
-                fieldLabel: Strings.mapCustomLabel
-            }, {
-                xtype: 'numberfield',
-                reference: 'latitude',
-                cls: 'rounded',
-                name: 'latitude',
-                fieldLabel: Strings.positionLatitude,
-                decimalPrecision: Traccar.Style.coordinatePrecision
-            }, {
-                xtype: 'numberfield',
-                reference: 'longitude',
-                cls: 'rounded',
-                name: 'longitude',
-                fieldLabel: Strings.positionLongitude,
-                decimalPrecision: Traccar.Style.coordinatePrecision
-            }, {
-                xtype: 'numberfield',
-                reference: 'zoom',
-                cls: 'rounded',
-                name: 'zoom',
-                fieldLabel: Strings.serverZoom
-            }, {
                 xtype: 'checkboxfield',
                 inputValue: true,
                 uncheckedValue: false,
@@ -83,21 +100,6 @@ Ext.define('Traccar.view.dialog.Server', {
                 uncheckedValue: false,
                 name: 'forceSettings',
                 fieldLabel: Strings.serverForceSettings
-            }, {
-                xtype: 'clearableComboBox',
-                name: 'coordinateFormat',
-                fieldLabel: Strings.settingsCoordinateFormat,
-                store: 'CoordinateFormats',
-                displayField: 'name',
-                valueField: 'key'
-            }, {
-                xtype: 'unescapedTextField',
-                name: 'poiLayer',
-                fieldLabel: Strings.mapPoiLayer
-            }, {
-                xtype: 'unescapedTextField',
-                name: 'announcement',
-                fieldLabel: Strings.serverAnnouncement
             }]
         }, {
             xtype: 'fieldset',
@@ -105,7 +107,7 @@ Ext.define('Traccar.view.dialog.Server', {
             collapsible: true,
             collapsed: true,
             defaults: {
-                minWidth: 300
+                minWidth: Traccar.Style.formFieldWidth - 35
             },
             items: [{
                 xtype: 'checkboxfield',
@@ -114,24 +116,30 @@ Ext.define('Traccar.view.dialog.Server', {
                 hidden: true,
                 name: 'registration',
                 fieldLabel: Strings.serverRegistration
-            }, {
-                xtype: 'checkboxfield',
-                inputValue: true,
-                uncheckedValue: false,
-                name: 'readonly',
-                fieldLabel: Strings.serverReadonly
-            }, {
-                xtype: 'checkboxfield',
-                inputValue: true,
-                uncheckedValue: false,
-                name: 'deviceReadonly',
-                fieldLabel: Strings.userDeviceReadonly
-            }, {
-                xtype: 'checkboxfield',
-                inputValue: true,
-                uncheckedValue: false,
-                name: 'limitCommands',
-                fieldLabel: Strings.userLimitCommands
+            },
+            {
+                xtype: 'checkboxgroup',
+                columns: 2,
+                vertical: true,
+                items: [{
+                    xtype: 'checkboxfield',
+                    inputValue: true,
+                    uncheckedValue: false,
+                    name: 'readonly',
+                    fieldLabel: Strings.serverReadonly
+                }, {
+                    xtype: 'checkboxfield',
+                    inputValue: true,
+                    uncheckedValue: false,
+                    name: 'deviceReadonly',
+                    fieldLabel: Strings.userDeviceReadonly
+                }, {
+                    xtype: 'checkboxfield',
+                    inputValue: true,
+                    uncheckedValue: false,
+                    name: 'limitCommands',
+                    fieldLabel: Strings.userLimitCommands
+                }]
             }]
         }]
     },

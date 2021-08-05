@@ -27,49 +27,43 @@ Ext.define('Traccar.view.dialog.User', {
     controller: 'user',
     title: Strings.settingsUser,
     defaults: {
-        minWidth: 320
+        minWidth: Traccar.Style.formFieldWidth
     },
     items: {
         xtype: 'form',
         items: [{
-            xtype: 'fieldset',
-            title: Strings.sharedRequired,
-            defaults: {
-                minWidth: 300
-            },
-            items: [{
-                xtype: 'unescapedTextField',
-                name: 'name',
-                fieldLabel: Strings.sharedName
-            }, {
-                xtype: 'unescapedTextField',
-                name: 'email',
-                fieldLabel: Strings.userEmail,
-                allowBlank: false
-            }, {
-                xtype: 'textfield',
-                name: 'password',
-                fieldLabel: Strings.userPassword,
-                cls: 'rounded',
-                inputType: 'password',
-                allowBlank: false
-            }]
+            xtype: 'unescapedTextField',
+            name: 'name',
+            emptyText: Strings.sharedName
+        }, {
+            xtype: 'unescapedTextField',
+            name: 'email',
+            emptyText: Strings.userEmail,
+            allowBlank: false
+        }, {
+            xtype: 'textfield',
+            name: 'password',
+            emptyText: Strings.userPassword,
+            cls: 'rounded',
+            minWidth: Traccar.Style.formFieldWidth,
+            inputType: 'password',
+            allowBlank: false
         }, {
             xtype: 'fieldset',
             title: Strings.sharedPreferences,
             collapsible: true,
             collapsed: true,
             defaults: {
-                minWidth: 250
+                minWidth: Traccar.Style.formFieldWidth - 35
             },
             items: [{
                 xtype: 'unescapedTextField',
                 name: 'phone',
-                fieldLabel: Strings.sharedPhone
+                emptyText: Strings.sharedPhone
             }, {
                 xtype: 'clearableComboBox',
                 name: 'map',
-                fieldLabel: Strings.mapLayer,
+                emptyText: Strings.mapLayer,
                 store: 'MapTypes',
                 displayField: 'name',
                 valueField: 'key'
@@ -78,38 +72,39 @@ Ext.define('Traccar.view.dialog.User', {
                 reference: 'latitude',
                 cls: 'rounded',
                 name: 'latitude',
-                fieldLabel: Strings.positionLatitude,
+                emptyText: Strings.positionLatitude,
                 decimalPrecision: Traccar.Style.coordinatePrecision
             }, {
                 xtype: 'numberfield',
                 reference: 'longitude',
                 cls: 'rounded',
                 name: 'longitude',
-                fieldLabel: Strings.positionLongitude,
+                emptyText: Strings.positionLongitude,
                 decimalPrecision: Traccar.Style.coordinatePrecision
             }, {
                 xtype: 'numberfield',
                 reference: 'zoom',
                 cls: 'rounded',
                 name: 'zoom',
-                fieldLabel: Strings.serverZoom
-            }, {
-                xtype: 'checkboxfield',
-                inputValue: true,
-                uncheckedValue: false,
-                name: 'twelveHourFormat',
-                fieldLabel: Strings.settingsTwelveHourFormat
+                emptyText: Strings.serverZoom
             }, {
                 xtype: 'clearableComboBox',
                 name: 'coordinateFormat',
-                fieldLabel: Strings.settingsCoordinateFormat,
+                emptyText: Strings.settingsCoordinateFormat,
                 store: 'CoordinateFormats',
                 displayField: 'name',
                 valueField: 'key'
             }, {
                 xtype: 'unescapedTextField',
                 name: 'poiLayer',
-                fieldLabel: Strings.mapPoiLayer
+                emptyText: Strings.mapPoiLayer
+            }, {
+                xtype: 'checkboxfield',
+                inputValue: true,
+                uncheckedValue: false,
+                name: 'twelveHourFormat',
+                boxLabel: Strings.settingsTwelveHourFormat,
+                minWidth: 10
             }]
         }, {
             xtype: 'fieldset',
@@ -117,53 +112,12 @@ Ext.define('Traccar.view.dialog.User', {
             collapsible: true,
             collapsed: true,
             defaults: {
-                minWidth: 250
+                minWidth: Traccar.Style.formFieldWidth - 35
             },
             items: [{
-                xtype: 'checkboxfield',
-                inputValue: true,
-                uncheckedValue: false,
-                name: 'disabled',
-                fieldLabel: Strings.sharedDisabled,
-                disabled: true,
-                reference: 'disabledField'
-            }, {
-                xtype: 'checkboxfield',
-                inputValue: true,
-                uncheckedValue: false,
-                name: 'administrator',
-                fieldLabel: Strings.userAdmin,
-                disabled: true,
-                hidden: true,
-                reference: 'adminField'
-            }, {
-                xtype: 'checkboxfield',
-                inputValue: true,
-                uncheckedValue: false,
-                name: 'readonly',
-                fieldLabel: Strings.serverReadonly,
-                disabled: true,
-                reference: 'readonlyField'
-            }, {
-                xtype: 'checkboxfield',
-                inputValue: true,
-                uncheckedValue: false,
-                name: 'deviceReadonly',
-                fieldLabel: Strings.userDeviceReadonly,
-                disabled: true,
-                reference: 'deviceReadonlyField'
-            }, {
-                xtype: 'checkboxfield',
-                inputValue: true,
-                uncheckedValue: false,
-                name: 'limitCommands',
-                fieldLabel: Strings.userLimitCommands,
-                disabled: true,
-                reference: 'limitCommandsField'
-            }, {
                 xtype: 'datefield',
                 name: 'expirationTime',
-                fieldLabel: Strings.userExpirationTime,
+                emptyText: Strings.userExpirationTime,
                 cls: 'rounded',
                 disabled: true,
                 reference: 'expirationTimeField',
@@ -173,13 +127,13 @@ Ext.define('Traccar.view.dialog.User', {
                 xtype: 'numberfield',
                 cls: 'rounded',
                 name: 'deviceLimit',
-                fieldLabel: Strings.userDeviceLimit,
+                emptyText: Strings.userDeviceLimit,
                 disabled: true,
                 reference: 'deviceLimitField'
             }, {
                 xtype: 'numberfield',
                 name: 'userLimit',
-                fieldLabel: Strings.userUserLimit,
+                emptyText: Strings.userUserLimit,
                 cls: 'rounded',
                 disabled: true,
                 reference: 'userLimitField'
@@ -187,13 +141,61 @@ Ext.define('Traccar.view.dialog.User', {
                 xtype: 'unescapedTextField',
                 name: 'token',
                 reference: 'tokenField',
-                fieldLabel: Strings.userToken,
+                emptyText: Strings.userToken,
                 triggers: {
                     generate: {
                         cls: 'iconCls: x-fa fa-refresh',
                         handler: 'generateToken'
                     }
                 }
+            }, {
+                xtype: 'checkboxgroup',
+                columns: 2,
+                vertical: true,
+                items: [
+                    {
+                        xtype: 'checkboxfield',
+                        inputValue: true,
+                        uncheckedValue: false,
+                        name: 'disabled',
+                        boxLabel: Strings.sharedDisabled,
+                        disabled: true,
+                        reference: 'disabledField'
+                    }, {
+                        xtype: 'checkboxfield',
+                        inputValue: true,
+                        uncheckedValue: false,
+                        name: 'administrator',
+                        boxLabel: Strings.userAdmin,
+                        disabled: true,
+                        hidden: true,
+                        reference: 'adminField'
+                    }, {
+                        xtype: 'checkboxfield',
+                        inputValue: true,
+                        uncheckedValue: false,
+                        name: 'readonly',
+                        boxLabel: Strings.serverReadonly,
+                        disabled: true,
+                        reference: 'readonlyField'
+                    }, {
+                        xtype: 'checkboxfield',
+                        inputValue: true,
+                        uncheckedValue: false,
+                        name: 'deviceReadonly',
+                        boxLabel: Strings.userDeviceReadonly,
+                        disabled: true,
+                        reference: 'deviceReadonlyField'
+                    }, {
+                        xtype: 'checkboxfield',
+                        inputValue: true,
+                        uncheckedValue: false,
+                        name: 'limitCommands',
+                        boxLabel: Strings.userLimitCommands,
+                        disabled: true,
+                        reference: 'limitCommandsField'
+                    }
+                ]
             }]
         }]
     },

@@ -27,53 +27,49 @@ Ext.define('Traccar.view.dialog.Driver', {
 
     items: {
         xtype: 'form',
+        defaults: {
+            minWidth: Traccar.Style.formFieldWidth
+        },
         items: [{
-            xtype: 'fieldset',
-            title: Strings.sharedRequired,
-            items: [{
-                xtype: 'unescapedTextField',
-                name: 'name',
-                emptyText: Strings.sharedName,
-                allowBlank: false
-            }, {
-                xtype: 'unescapedTextField',
-                name: 'uniqueId',
-                emptyText: Strings.sharedDriverId,
-                allowBlank: false
-            }, {
-                xtype: 'textfield',
-                cls: 'rounded',
-                name: 'driverEmail',
-                emptyText: Strings.sharedDriverEmail,
-                minWidth: Traccar.Style.formFieldWidth,
-                allowBlank: false
-            }, {
-                xtype: 'textfield',
-                cls: 'rounded',
-                name: 'driverPhone',
-                emptyText: Strings.sharedDriverPhone,
-                minWidth: Traccar.Style.formFieldWidth,
-                allowBlank: false
-            }, {
-                xtype: 'datefield',
-                name: 'employment',
-                cls: 'rounded',
-                emptyText: Strings.sharedDriverDate,
-                minWidth: Traccar.Style.formFieldWidth,
-                disabled: false,
-                reference: 'employmentField',
-                startDay: Traccar.Style.weekStartDay,
-                format: Traccar.Style.dateFormat
-            }, {
-                xtype: 'checkboxfield',
-                inputValue: true,
-                uncheckedValue: false,
-                name: 'disabled',
-                fieldLabel: Strings.sharedDriverEmployed,
-                minWidth: Traccar.Style.formFieldWidth,
-                hidden: false,
-                reference: 'disabledField'
-            }]
+            xtype: 'unescapedTextField',
+            name: 'name',
+            emptyText: Strings.sharedName,
+            allowBlank: false
+        }, {
+            xtype: 'unescapedTextField',
+            name: 'uniqueId',
+            emptyText: Strings.sharedDriverId,
+            allowBlank: false
+        }, {
+            xtype: 'textfield',
+            cls: 'rounded',
+            name: 'driverEmail',
+            emptyText: Strings.sharedDriverEmail,
+            allowBlank: false
+        }, {
+            xtype: 'textfield',
+            cls: 'rounded',
+            name: 'driverPhone',
+            emptyText: Strings.sharedDriverPhone,
+            allowBlank: false
+        }, {
+            xtype: 'datefield',
+            name: 'employment',
+            cls: 'rounded',
+            emptyText: Strings.sharedDriverDate,
+            disabled: false,
+            reference: 'employmentField',
+            startDay: Traccar.Style.weekStartDay,
+            format: Traccar.Style.dateFormat
+        }, {
+            xtype: 'checkboxfield',
+            inputValue: true,
+            uncheckedValue: false,
+            name: 'disabled',
+            boxLabel: Strings.sharedDriverEmployed,
+            minWidth: 10,
+            hidden: false,
+            reference: 'disabledField'
         }]
     }
 });

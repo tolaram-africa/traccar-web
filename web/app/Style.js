@@ -23,6 +23,8 @@ Ext.define('Traccar.Style', {
     devicesTimeout: 5700,
     googleApiKey: 'GOOGLE_API_KEY',
     normalPadding: 10,
+    logoWidth: 102,
+    logoHeight: 43,
     windowWidth: 950,
     windowHeight: 600,
     formFieldWidth: 285,
