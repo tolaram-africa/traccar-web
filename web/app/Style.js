@@ -17,45 +17,31 @@
 
 Ext.define('Traccar.Style', {
     singleton: true,
-
-    /**
-     * TODO: Note for possible easy report selection
-     * setDeviceQuick: null,
-     */
     refreshPeriod: 60 * 1000,
     reconnectTimeout: 60 * 1000,
     reportTimeout: 1200 * 90000000,
     devicesTimeout: 5700,
     googleApiKey: 'GOOGLE_API_KEY',
-
     normalPadding: 10,
-
     windowWidth: 950,
     windowHeight: 600,
-
     formFieldWidth: 285,
     formFieldMaxWidth: 395,
-
     dateTimeFormat24: 'd-m-Y H:i:s',
     dateTimeFormat12: 'd-m-Y g:i:s a',
     timeFormat24: 'H:i',
     timeFormat12: 'g:i a',
     dateFormat: 'd-m-Y',
     weekStartDay: 1,
-
     deviceWidth: 395,
     eventWidth: 255,
     eventHeight: 135,
     toastWidth: 175,
-
     reportHeight: 378,
-
     columnWidthNormal: 100,
-
     mapDefaultLat: 3.56545,
     mapDefaultLon: 14.948848,
     mapDefaultZoom: 4,
-
     mapRouteColor: [
         '#c3fc32',
         '#027c70',
@@ -74,12 +60,29 @@ Ext.define('Traccar.Style', {
         '#e899a3'
     ],
     mapRouteWidth: 2,
-
     mapTextColor: 'rgba(50, 50, 50, 1.0)',
     mapTextStrokeColor: 'rgba(255, 255, 255, 1.0)',
     mapTextStrokeWidth: 1,
     mapTextOffset: 1,
     mapTextFont: 'bold 10px sans-serif',
+    mapScaleNormal: 0.49,
+    mapScaleSelected: 0.73,
+    mapMaxZoom: 20,
+    mapDelay: 500,
+    mapAccuracyColor: 'rgba(96, 96, 96, 1.0)',
+    mapGeofenceTextColor: 'rgba(102, 104, 235, 1.0)',
+    mapGeofenceColor: 'rgba(102, 104, 235, 1.0)',
+    mapGeofenceOverlayOpacity: 0.2,
+    mapGeofenceWidth: 2,
+    mapGeofenceRadius: 4,
+    mapAnimateMarkerDuration: 2000,
+    mapAnimateMarkerTimeout: 40,
+    coordinatePrecision: 6,
+    numberPrecision: 2,
+    reportGridStyle: 'borderTop: 1px solid lightgray',
+    chartPadding: '20 40 10 10',
+    chartMarkerRadius: 3,
+    chartMarkerHighlightScaling: 1.5,
 
     /** Object status color */
     colorDefault: 'rgba(124, 122, 122, 0.8)',
@@ -87,31 +90,5 @@ Ext.define('Traccar.Style', {
     colorOffline: 'rgba(255, 0, 0, 1)',
     colorMoving: 'rgba(1, 120, 1, 0.8)',
     colorParked: 'rgba(255, 165, 0, 1)',
-    colorIdle: 'rgba(250, 190, 77, 0.4)',
-
-    mapScaleNormal: 0.49,
-    mapScaleSelected: 0.73,
-
-    mapMaxZoom: 20,
-    mapDelay: 500,
-
-    mapAccuracyColor: 'rgba(96, 96, 96, 1.0)',
-
-    mapGeofenceTextColor: 'rgba(102, 104, 235, 1.0)',
-    mapGeofenceColor: 'rgba(102, 104, 235, 1.0)',
-    mapGeofenceOverlayOpacity: 0.2,
-    mapGeofenceWidth: 2,
-    mapGeofenceRadius: 4,
-
-    mapAnimateMarkerDuration: 2000,
-    mapAnimateMarkerTimeout: 40,
-
-    coordinatePrecision: 6,
-    numberPrecision: 2,
-
-    reportGridStyle: 'borderTop: 1px solid lightgray',
-
-    chartPadding: '20 40 10 10',
-    chartMarkerRadius: 3,
-    chartMarkerHighlightScaling: 1.5
+    colorIdle: 'rgba(250, 190, 77, 0.4)'
 });
