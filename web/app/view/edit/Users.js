@@ -42,14 +42,14 @@ Ext.define('Traccar.view.edit.Users', {
             disabled: true,
             handler: 'onDevicesClick',
             reference: 'userDevicesButton',
-            glyph: 'xf248@FontAwesome',
+            glyph: 'xf192@FontAwesome',
             tooltip: Strings.deviceTitle,
             tooltipType: 'title'
         }, {
             disabled: true,
             handler: 'onGroupsClick',
             reference: 'userGroupsButton',
-            glyph: 'xf247@FontAwesome',
+            glyph: 'xf0e8@FontAwesome',
             tooltip: Strings.settingsGroups,
             tooltipType: 'title'
         }, {
