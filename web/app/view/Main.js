@@ -78,6 +78,7 @@ Ext.define('Traccar.view.Main', {
                 },
                 {
                     xtype: 'geofencesView',
+                    hidden: true,
                     reference: 'geofencesView',
                     glyph: 'xf21d@FontAwesome',
                     title: Strings.sharedGeofences
