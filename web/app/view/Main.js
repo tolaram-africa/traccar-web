@@ -83,6 +83,7 @@ Ext.define('Traccar.view.Main', {
                 },
                 {
                     xtype: 'eventsView',
+                    hidden: true,
                     reference: 'eventsView',
                     glyph: 'xf0f3@FontAwesome',
                     title: 'Activities'
