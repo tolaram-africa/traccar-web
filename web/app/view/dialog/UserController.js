@@ -20,13 +20,19 @@ Ext.define('Traccar.view.dialog.UserController', {
     alias: 'controller.user',
 
     init: function () {
-        if (Traccar.app.getUser().get('administrator')) {
+        var admin = Traccar.app.getUser().get('administrator'),
+            manager = Traccar.app.getUser().get('userLimit') !== 0;
+
+        if (admin || manager) {
+            this.lookupReference('permissionFieldset').setHidden(false);
+        }
+        if (admin) {
             this.lookupReference('adminField').setDisabled(false);
             this.lookupReference('adminField').setHidden(false);
             this.lookupReference('deviceLimitField').setDisabled(false);
             this.lookupReference('userLimitField').setDisabled(false);
         }
-        if (Traccar.app.getUser().get('administrator') || !this.getView().selfEdit) {
+        if (admin || !this.getView().selfEdit) {
             this.lookupReference('readonlyField').setDisabled(false);
             this.lookupReference('disabledField').setDisabled(false);
             this.lookupReference('expirationTimeField').setDisabled(false);

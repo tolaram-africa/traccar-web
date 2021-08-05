@@ -108,9 +108,11 @@ Ext.define('Traccar.view.dialog.User', {
             }]
         }, {
             xtype: 'fieldset',
+            reference: 'permissionFieldset',
             title: Strings.sharedPermissions,
             collapsible: true,
             collapsed: true,
+            hidden: true,
             defaults: {
                 minWidth: Traccar.Style.formFieldWidth - 35
             },
