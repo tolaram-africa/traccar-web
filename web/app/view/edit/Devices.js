@@ -50,7 +50,14 @@ Ext.define('Traccar.view.edit.Devices', {
     },
 
     listeners: {
-        selectionchange: 'onSelectionChange'
+        selectionchange: 'onSelectionChange',
+        groupclick: function (view, node, group, e, eOpts) {
+
+            /*
+             * View.features[0].collapseAll();
+             * view.features[0].expand(group);
+             */
+        }
     },
 
     reserveScrollbar: true,
@@ -60,9 +67,10 @@ Ext.define('Traccar.view.edit.Devices', {
         {
             ftype: 'grouping',
             groupHeaderTpl: [
-                '{columnName} - {name} - {[values.children.length]}'
+                '{name} [{[values.children.length]}]'
             ],
-            hideGroupedHeader: false
+            hideGroupedHeader: true,
+            startCollapsed: false
         }
     ],
 
@@ -77,10 +85,6 @@ Ext.define('Traccar.view.edit.Devices', {
                 tooltipType: 'title'
             },
             items: [{
-                xtype: 'tbtext',
-                html: '<span><a href=\'./\'><img src=\'./logo/back.png\' class=\'showthat\' vertical-align: middle;\' alt=\'logo\' height=\'27px\' width=\'82px\' /></a></span><span class=\'showthatmin\'>Objects</span>',
-                baseCls: 'x-panel-header-title-default'
-            }, {
                 xtype: 'tbfill',
                 disabled: false
             }, {
@@ -107,6 +111,10 @@ Ext.define('Traccar.view.edit.Devices', {
                 xtype: 'deviceMenu',
                 reference: 'toolbarDeviceMenu',
                 enableToggle: false
+            },
+            {
+                xtype: 'tbfill',
+                disabled: false
             }]
         },
         {
@@ -131,6 +139,7 @@ Ext.define('Traccar.view.edit.Devices', {
                     id: 'name',
                     flex: 1,
                     emptyText: 'Search Objects',
+                    minWidth: 100,
                     allowBlank: true,
                     listeners: {
                         change: 'searchFilter'
@@ -207,7 +216,7 @@ Ext.define('Traccar.view.edit.Devices', {
             text: Strings.sharedObjectName,
             dataIndex: 'name',
             stateId: 'devicePaneName',
-            minWidth: 70,
+            minWidth: 80,
             maxWidth: 115,
             filter: {
                 type: 'string',
