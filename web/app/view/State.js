@@ -24,11 +24,26 @@ Ext.define('Traccar.view.State', {
         'Traccar.view.StateController'
     ],
 
+    viewConfig: {
+        columnLines: true,
+        stripeRows: false,
+        getRowClass: function (record) {
+            var ignition = false, styleClass;
+            if (record.get('attribute') === 'ignition') {
+                ignition = record.get('value') === 'Yes';
+                styleClass = ignition ? 'view-color-green' : 'view-color-orange';
+            } else if (record.get('attribute') === 'alarm') {
+                styleClass = 'view-color-red';
+            }
+
+            return styleClass;
+        }
+    },
+
     controller: 'state',
     store: 'Attributes',
-
     stateful: true,
-    stateId: 'state-grid',
+    stateId: 'stateGrid',
 
     tbar: {
         componentCls: 'toolbar-header-style',
@@ -70,14 +85,12 @@ Ext.define('Traccar.view.State', {
             cellWrap: true,
             renderer: function (value, metaData, record) {
                 var position, device;
-                if (record.get('attribute') === 'alarm') {
-                    metaData.tdCls = 'view-color-red';
-                } else if (record.get('name') === Strings.positionAddress && !value) {
+                position = this.getController().position;
+                device = Ext.getStore('Devices').getById(position.get('deviceId'));
+                if (record.get('name') === Strings.positionAddress && !value) {
                     return String(String(Ext.fireEvent('stategeocode')));
                 } else if (record.get('name') === Strings.positionImage || record.get('name') === Strings.positionAudio) {
-                    position = this.getController().position;
                     if (position) {
-                        device = Ext.getStore('Devices').getById(position.get('deviceId'));
                         if (device) {
                             return '<a target="_blank" href="/api/media/' + device.get('uniqueId') + '/' + value + '" >' +
                                 'Media: ' + value + '</a>';
