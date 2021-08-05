@@ -242,5 +242,9 @@ Ext.define('Traccar.Application', {
             width: Traccar.Style.toastWidth,
             align: 'br'
         });
+    },
+    truncateText: function (str, maxlength) {
+        return str.length > maxlength
+            ? str.slice(0, maxlength - 1) + '…' : str;
     }
 });
