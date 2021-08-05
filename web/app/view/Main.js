@@ -25,7 +25,8 @@ Ext.define('Traccar.view.Main', {
         'Traccar.view.State',
         'Traccar.view.Report',
         'Traccar.view.Events',
-        'Traccar.view.map.Map'
+        'Traccar.view.map.Map',
+        'Traccar.view.edit.Geofences'
     ],
 
     controller: 'mainController',
@@ -38,37 +39,58 @@ Ext.define('Traccar.view.Main', {
         split: true
     },
 
-    items: [{
-        region: 'west',
-        layout: 'border',
-        width: Traccar.Style.deviceWidth,
-        title: Strings.devicesAndState,
-        titleCollapse: true,
-        floatable: false,
-        stateful: true,
-        stateId: 'devices-and-state-panel',
-
-        defaults: {
-            split: true,
-            flex: 1
+    items: [
+        {
+            region: 'west',
+            xtype: 'tabpanel',
+            tabPosition: 'bottom',
+            glyph: 'xf192@FontAwesome',
+            bodyPadding: 0,
+            padding: 0,
+            tabBar: {
+                layout: {
+                    pack: 'center'
+                }
+            },
+            activeTab: 0,
+            width: Traccar.Style.deviceWidth,
+            stateful: true,
+            stateId: 'sideViewPanel',
+            titleCollapse: true,
+            scrollable: false,
+            items: [
+                {
+                    layout: 'border',
+                    title: Strings.devicesAndState,
+                    glyph: 'xf192@FontAwesome',
+                    reference: 'deviceStateView',
+                    defaults: {
+                        split: true,
+                        flex: 1
+                    },
+                    items: [{
+                        region: 'center',
+                        xtype: 'devicesView'
+                    }, {
+                        region: 'south',
+                        xtype: 'stateView'
+                    }]
+                },
+                {
+                    xtype: 'geofencesView',
+                    reference: 'geofencesView',
+                    glyph: 'xf21d@FontAwesome',
+                    title: Strings.sharedGeofences
+                },
+                {
+                    xtype: 'eventsView',
+                    reference: 'eventsView',
+                    glyph: 'xf0f3@FontAwesome',
+                    title: 'Activities'
+                }
+            ]
         },
-
-        items: [{
-            region: 'center',
-            xtype: 'devicesView'
-        }, {
-            region: 'south',
-            xtype: 'stateView'
-        }]
-    },
-    {
-        region: 'center',
-        layout: 'border',
-        xtype: 'panel',
-        title: '',
-        floatable: false,
-        constrain: false,
-        items: [{
+        {
             region: 'center',
             layout: 'border',
             xtype: 'panel',
@@ -77,41 +99,36 @@ Ext.define('Traccar.view.Main', {
             constrain: false,
             items: [{
                 region: 'center',
-                xtype: 'mapView',
-                constrain: false,
-                collapsible: false,
-                title: ''
-            },
-            {
-                region: 'west',
-                xtype: 'eventsView',
-                reference: 'eventsView',
-                width: Traccar.Style.eventWidth,
-                collapsed: true,
-                collapsible: true,
-                header: false,
-                titleCollapse: true,
+                layout: 'border',
+                xtype: 'panel',
                 title: '',
-                glyph: 'xf0a2@FontAwesome',
-                split: true,
-                // eslint-disable-next-line object-curly-spacing
-                tools: [{ type: 'search' }]
-            }]
+                floatable: false,
+                constrain: false,
+                items: [{
+                    region: 'center',
+                    xtype: 'mapView',
+                    constrain: false,
+                    collapsible: false,
+                    title: ''
+                }]
 
-        }, {
-            region: 'south',
-            xtype: 'reportView',
-            reference: 'reportView',
-            height: Traccar.Style.reportHeight,
-            collapsed: true,
-            titleCollapse: true,
-            header: false,
-            floatable: false,
-            collapsible: true,
-            split: true,
-            flex: 1,
-            tools: [
-            ]
+            }, {
+                region: 'south',
+                xtype: 'reportView',
+                reference: 'reportView',
+                height: Traccar.Style.reportHeight,
+                collapsed: true,
+                titleCollapse: true,
+                glyph: 'xf022@FontAwesome',
+                constrain: false,
+                header: false,
+                floatable: false,
+                draggable: false,
+                collapsible: true,
+                split: true,
+                flex: 1,
+                tools: [
+                ]
+            }]
         }]
-    }]
 });

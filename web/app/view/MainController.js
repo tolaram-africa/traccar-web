@@ -22,5 +22,9 @@ Ext.define('Traccar.view.MainController', {
     init: function () {
         this.lookupReference('reportView').setHidden(Traccar.app.getBooleanAttributePreference('ui.disableReport'));
         this.lookupReference('eventsView').setHidden(Traccar.app.getBooleanAttributePreference('ui.disableEvents'));
+        if (Traccar.app.getPreference('readonly', false)) {
+            this.lookupReference('geofencesView').setHidden(true);
+        }
+        this.lookupReference('deviceStateView').setHidden(false);
     }
 });
