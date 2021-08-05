@@ -79,6 +79,10 @@
             Ext.Loader.setConfig({
                 disableCaching: false
             });
+            /** Remove ext js accesibility warnings **/
+            Ext.enableAriaPanels = false;
+            Ext.enableAria = false;
+            Ext.ariaWarn = Ext.emptyFn;
         }
 
         Ext.Ajax.request({
