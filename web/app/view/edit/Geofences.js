@@ -26,6 +26,10 @@ Ext.define('Traccar.view.edit.Geofences', {
 
     controller: 'geofences',
     store: 'Geofences',
+    stateful: true,
+    stateId: 'geofencesGrid',
+    sortableColumns: true,
+    header: false,
 
     tbar: {
         xtype: 'editToolbar'
@@ -48,7 +52,8 @@ Ext.define('Traccar.view.edit.Geofences', {
     columns: {
         defaults: {
             flex: 1,
-            minWidth: Traccar.Style.columnWidthNormal
+            minWidth: Traccar.Style.columnWidthNormal,
+            autoSizeColumn: true
         },
         items: [{
             text: Strings.sharedName,

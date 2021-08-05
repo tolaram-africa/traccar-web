@@ -29,18 +29,12 @@ Ext.define('Traccar.view.Events', {
     ],
 
     controller: 'events',
-
     store: 'Events',
-
     stateful: true,
-    stateId: 'events-grid',
-
+    stateId: 'eventsGrid',
     title: Strings.reportEvents,
-
     sortableColumns: true,
-
     header: false,
-
     tbar: {
         componentCls: 'toolbar-header-style',
         defaults: {
@@ -53,11 +47,8 @@ Ext.define('Traccar.view.Events', {
             }
         },
         items: [{
-            xtype: 'tbtext',
-            html: Strings.reportEvents,
-            baseCls: 'x-panel-header-title-default'
-        }, {
-            xtype: 'tbfill'
+            xtype: 'tbfill',
+            disabled: false
         }, {
             glyph: 'xf063@FontAwesome',
             pressed: true,
@@ -93,6 +84,10 @@ Ext.define('Traccar.view.Events', {
             hidden: true,
             stateful: false,
             enableToggle: false
+        },
+        {
+            xtype: 'tbfill',
+            disabled: false
         }]
     },
 
