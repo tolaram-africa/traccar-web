@@ -27,29 +27,44 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
     controller: 'reportConfig',
     title: Strings.reportConfigure,
     defaults: {
-        minWidth: Traccar.Style.formFieldWidth,
-        maxWidth: Traccar.Style.formFieldWidth
+        minWidth: Traccar.Style.formFieldWidth + 100,
+        maxWidth: Traccar.Style.formFieldWidth + 100
     },
 
     items: [{
-        xtype: 'tagfield',
-        reference: 'deviceField',
-        cls: 'rounded',
-        store: 'Devices',
-        valueField: 'id',
-        emptyText: 'Select Objects..',
-        mode: 'local',
-        displayField: 'name',
-        queryMode: 'local'
-    }, {
-        emptyText: Strings.reportGroup,
-        xtype: 'tagfield',
-        reference: 'groupField',
-        cls: 'rounded',
-        store: 'Groups',
-        valueField: 'id',
-        displayField: 'name',
-        queryMode: 'local'
+        xtype: 'fieldcontainer',
+        layout: 'hbox',
+        reference: 'deviceGroupContainer',
+        defaults: {
+            minWidth: 60
+        },
+        items: [
+            {
+                xtype: 'tagfield',
+                reference: 'deviceField',
+                cls: 'rounded',
+                store: 'Devices',
+                valueField: 'id',
+                emptyText: 'Select Objects..',
+                mode: 'local',
+                displayField: 'name',
+                queryMode: 'local',
+                flex: 2
+            }, {
+                xtype: 'splitter',
+                minWidth: 2
+            }, {
+                emptyText: Strings.reportGroup,
+                xtype: 'tagfield',
+                reference: 'groupField',
+                cls: 'rounded',
+                store: 'Groups',
+                valueField: 'id',
+                displayField: 'name',
+                queryMode: 'local',
+                flex: 2
+            }
+        ]
     }, {
         emptyText: Strings.reportEventTypes,
         xtype: 'tagfield',
@@ -65,7 +80,6 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         xtype: 'combobox',
         reference: 'chartTypeField',
         cls: 'rounded',
-        minWidth: Traccar.Style.formFieldWidth,
         store: 'ReportChartTypes',
         hidden: true,
         value: 'speed',
@@ -76,7 +90,6 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         emptyText: Strings.reportPeriod,
         reference: 'periodField',
         cls: 'rounded',
-        minWidth: Traccar.Style.formFieldWidth,
         xtype: 'combobox',
         store: 'ReportPeriods',
         editable: false,
@@ -88,12 +101,12 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         }
     }, {
         xtype: 'fieldcontainer',
-        layout: 'vbox',
+        layout: 'hbox',
         reference: 'fromContainer',
         hidden: true,
         emptyText: Strings.reportFrom,
         defaults: {
-            minWidth: Traccar.Style.formFieldWidth
+            minWidth: 60
         },
         items: [{
             xtype: 'datefield',
@@ -101,20 +114,25 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
             cls: 'rounded',
             startDay: Traccar.Style.weekStartDay,
             format: Traccar.Style.dateFormat,
-            value: new Date(new Date().getTime() - 1080 * 60 * 1000)
+            value: new Date(new Date().getTime() - 1080 * 60 * 1000),
+            flex: 2
+        }, {
+            xtype: 'splitter',
+            minWidth: 2
         }, {
             xtype: 'customTimeField',
             reference: 'fromTimeField',
-            value: new Date(new Date().getTime() - 1080 * 60 * 1000)
+            value: new Date(new Date().getTime() - 1080 * 60 * 1000),
+            flex: 2
         }]
     }, {
         xtype: 'fieldcontainer',
-        layout: 'vbox',
+        layout: 'hbox',
         reference: 'toContainer',
         hidden: true,
         emptyText: Strings.reportTo,
         defaults: {
-            minWidth: Traccar.Style.formFieldWidth
+            minWidth: 60
         },
         items: [{
             xtype: 'datefield',
@@ -122,11 +140,16 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
             cls: 'rounded',
             startDay: Traccar.Style.weekStartDay,
             format: Traccar.Style.dateFormat,
-            value: new Date()
+            value: new Date(),
+            flex: 2
+        }, {
+            xtype: 'splitter',
+            minWidth: 2
         }, {
             xtype: 'customTimeField',
             reference: 'toTimeField',
-            value: new Date()
+            value: new Date(),
+            flex: 2
         }]
     }, {
         boxLabel: Strings.reportShowMarkers,
