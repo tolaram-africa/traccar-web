@@ -554,10 +554,12 @@ Ext.define('Traccar.view.ReportController', {
     }, {
         text: Strings.positionLatitude,
         dataIndex: 'latitude',
+        hidden: true,
         renderer: Traccar.AttributeFormatter.getFormatter('latitude')
     }, {
         text: Strings.positionLongitude,
         dataIndex: 'longitude',
+        hidden: true,
         renderer: Traccar.AttributeFormatter.getFormatter('longitude')
     }, {
         text: Strings.positionAltitude,
