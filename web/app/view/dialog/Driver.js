@@ -41,13 +41,13 @@ Ext.define('Traccar.view.dialog.Driver', {
             emptyText: Strings.sharedDriverId,
             allowBlank: false
         }, {
-            xtype: 'textfield',
+            xtype: 'unescapedTextField',
             cls: 'rounded',
             name: 'driverEmail',
             emptyText: Strings.sharedDriverEmail,
             allowBlank: false
         }, {
-            xtype: 'textfield',
+            xtype: 'unescapedTextField',
             cls: 'rounded',
             name: 'driverPhone',
             emptyText: Strings.sharedDriverPhone,
