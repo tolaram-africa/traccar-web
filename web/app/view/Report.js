@@ -36,65 +36,57 @@ Ext.define('Traccar.view.Report', {
 
     tbar: {
         scrollable: true,
-        items: [
-
-            /*
-             *     {
-             *     xtype: 'tbtext',
-             *     html: Strings.sharedType
-             * },
-             */
-            {
-                xtype: 'combobox',
-                reference: 'reportTypeField',
-                emptyText: 'Select Report',
-                store: 'ReportTypes',
-                cls: 'rounded',
-                displayField: 'name',
-                valueField: 'key',
-                editable: false,
-                listeners: {
-                    change: 'onTypeChange',
-                    afterrender: function (combo) {
-                        var store = combo.getStore();
-                        if (!combo.getValue() && store.getCount() > 0) {
-                            combo.setValue(store.getAt(0).get(combo.valueField));
-                        }
+        items: [{
+            xtype: 'combobox',
+            reference: 'reportTypeField',
+            emptyText: 'Select Report',
+            store: 'ReportTypes',
+            cls: 'rounded',
+            displayField: 'name',
+            valueField: 'key',
+            editable: false,
+            listeners: {
+                change: 'onTypeChange',
+                afterrender: function (combo) {
+                    var store = combo.getStore();
+                    if (!combo.getValue() && store.getCount() > 0) {
+                        combo.setValue(store.getAt(0).get(combo.valueField));
                     }
                 }
-            }, '-', {
-                text: Strings.reportConfigure,
-                glyph: 'f0b0@FontAwesome',
-                tooltip: Strings.reportConfigure,
-                tooltipType: 'title',
-                handler: 'onConfigureClick'
-            }, '-', {
-                glyph: 'f021@FontAwesome',
-                tooltip: Strings.reportShow,
-                tooltipType: 'title',
-                reference: 'showButton',
-                disabled: true,
-                handler: 'onReportClick'
-            }, '-', {
-                reference: 'exportButton',
-                glyph: 'xf1c3@FontAwesome',
-                tooltip: Strings.reportExport,
-                tooltipType: 'title',
-                disabled: true,
-                handler: 'onReportClick'
-            }, '-', {
-                reference: 'emailButton',
-                glyph: 'xf003@FontAwesome',
-                tooltip: Strings.reportEmail,
-                tooltipType: 'title',
-                disabled: true,
-                handler: 'onReportClick'
-            }, '-', {
-                glyph: 'f1f8@FontAwesome',
-                tooltip: Strings.reportClear,
-                tooltipType: 'title',
-                handler: 'onClearClick'
-            }, '-']
+            }
+        }, '-', {
+            text: Strings.reportConfigure,
+            glyph: 'f0b0@FontAwesome',
+            tooltip: Strings.reportConfigure,
+            tooltipType: 'title',
+            handler: 'onConfigureClick'
+        }, '-', {
+            glyph: 'f021@FontAwesome',
+            tooltip: Strings.reportShow,
+            tooltipType: 'title',
+            reference: 'showButton',
+            disabled: true,
+            handler: 'onReportClick'
+        }, '-', {
+            reference: 'exportButton',
+            glyph: 'xf1c3@FontAwesome',
+            tooltip: Strings.reportExport,
+            tooltipType: 'title',
+            disabled: true,
+            handler: 'onReportClick'
+        }, '-', {
+            reference: 'emailButton',
+            glyph: 'xf003@FontAwesome',
+            tooltip: Strings.reportEmail,
+            tooltipType: 'title',
+            disabled: true,
+            handler: 'onReportClick'
+        }, '-', {
+            glyph: 'f1f8@FontAwesome',
+            tooltip: Strings.reportClear,
+            tooltipType: 'title',
+            handler: 'onClearClick'
+        }, '-']
     },
 
     layout: 'card',
