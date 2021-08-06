@@ -97,7 +97,13 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         displayField: 'name',
         queryMode: 'local',
         listeners: {
-            change: 'onPeriodChange'
+            change: 'onPeriodChange',
+            afterrender: function (combo) {
+                var store = combo.getStore();
+                if (!combo.getValue() && store.getCount() > 0) {
+                    combo.setValue(store.getAt(1).get(combo.valueField));
+                }
+            }
         }
     }, {
         xtype: 'fieldcontainer',
