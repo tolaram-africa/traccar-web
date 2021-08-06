@@ -88,9 +88,9 @@ Ext.define('Traccar.Style', {
 
     /** Object status color */
     colorDefault: 'rgba(124, 122, 122, 0.8)',
-    colorExpired: 'rgba(58, 27, 133, 0.7)',
+    colorExpired: 'rgba(240, 255, 0, 1))',
     colorOffline: 'rgba(255, 0, 0, 1)',
-    colorMoving: 'rgba(1, 120, 1, 0.8)',
+    colorMoving: 'rgb(0, 230, 64, 1)',
     colorParked: 'rgba(255, 165, 0, 1)',
-    colorIdle: 'rgba(250, 190, 77, 0.4)'
+    colorIdle: 'rgba(65, 131, 215, 1)'
 });
