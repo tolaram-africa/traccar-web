@@ -30,9 +30,7 @@ Ext.define('Traccar.view.UnescapedTextField', {
     minWidth: Traccar.Style.formFieldWidth,
     allowBlank: false,
     cls: 'rounded',
-    inputAttrTpl: ['autocomplete="off" autocapitalize="none"'],
-    autoComplete: false,
-    autoCorrect: false,
+    inputAttrTpl: ['autocomplete="chrome-off" autocapitalize="none" autofill="off"'],
     anchor: '-15',
     regex: /[a-zA-Z0-9]+/
 });
