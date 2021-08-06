@@ -75,7 +75,7 @@ Ext.define('Traccar.view.edit.DevicesController', {
 
         if (readonly) {
             this.lookupReference('toolbarDeviceMenu').setHidden(true);
-            this.lookupReference('deviceCommandButton').setHidden(true);
+            this.lookupReference('deviceCommandButton').setDisabled(true);
         }
 
         if (Traccar.app.isMobile()) {
