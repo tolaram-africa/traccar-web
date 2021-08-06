@@ -54,7 +54,13 @@ Ext.define('Traccar.view.Report', {
                 valueField: 'key',
                 editable: false,
                 listeners: {
-                    change: 'onTypeChange'
+                    change: 'onTypeChange',
+                    afterrender: function (combo) {
+                        var store = combo.getStore();
+                        if (!combo.getValue() && store.getCount() > 0) {
+                            combo.setValue(store.getAt(0).get(combo.valueField));
+                        }
+                    }
                 }
             }, '-', {
                 text: Strings.reportConfigure,
