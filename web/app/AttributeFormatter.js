@@ -217,11 +217,6 @@ Ext.define('Traccar.AttributeFormatter', {
         var typeIgnition = typeof ignition !== undefined,
             typeMotion = typeof motion !== undefined;
 
-        /** Object expiration check **/
-        if (currentTimeNumeric > expirationTime) {
-            state = 'Expired';
-        }
-
         /** Ignition value check **/
         if (typeIgnition && (ignition || speed >= 2)) {
             ignition = true;
@@ -258,6 +253,11 @@ Ext.define('Traccar.AttributeFormatter', {
         /** Offline status check **/
         if (Traccar.AttributeFormatter.getFormatter('deviceOffline')(record)) {
             state = 'Offline';
+        }
+
+        /** Object expiration check **/
+        if (currentTimeNumeric > expirationTime) {
+            state = 'Expired';
         }
 
         return state;

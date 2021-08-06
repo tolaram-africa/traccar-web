@@ -341,33 +341,12 @@ Ext.define('Traccar.view.edit.Devices', {
          * dataIndex: 'status',
          * stateId: 'devicePaneStatus',
          * minWidth: 60,
-         * maxWidth: 60,
          * hidden: true,
          * filter: {
          * type: 'list',
          * labelField: 'name',
          * store: 'DeviceStatuses'
-         * },
-         * renderer: function (value, metaData, record) {
-         * var statusy;
-         * if (value) {
-         * var status = record.get('status');
-         * var lastupdate = String(record.get('lastUpdate'));
-         * var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
-         * statusy = Ext.getStore('DeviceStatuses').getById(value);
-         * if (statusy) {
-         * if ((status === 'offline' || status === 'unknown') && deviceTimeDiff >= Traccar.Style.devicesTimeout) {
-         * return 'Offline';
-         * } else if (status === 'offline' && record.get('lastUpdate') == null) {
-         * return 'No Info';
-         * } else {
-         * return statusy.get('name');
          * }
-         * }
-         * }
-         * return null;
-         * }
-         * },
          *
          */
         {
