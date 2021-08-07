@@ -393,16 +393,20 @@ Ext.define('Traccar.view.edit.Devices', {
             stateId: 'devicePaneAddress',
             minWidth: 165,
             renderer: function (value, metaData, record) {
-                var geofenceStore = record.get('geofenceIds'), address = null;
-                var geofenceFirst = geofenceStore.length > 0
-                    ? Traccar.AttributeFormatter.geofenceIdFormatter(geofenceStore[0]) : null;
                 if (!value) {
                     // Return Ext.fireEvent('routegeocode', record.getId())
                     address = 'Pending';
                 } else {
                     address = Traccar.AttributeFormatter.getFormatter('address')(value);
                 }
-                return geofenceFirst !== null ? geofenceFirst + ' - ' + address : address;
+
+                /*
+                 * Var geofenceStore = record.get('geofenceIds'), address = null;
+                 * var geofenceFirst = geofenceStore.length > 0
+                 *     ? Traccar.AttributeFormatter.geofenceIdFormatter(geofenceStore[0]) : null;
+                 */
+                // Return geofenceFirst !== null ? geofenceFirst + ' - ' + address : address;
+                return address;
             },
             hidden: false,
             filter: 'string'
