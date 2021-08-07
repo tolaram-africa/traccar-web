@@ -241,7 +241,7 @@ Ext.define('Traccar.AttributeFormatter', {
         }
 
         /** Movement Idle status check **/
-        if (movement === 'idle' && ignition || ignition && !motion) {
+        if (movement === 'idle' && !motion && ignition || ignition && !motion) {
             state = 'Idle';
         }
 
