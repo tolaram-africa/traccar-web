@@ -235,6 +235,11 @@ Ext.define('Traccar.AttributeFormatter', {
             motion = false;
         }
 
+        /** Movement Moving status check **/
+        if (movement === 'moving' || ignition && motion) {
+            state = 'Moving';
+        }
+
         /** Movement Idle status check **/
         if (movement === 'idle' && ignition || ignition && !motion) {
             state = 'Idle';
@@ -243,11 +248,6 @@ Ext.define('Traccar.AttributeFormatter', {
         /** Movement Parked status check **/
         if (movement !== null && (movement === 'parked' || !ignition && !motion)) {
             state = 'Parked';
-        }
-
-        /** Movement Moving status check **/
-        if (movement === 'moving' || ignition && motion) {
-            state = 'Moving';
         }
 
         /** Offline status check **/
