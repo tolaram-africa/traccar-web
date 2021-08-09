@@ -164,7 +164,7 @@ Ext.define('Traccar.view.dialog.ReportConfig', {
         reference: 'showMarkersField',
         inputValue: true,
         uncheckedValue: false,
-        value: true
+        value: false
     }],
 
     buttons: [{
