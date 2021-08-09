@@ -247,7 +247,7 @@ Ext.define('Traccar.AttributeFormatter', {
 
         /** Movement Parked status check **/
         if (movement !== null && (movement === 'parked' || !ignition && !motion) ||
-            typeof speed !== undefined && !ignition && !motion) {
+            movement !== null && (!ignition || !motion)) {
             state = 'Parked';
         }
 
