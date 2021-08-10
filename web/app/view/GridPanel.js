@@ -22,18 +22,11 @@ Ext.define('Traccar.view.GridPanel', {
     requires: [
         'Ext.grid.filters.Filters'
     ],
-    reserveScrollbar: true,
-    bufferedRenderer: true,
 
+    reserveScrollbar: true,
     plugins: [
         {
             ptype: 'gridfilters'
-        },
-        {
-            ptype: 'bufferedrenderer',
-            trailingBufferZone: 15,
-            leadingBufferZone: 30,
-            numFromEdge: 75
         }
     ],
 

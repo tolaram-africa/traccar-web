@@ -62,6 +62,17 @@ Ext.define('Traccar.view.edit.Devices', {
 
     reserveScrollbar: true,
     bufferedRenderer: true,
+    plugins: [
+        {
+            ptype: 'gridfilters'
+        },
+        {
+            ptype: 'bufferedrenderer',
+            trailingBufferZone: 45,
+            leadingBufferZone: 45,
+            numFromEdge: 145
+        }
+    ],
 
     features: [
         {

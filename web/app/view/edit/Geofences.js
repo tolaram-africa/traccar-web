@@ -45,6 +45,19 @@ Ext.define('Traccar.view.edit.Geofences', {
         }
     ],
 
+    bufferedRenderer: true,
+    plugins: [
+        {
+            ptype: 'gridfilters'
+        },
+        {
+            ptype: 'bufferedrenderer',
+            trailingBufferZone: 45,
+            leadingBufferZone: 45,
+            numFromEdge: 145
+        }
+    ],
+
     listeners: {
         selectionchange: 'onSelectionChange'
     },

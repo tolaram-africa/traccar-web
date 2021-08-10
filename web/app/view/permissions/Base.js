@@ -22,6 +22,19 @@ Ext.define('Traccar.view.permissions.Base', {
         'Traccar.view.permissions.BaseController'
     ],
 
+    bufferedRenderer: true,
+    plugins: [
+        {
+            ptype: 'gridfilters'
+        },
+        {
+            ptype: 'bufferedrenderer',
+            trailingBufferZone: 45,
+            leadingBufferZone: 45,
+            numFromEdge: 145
+        }
+    ],
+
     controller: 'base',
 
     selModel: {
