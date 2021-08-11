@@ -68,9 +68,9 @@ Ext.define('Traccar.view.edit.Devices', {
         },
         {
             ptype: 'bufferedrenderer',
-            trailingBufferZone: 45,
-            leadingBufferZone: 45,
-            numFromEdge: 145
+            trailingBufferZone: 210,
+            leadingBufferZone: 210,
+            numFromEdge: 210
         }
     ],
 
@@ -308,7 +308,7 @@ Ext.define('Traccar.view.edit.Devices', {
             dataIndex: 'lastUpdate',
             stateId: 'devicePaneLastUpdate',
             xtype: 'datecolumn',
-            hidden: true,
+            hidden: false,
             minWidth: 100,
             maxWidth: 100,
             renderer: Traccar.AttributeFormatter.getFormatter('dateTime'),
@@ -318,7 +318,7 @@ Ext.define('Traccar.view.edit.Devices', {
             dataIndex: 'lastMoved',
             stateId: 'devicePaneLastMoved',
             xtype: 'datecolumn',
-            hidden: false,
+            hidden: true,
             minWidth: 100,
             maxWidth: 100,
             renderer: Traccar.AttributeFormatter.getFormatter('dateTime'),
@@ -329,7 +329,7 @@ Ext.define('Traccar.view.edit.Devices', {
             minWidth: 70,
             maxWidth: 70,
             dataIndex: 'statusAll',
-            hidden: false,
+            hidden: true,
             filter: {
                 type: 'list'
             },
