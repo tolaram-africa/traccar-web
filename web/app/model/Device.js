@@ -77,6 +77,25 @@ Ext.define('Traccar.model.Device', {
         type: 'string',
         allowNull: true
     }, {
+        name: 'statusAll',
+        type: 'string',
+        allowNull: true,
+        persist: false,
+        depends: ['status', 'movement', 'motion', 'lastUpdate', 'expiration', 'speed', 'ignition'],
+        calculate: function (data) {
+            return Traccar.AttributeFormatter.getFormatter('deviceState')(data);
+        }
+    }, {
+        name: 'deviceProtocol',
+        type: 'string',
+        persist: false,
+        allowNull: true,
+        calculate: function (data) {
+            var protocol = data.protocol.length > 1 ? data.protocol : 'pending';
+            return protocol[0].toUpperCase() + protocol.substring(1);
+        },
+        depends: ['protocol']
+    }, {
         name: 'lastMoved',
         persist: false,
         type: 'date',

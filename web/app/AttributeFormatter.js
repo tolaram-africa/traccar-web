@@ -199,22 +199,22 @@ Ext.define('Traccar.AttributeFormatter', {
         return formatDate(defTime);
     },
 
-    deviceOfflineFormatter: function (record) {
-        var status = record.get('status'),
-            lastupdate = String(record.get('lastUpdate'));
-        var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastupdate))) / 1000;
+    deviceOfflineFormatter: function (data) {
+        var status = data.status,
+            lastUpdate = String(data.lastUpdate);
+        var deviceTimeDiff = (Number(new Date()) - Number(new Date(lastUpdate))) / 1000;
         return (status === 'offline' || status === 'unknown') &&
             deviceTimeDiff >= Traccar.Style.devicesTimeout || status === 'nulled';
     },
 
-    deviceStateFormmater: function (record) {
+    deviceStateFormmater: function (data) {
         var currentTimeNumeric = Number(new Date()) / 1000, state = 'None',
-            movement = record.get('movement'),
-            motion = record.get('motion'),
-            ignition = record.get('ignition'),
-            speed = record.get('speed'),
-            expirationTime = Number(new Date(String(record.get('expiration')))) / 1000;
-        var typeIgnition = typeof ignition !== undefined,
+            movement = data.movement,
+            motion = data.motion,
+            ignition = data.ignition,
+            speed = data.speed,
+            expirationTime = Number(new Date(String(data.expiration))) / 1000,
+            typeIgnition = typeof ignition !== undefined,
             typeMotion = typeof motion !== undefined;
 
         /** Ignition value check **/
@@ -252,7 +252,7 @@ Ext.define('Traccar.AttributeFormatter', {
         }
 
         /** Offline status check **/
-        if (Traccar.AttributeFormatter.getFormatter('deviceOffline')(record)) {
+        if (Traccar.AttributeFormatter.getFormatter('deviceOffline')(data)) {
             state = 'Offline';
         }
 
@@ -265,7 +265,7 @@ Ext.define('Traccar.AttributeFormatter', {
     },
 
     deviceColorFormatter: function (record) {
-        switch (Traccar.AttributeFormatter.getFormatter('deviceState')(record)) {
+        switch (record.get('statusAll')) {
             case 'Expired':
                 return Traccar.Style.colorExpired;
             case 'Offline':

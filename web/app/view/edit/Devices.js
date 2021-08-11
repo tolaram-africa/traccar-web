@@ -273,7 +273,7 @@ Ext.define('Traccar.view.edit.Devices', {
             text: Strings.sharedObjectName,
             dataIndex: 'name',
             stateId: 'devicePaneName',
-            minWidth: 80,
+            minWidth: 95,
             maxWidth: 115,
             filter: {
                 type: 'string',
@@ -328,8 +328,8 @@ Ext.define('Traccar.view.edit.Devices', {
             stateId: 'devicePaneMovement',
             minWidth: 70,
             maxWidth: 70,
-            dataIndex: 'movement',
-            hidden: true,
+            dataIndex: 'statusAll',
+            hidden: false,
             filter: {
                 type: 'list'
             },
@@ -342,25 +342,10 @@ Ext.define('Traccar.view.edit.Devices', {
                     return alarms;
                 }
 
-                return Traccar.AttributeFormatter.getFormatter('deviceState')(record);
+                /** No alarms **/
+                return value;
             }
-        },
-
-        /**
-         * {
-         * text: Strings.deviceStatus,
-         * dataIndex: 'status',
-         * stateId: 'devicePaneStatus',
-         * minWidth: 60,
-         * hidden: true,
-         * filter: {
-         * type: 'list',
-         * labelField: 'name',
-         * store: 'DeviceStatuses'
-         * }
-         *
-         */
-        {
+        }, {
             text: Strings.positionSpeed,
             dataIndex: 'speed',
             stateId: 'devicePaneSpeed',
@@ -389,11 +374,8 @@ Ext.define('Traccar.view.edit.Devices', {
             filter: 'boolean'
         }, {
             text: Strings.deviceModelMain,
-            dataIndex: 'protocol',
+            dataIndex: 'deviceProtocol',
             stateId: 'devicePaneDeviceModel',
-            renderer: function (value) {
-                return String(value) === null ? 'Unknown' : String(value);
-            },
             hidden: true,
             minWidth: 65,
             maxWidth: 75,
@@ -410,13 +392,6 @@ Ext.define('Traccar.view.edit.Devices', {
                 } else {
                     address = Traccar.AttributeFormatter.getFormatter('address')(value);
                 }
-
-                /*
-                 * Var geofenceStore = record.get('geofenceIds'), address = null;
-                 * var geofenceFirst = geofenceStore.length > 0
-                 *     ? Traccar.AttributeFormatter.geofenceIdFormatter(geofenceStore[0]) : null;
-                 */
-                // Return geofenceFirst !== null ? geofenceFirst + ' - ' + address : address;
                 return address;
             },
             hidden: false,
